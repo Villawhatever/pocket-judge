@@ -15,7 +15,7 @@ class CoreRulesView extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = Provider.of<CoreRulesViewModel>(context, listen: true);
     final scrollController = ItemScrollController();
-    final textController = TextEditingController();
+
     const String ruleToJumpTo = 'ruleToJumpTo';
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -27,19 +27,13 @@ class CoreRulesView extends StatelessWidget {
       localStorage.clear();
     });
 
-    void search(String? value) {
-      textController.text = value ?? '';
-      viewModel.search(value);
-    }
-
     final searchBar = SearchBar(
       hintText: "Search",
-      onChanged: (value) => search(value),
-      onSubmitted: (value) => textController.text = value,
+      onChanged: (value) => viewModel.search(value),
+      onSubmitted: (value) => viewModel.search(value),
     );
 
     void linkCallback(String ruleNumber) {
-      search(null);
       localStorage.setItem(ruleToJumpTo, ruleNumber);
     }
 
