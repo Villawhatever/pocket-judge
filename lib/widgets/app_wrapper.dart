@@ -13,6 +13,7 @@ class AppWrapper extends StatelessWidget {
     return Scaffold(
       drawer: const Menu(),
       appBar: AppBar(
+          foregroundColor: Theme.of(context).colorScheme.primary,
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: title
       ),

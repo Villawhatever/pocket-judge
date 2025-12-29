@@ -26,15 +26,13 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: 'Pocket Judge',
             theme: ThemeData(
-              // https://paletton.com/#uid=34v0u0kgkZP1++Yag+wluYnqpUq
               colorScheme: ColorScheme.fromSeed(
-                seedColor: const Color(0xffbb86fc),
+                seedColor: const Color(0xff1a283f),
                 brightness: Brightness.dark,
               ).copyWith(
-                primaryContainer: const Color(0xffbb86fc),
-                secondary: const Color(0xffffe07d),
-                onPrimaryContainer: Colors.black,
-                secondaryContainer: const Color(0xff03dac6),
+                primaryContainer: const Color(0xff1a283f),
+                inversePrimary: const Color(0xff1a283f),
+                secondary: const Color(0xffe48632),
                 onSecondaryContainer: Colors.black,
                 error: const Color(0xffcf6679),
                 onError: Colors.black,
