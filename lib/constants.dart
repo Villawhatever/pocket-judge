@@ -4,8 +4,7 @@ class PreferencesKeys extends InheritedWidget {
   static PreferencesKeys? of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<PreferencesKeys>();
 
-  const PreferencesKeys({required Widget child, required Key key})
-      : super(key: key, child: child);
+  const PreferencesKeys({required super.child, required Key super.key});
 
   @override
   bool updateShouldNotify(PreferencesKeys oldWidget) => false;

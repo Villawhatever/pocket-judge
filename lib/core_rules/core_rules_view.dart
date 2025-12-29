@@ -32,16 +32,33 @@ class CoreRulesViewState extends State<CoreRulesView> {
       scrollController.jumpTo(index: viewModel.lookup[jump]!);
     });
 
+    clearSearch() {
+      _textController.clear();
+      viewModel.search(null);
+    }
+
     final searchBar = SearchBar(
-      hintText: "Search",
+      hintText: "[Search]",
       onChanged: (value) => viewModel.search(value),
       onSubmitted: (value) => viewModel.search(value),
+      backgroundColor: WidgetStateProperty.all(Colors.transparent),
+      shadowColor: WidgetStateProperty.all(Colors.transparent),
+      trailing: [
+        Opacity(
+          opacity: _textController.text.isEmpty ? 0.01 : 1.0,
+          child: IconButton(
+            icon: Icon(Icons.clear, size: 25),
+            onPressed: () {
+              clearSearch();
+            }
+          )
+        ),
+      ],
       controller: _textController,
     );
 
     void linkCallback(String ruleNumber) {
-      _textController.clear();
-      viewModel.search(null);
+      clearSearch();
       localStorage.setItem(ruleToJumpTo, ruleNumber);
     }
 
