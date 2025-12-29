@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:pocket_judge/models/rule.dart';
+import 'package:pocket_judge/core_rules/rule.dart';
 
 class RuleWidget extends StatelessWidget {
   const RuleWidget({super.key, required this.model, required this.callback});

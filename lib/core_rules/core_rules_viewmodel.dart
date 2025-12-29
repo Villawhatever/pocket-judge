@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
-import '../models/rule.dart';
+import 'rule.dart';
 
 class CoreRulesViewModel extends ChangeNotifier {
   CoreRulesViewModel() {

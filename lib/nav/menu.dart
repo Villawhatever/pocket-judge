@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pocket_judge/views/tournament_rules_view.dart';
-import 'package:pocket_judge/views/core_rules_view.dart';
+import 'package:pocket_judge/tournament_rules/tournament_rules_view.dart';
+import 'package:pocket_judge/core_rules/core_rules_view.dart';
 
 class Menu extends StatelessWidget {
   const Menu({super.key});

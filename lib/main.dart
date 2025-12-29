@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:pocket_judge/preferences_state.dart';
-import 'package:pocket_judge/views/core_rules_view.dart';
-import 'package:pocket_judge/views/core_rules_viewmodel.dart';
+import 'package:pocket_judge/core_rules/core_rules_view.dart';
+import 'package:pocket_judge/core_rules/core_rules_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
