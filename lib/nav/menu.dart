@@ -28,7 +28,7 @@ class Menu extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const TournamentRulesView(title: Text("Tournament Rules"))),
+                    builder: (context) => const TournamentRulesView()),
               );
             }),
       ],

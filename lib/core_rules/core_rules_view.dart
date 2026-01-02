@@ -19,6 +19,12 @@ class CoreRulesViewState extends State<CoreRulesView> {
   final _textController = TextEditingController();
 
   @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<CoreRulesViewModel>(context, listen: true);
     final scrollController = ItemScrollController();
@@ -29,7 +35,8 @@ class CoreRulesViewState extends State<CoreRulesView> {
       if (jump == null || jump.isEmpty) {
         return;
       }
-      scrollController.jumpTo(index: viewModel.lookup[jump]!);
+      localStorage.setItem(ruleToJumpTo, '');
+      scrollController.jumpTo(index: viewModel.lookup[jump] ?? 0);
     });
 
     clearSearch() {

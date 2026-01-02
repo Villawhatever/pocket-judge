@@ -3,6 +3,7 @@ import 'package:localstorage/localstorage.dart';
 import 'package:pocket_judge/preferences_state.dart';
 import 'package:pocket_judge/core_rules/core_rules_view.dart';
 import 'package:pocket_judge/core_rules/core_rules_viewmodel.dart';
+import 'package:pocket_judge/tournament_rules/tournament_rules_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => PreferencesState()),
-          ChangeNotifierProvider(create: (context) => CoreRulesViewModel())
+          ChangeNotifierProvider(create: (context) => CoreRulesViewModel()),
+          ChangeNotifierProvider(create: (context) => TournamentRulesViewModel())
         ],
         builder: (context, _) {
           return MaterialApp(
