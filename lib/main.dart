@@ -25,23 +25,27 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => TournamentRulesViewModel())
         ],
         builder: (context, _) {
-          return MaterialApp(
-            title: 'Pocket Judge',
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(
-                seedColor: const Color(0xff1a283f),
-                brightness: Brightness.dark,
-              ).copyWith(
-                primaryContainer: const Color(0xff1a283f),
-                inversePrimary: const Color(0xff1a283f),
-                secondary: const Color(0xffe48632),
-                onSecondaryContainer: Colors.black,
-                error: const Color(0xffcf6679),
-                onError: Colors.black,
+          return SafeArea(
+            top: false,
+            bottom: true,
+            child: MaterialApp(
+              title: 'Pocket Judge',
+              theme: ThemeData(
+                colorScheme: ColorScheme.fromSeed(
+                  seedColor: const Color(0xff1a283f),
+                  brightness: Brightness.dark,
+                ).copyWith(
+                  primaryContainer: const Color(0xff1a283f),
+                  inversePrimary: const Color(0xff1a283f),
+                  secondary: const Color(0xffe48632),
+                  onSecondaryContainer: Colors.black,
+                  error: const Color(0xffcf6679),
+                  onError: Colors.black,
+                ),
+                useMaterial3: true,
               ),
-              useMaterial3: true,
+              home: const CoreRulesView(),
             ),
-            home: const CoreRulesView(),
           );
         });
   }
