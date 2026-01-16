@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pocket_judge/core_rules/rule.dart';
@@ -9,6 +11,12 @@ class RuleWidget extends StatelessWidget {
   final Function callback;
   final String seeRulePattern = r'See (?:rule )?(\d+\.?)(.+?)(?=for)';
 
+  String _getParentRule() {
+    final fragments = model.number.split('.');
+    final parentRuleNumber = fragments.take(math.min(2, fragments.length)).join('.');
+    return '$parentRuleNumber.';
+  }
+
   @override
   Widget build(BuildContext context) {
     final RegExp seeRuleRegex = RegExp(seeRulePattern, multiLine: true, dotAll: true);
@@ -16,6 +24,7 @@ class RuleWidget extends StatelessWidget {
 
     List<TextSpan> fragments = [];
     int currentPosition = 0;
+
     for (final match in matches) {
       fragments.add(TextSpan(
         text: model.text.substring(currentPosition, match.start)
@@ -40,8 +49,11 @@ class RuleWidget extends StatelessWidget {
     ));
 
     return Column(children: [
-      Row(children: [
-        Flexible(
+      GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => callback(_getParentRule()),
+        child: Row(children: [
+          Flexible(
             child: RichText(
               text: TextSpan(
                 style: TextStyle(color: Theme.of(context).colorScheme.primary),
@@ -50,11 +62,13 @@ class RuleWidget extends StatelessWidget {
                     text: '${model.number} ',
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                 ...fragments
+                  ...fragments
                 ],
               ),
-        )),
-      ]),
+            ),
+          ),
+        ]),
+      ),
     ]);
   }
 }

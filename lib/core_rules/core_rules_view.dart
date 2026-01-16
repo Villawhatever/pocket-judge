@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Stack;
+import 'package:flutter/services.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:pocket_judge/widgets/app_wrapper.dart';
 
@@ -6,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'rule.dart';
 import '../widgets/rule.dart';
+import '../widgets/stack.dart';
 import 'core_rules_viewmodel.dart';
 
 class CoreRulesView extends StatefulWidget {
@@ -17,6 +19,7 @@ class CoreRulesView extends StatefulWidget {
 
 class CoreRulesViewState extends State<CoreRulesView> {
   final _textController = TextEditingController();
+  final _history = Stack<String>();
 
   @override
   void dispose() {
@@ -37,6 +40,7 @@ class CoreRulesViewState extends State<CoreRulesView> {
       }
       localStorage.setItem(ruleToJumpTo, '');
       scrollController.jumpTo(index: viewModel.lookup[jump] ?? 0);
+      _history.push(jump);
     });
 
     clearSearch() {
@@ -71,7 +75,20 @@ class CoreRulesViewState extends State<CoreRulesView> {
 
     final filteredRules = context.select<CoreRulesViewModel, List<RuleModel>>((vm) => vm.rules);
 
-    return AppWrapper(
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (bool didPop, Object? _) {
+        if (didPop) {
+          return;
+        }
+        if (_history.isNotEmpty) {
+          final jump = _history.pop();
+          scrollController.jumpTo(index: viewModel.lookup[jump] ?? 0);
+        } else {
+          SystemNavigator.pop();
+        }
+      },
+      child: AppWrapper(
         title: searchBar,
         body: Padding(
           padding: const EdgeInsets.fromLTRB(12, 5, 12, 5),
@@ -86,6 +103,7 @@ class CoreRulesViewState extends State<CoreRulesView> {
             },
           ),
         )
+      ),
     );
   }
 }
