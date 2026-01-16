@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Stack;
+import 'package:flutter/services.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:pocket_judge/tournament_rules/tournament_rules_viewmodel.dart';
 import 'package:pocket_judge/widgets/app_wrapper.dart';
@@ -8,6 +9,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../core_rules/rule.dart';
 import '../widgets/rule.dart';
+import '../widgets/stack.dart';
 
 class TournamentRulesView extends StatefulWidget {
   const TournamentRulesView({super.key});
@@ -18,6 +20,7 @@ class TournamentRulesView extends StatefulWidget {
 
 class TournamentRulesViewState extends State<TournamentRulesView> {
   final _textController = TextEditingController();
+  final _history = Stack<String>();
 
   @override
   void dispose() {
@@ -36,7 +39,8 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
       if (jump == null || jump.isEmpty) {
         return;
       }
-      scrollController.jumpTo(index: viewModel.lookup[jump]!);
+      scrollController.jumpTo(index: viewModel.lookup[jump] ?? 0);
+      _history.push(jump);
     });
 
     clearSearch() {
@@ -71,7 +75,20 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
 
     final filteredRules = context.select<TournamentRulesViewModel, List<RuleModel>>((vm) => vm.rules);
 
-    return AppWrapper(
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (bool didPop, Object? _) {
+        if (didPop) {
+          return;
+        }
+        if (_history.isNotEmpty) {
+          final jump = _history.pop();
+          scrollController.jumpTo(index: viewModel.lookup[jump] ?? 0);
+        } else {
+          SystemNavigator.pop();
+        }
+      },
+      child: AppWrapper(
         title: searchBar,
         body: Padding(
           padding: const EdgeInsets.fromLTRB(12, 5, 12, 5),
@@ -85,7 +102,8 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
               return const Divider();
             },
           ),
-        )
+        ),
+      ),
     );
   }
 }
