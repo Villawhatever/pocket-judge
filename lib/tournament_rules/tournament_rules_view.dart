@@ -90,18 +90,15 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
       },
       child: AppWrapper(
         title: searchBar,
-        body: Padding(
-          padding: const EdgeInsets.fromLTRB(12, 5, 12, 5),
-          child: ScrollablePositionedList.separated(
-            itemScrollController: scrollController,
-            itemCount: filteredRules.length,
-            itemBuilder: (context, index) {
-              return RuleWidget(model: filteredRules[index], callback: linkCallback);
-            },
-            separatorBuilder: (context, index) {
-              return const Divider();
-            },
-          ),
+        body: ScrollablePositionedList.separated(
+          itemScrollController: scrollController,
+          itemCount: filteredRules.length,
+          itemBuilder: (context, index) {
+            return RuleWidget(model: filteredRules[index], callback: linkCallback);
+          },
+          separatorBuilder: (context, index) {
+            return const Divider();
+          },
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
+import 'package:pocket_judge/errata/errata_viewmodel.dart';
 import 'package:pocket_judge/preferences_state.dart';
 import 'package:pocket_judge/core_rules/core_rules_view.dart';
 import 'package:pocket_judge/core_rules/core_rules_viewmodel.dart';
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (context) => PreferencesState()),
           ChangeNotifierProvider(create: (context) => CoreRulesViewModel()),
-          ChangeNotifierProvider(create: (context) => TournamentRulesViewModel())
+          ChangeNotifierProvider(create: (context) => TournamentRulesViewModel()),
+          ChangeNotifierProvider(create: (context) => ErrataViewModel())
         ],
         builder: (context, _) {
           return SafeArea(

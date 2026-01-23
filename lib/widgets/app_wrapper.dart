@@ -23,7 +23,10 @@ class AppWrapper extends StatelessWidget {
           ],
         ),
       ),
-      body: body
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(12, 5, 12, 5),
+        child: body
+      ),
     );
   }
 }

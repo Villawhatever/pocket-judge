@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pocket_judge/errata/errata.dart';
 import 'package:pocket_judge/tournament_rules/tournament_rules_view.dart';
 import 'package:pocket_judge/core_rules/core_rules_view.dart';
 
@@ -35,6 +36,17 @@ class Menu extends StatelessWidget {
             );
           }
         ),
+        ListTile(
+            title: const Text("Errata/FAQs"),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ErrataView()),
+              );
+            }
+        ),
+        const Divider(height: 25, thickness: 3, indent: 25, endIndent: 25, color: Colors.white),
         ListTile(
             title: const Text("About/Legal"),
             onTap: () {

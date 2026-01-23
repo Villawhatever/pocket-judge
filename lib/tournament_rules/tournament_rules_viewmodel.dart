@@ -25,11 +25,12 @@ class TournamentRulesViewModel extends ChangeNotifier {
       return;
     }
     search = search.toLowerCase();
-    _filteredRules = _rules
-        .where((r) =>
-    r.text.toLowerCase().contains(search!)
+    _filteredRules =
+      _rules
+      .where((r) =>
+        r.text.toLowerCase().contains(search!)
         || r.number.toLowerCase().contains(search))
-        .toList();
+      .toList();
     notifyListeners();
   }
 
