@@ -23,7 +23,8 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (context) => PreferencesState()),
           ChangeNotifierProvider(create: (context) => CoreRulesViewModel()),
-          ChangeNotifierProvider(create: (context) => TournamentRulesViewModel()),
+          ChangeNotifierProvider(
+              create: (context) => TournamentRulesViewModel()),
           ChangeNotifierProvider(create: (context) => ErrataViewModel())
         ],
         builder: (context, _) {

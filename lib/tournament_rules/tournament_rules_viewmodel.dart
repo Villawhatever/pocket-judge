@@ -25,17 +25,17 @@ class TournamentRulesViewModel extends ChangeNotifier {
       return;
     }
     search = search.toLowerCase();
-    _filteredRules =
-      _rules
-      .where((r) =>
-        r.text.toLowerCase().contains(search!)
-        || r.number.toLowerCase().contains(search))
-      .toList();
+    _filteredRules = _rules
+        .where((r) =>
+            r.text.toLowerCase().contains(search!) ||
+            r.number.toLowerCase().contains(search))
+        .toList();
     notifyListeners();
   }
 
   Future _load() async {
-    final cr = await rootBundle.loadString('lib/assets/riftbound_tournament_rules.json');
+    final cr = await rootBundle
+        .loadString('lib/assets/riftbound_tournament_rules.json');
     final data = jsonDecode(cr);
 
     var currentIndex = 0;

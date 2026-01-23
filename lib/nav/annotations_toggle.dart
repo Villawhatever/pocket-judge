@@ -17,8 +17,7 @@ class _AnnotationsToggleState extends State<AnnotationsToggle> {
         title: const Text("Enable Annotations"),
         onChanged: (bool value) {
           setState(() {
-            context.watch<PreferencesState>()
-                .setIsAnnotationsEnabled(value);
+            context.watch<PreferencesState>().setIsAnnotationsEnabled(value);
           });
         },
         value: widget.isEnabled);

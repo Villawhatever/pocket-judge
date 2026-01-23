@@ -13,22 +13,23 @@ class RuleWidget extends StatelessWidget {
 
   String _getParentRule() {
     final fragments = model.number.split('.');
-    final parentRuleNumber = fragments.take(math.min(2, fragments.length)).join('.');
+    final parentRuleNumber =
+        fragments.take(math.min(2, fragments.length)).join('.');
     return '$parentRuleNumber.';
   }
 
   @override
   Widget build(BuildContext context) {
-    final RegExp seeRuleRegex = RegExp(seeRulePattern, multiLine: true, dotAll: true);
+    final RegExp seeRuleRegex =
+        RegExp(seeRulePattern, multiLine: true, dotAll: true);
     var matches = seeRuleRegex.allMatches(model.text);
 
     List<TextSpan> fragments = [];
     int currentPosition = 0;
 
     for (final match in matches) {
-      fragments.add(TextSpan(
-        text: model.text.substring(currentPosition, match.start)
-      ));
+      fragments.add(
+          TextSpan(text: model.text.substring(currentPosition, match.start)));
 
       var seeRuleNumber = match.group(1);
       if (!seeRuleNumber!.endsWith('.')) {
@@ -36,17 +37,14 @@ class RuleWidget extends StatelessWidget {
       }
 
       fragments.add(TextSpan(
-        text: model.text.substring(match.start, match.end),
-        style: TextStyle(color: Theme.of(context).colorScheme.secondary),
-        recognizer: TapGestureRecognizer()
-          ..onTap = () => callback(seeRuleNumber)
-      ));
+          text: model.text.substring(match.start, match.end),
+          style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+          recognizer: TapGestureRecognizer()
+            ..onTap = () => callback(seeRuleNumber)));
 
       currentPosition = match.end;
     }
-    fragments.add(TextSpan(
-      text: model.text.substring(currentPosition)
-    ));
+    fragments.add(TextSpan(text: model.text.substring(currentPosition)));
 
     return Column(children: [
       GestureDetector(

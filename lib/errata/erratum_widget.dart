@@ -23,13 +23,12 @@ class _ErratumWidgetState extends State<ErratumWidget> {
           text: 'NEW TEXT\n',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        TextSpan(
-          text: '${widget.model.newText}\n\n'
-        ),
+        TextSpan(text: '${widget.model.newText}\n\n'),
         TextSpan(
           text: 'OLD TEXT\n',
-          style: TextStyle(fontWeight: FontWeight.bold,
-            color: Theme.of(context).colorScheme.error),
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.error),
         ),
         TextSpan(
           text: widget.model.oldText,
@@ -44,42 +43,38 @@ class _ErratumWidgetState extends State<ErratumWidget> {
         text: '${faq.question}\n',
         style: TextStyle(fontWeight: FontWeight.bold),
       ));
-      faqs.add(TextSpan(
-        text: '${faq.answer}\n\n'
-      ));
+      faqs.add(TextSpan(text: '${faq.answer}\n\n'));
     });
 
-    return Column(
-      children: [
-        ExpansionTile(
+    return Column(children: [
+      ExpansionTile(
           title: Text(widget.model.name),
           subtitle: Text(widget.model.set),
           children: [
-            Column(
-              children: [
-                RichText(
-                  text: TextSpan(
-                    style: TextStyle(color: Theme.of(context).colorScheme.primary),
-                    children: <TextSpan>[
-                      ...erratum
-                    ],
-                  ),
+            Column(children: [
+              RichText(
+                text: TextSpan(
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.primary),
+                  children: <TextSpan>[...erratum],
                 ),
-                if (erratum.isNotEmpty && faqs.isNotEmpty)
-                  const Divider(height: 25, thickness: 3, indent: 25, endIndent: 25, color: Colors.white),
-                RichText(
-                  text: TextSpan(
-                    style: TextStyle(color: Theme.of(context).colorScheme.primary),
-                    children: <TextSpan>[
-                      ...faqs
-                    ],
-                  ),
+              ),
+              if (erratum.isNotEmpty && faqs.isNotEmpty)
+                const Divider(
+                    height: 25,
+                    thickness: 3,
+                    indent: 25,
+                    endIndent: 25,
+                    color: Colors.white),
+              RichText(
+                text: TextSpan(
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.primary),
+                  children: <TextSpan>[...faqs],
                 ),
-              ]
-            )
-          ]
-        )
-      ]
-    );
+              ),
+            ])
+          ])
+    ]);
   }
 }

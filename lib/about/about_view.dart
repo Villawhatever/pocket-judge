@@ -7,32 +7,23 @@ import '../widgets/app_wrapper.dart';
 class AboutView extends StatelessWidget {
   const AboutView({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     final Uri url = Uri.parse('https://github.com/Villawhatever/pocket-judge');
 
-    Future<void> goToGithub() async {
-      if (!await launchUrl(url)) {
-        throw Exception('Could not launch $url');
-      }
-    }
-
     return AppWrapper(
-      title: const Text('About / Legal Stuff'),
-      body: Column(
-        children: [
+        title: const Text('About / Legal Stuff'),
+        body: Column(children: [
           Text(
               'Pocket Judge ("we") will never collect any of your information for any reason. We are not affiliated with Riot Games, Riftbound, Tencent, or any related entities in any way.\n\nFor any feedback, feature requests, bugs, and so on, please contact villawhatever on Discord OR open an issue on GitHub.',
-              style: TextStyle(color: Theme.of(context).colorScheme.primary)
+              style: TextStyle(color: Theme.of(context).colorScheme.primary)),
+          TextButton(
+            onPressed: () async {
+              launchUrl(url);
+            },
+            child: FaIcon(FontAwesomeIcons.github,
+                color: Theme.of(context).colorScheme.primary, size: 100),
           ),
-          TextButton(onPressed: () async { launchUrl(url); }, child: FaIcon(
-            FontAwesomeIcons.github,
-            color: Theme.of(context).colorScheme.primary,
-            size: 100
-          ))
-        ]
-      )
-    );
+        ]));
   }
 }

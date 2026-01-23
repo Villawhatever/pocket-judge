@@ -56,14 +56,12 @@ class CoreRulesViewState extends State<CoreRulesView> {
       shadowColor: WidgetStateProperty.all(Colors.transparent),
       trailing: [
         Opacity(
-          opacity: _textController.text.isEmpty ? 0.01 : 1.0,
-          child: IconButton(
-            icon: Icon(Icons.clear, size: 25),
-            onPressed: () {
-              clearSearch();
-            }
-          )
-        ),
+            opacity: _textController.text.isEmpty ? 0.01 : 1.0,
+            child: IconButton(
+                icon: Icon(Icons.clear, size: 25),
+                onPressed: () {
+                  clearSearch();
+                })),
       ],
       controller: _textController,
     );
@@ -73,7 +71,8 @@ class CoreRulesViewState extends State<CoreRulesView> {
       localStorage.setItem(ruleToJumpTo, ruleNumber);
     }
 
-    final filteredRules = context.select<CoreRulesViewModel, List<RuleModel>>((vm) => vm.rules);
+    final filteredRules =
+        context.select<CoreRulesViewModel, List<RuleModel>>((vm) => vm.rules);
 
     return PopScope(
       canPop: false,
@@ -94,7 +93,8 @@ class CoreRulesViewState extends State<CoreRulesView> {
           itemScrollController: scrollController,
           itemCount: filteredRules.length,
           itemBuilder: (context, index) {
-            return RuleWidget(model: filteredRules[index], callback: linkCallback);
+            return RuleWidget(
+                model: filteredRules[index], callback: linkCallback);
           },
           separatorBuilder: (context, index) {
             return const Divider();

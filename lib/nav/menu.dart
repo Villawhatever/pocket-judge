@@ -15,48 +15,44 @@ class Menu extends StatelessWidget {
       padding: MediaQuery.of(context).viewPadding,
       children: [
         ListTile(
-          title: const Text("Core Rules"),
-          onTap: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                  const CoreRulesView()
-              ),
-            );
-          }
-        ),
+            title: const Text("Core Rules"),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const CoreRulesView()),
+              );
+            }),
         ListTile(
-          title: const Text("Tournament Rules"),
-          onTap: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const TournamentRulesView()),
-            );
-          }
-        ),
+            title: const Text("Tournament Rules"),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const TournamentRulesView()),
+              );
+            }),
         ListTile(
             title: const Text("Errata/FAQs"),
             onTap: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => const ErrataView()),
+                MaterialPageRoute(builder: (context) => const ErrataView()),
               );
-            }
-        ),
-        const Divider(height: 25, thickness: 3, indent: 25, endIndent: 25, color: Colors.white),
+            }),
+        const Divider(
+            height: 25,
+            thickness: 3,
+            indent: 25,
+            endIndent: 25,
+            color: Colors.white),
         ListTile(
             title: const Text("About/Legal"),
             onTap: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => const AboutView()),
+                MaterialPageRoute(builder: (context) => const AboutView()),
               );
-            }
-        ),
+            }),
       ],
     ));
   }

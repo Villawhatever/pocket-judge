@@ -47,14 +47,13 @@ class ErrataViewState extends State<ErrataView> {
                 icon: Icon(Icons.clear, size: 25),
                 onPressed: () {
                   clearSearch();
-                }
-            )
-        ),
+                })),
       ],
       controller: _textController,
     );
 
-    final filteredErrata = context.select<ErrataViewModel, List<ErratumModel>>((vm) => vm.errata);
+    final filteredErrata =
+        context.select<ErrataViewModel, List<ErratumModel>>((vm) => vm.errata);
 
     return AppWrapper(
       title: searchBar,

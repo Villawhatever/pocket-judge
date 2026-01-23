@@ -30,7 +30,8 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<TournamentRulesViewModel>(context, listen: true);
+    final viewModel =
+        Provider.of<TournamentRulesViewModel>(context, listen: true);
     final scrollController = ItemScrollController();
     final ruleToJumpTo = 'RuleToJumpTo';
 
@@ -61,9 +62,7 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
                 icon: Icon(Icons.clear, size: 25),
                 onPressed: () {
                   clearSearch();
-                }
-            )
-        ),
+                })),
       ],
       controller: _textController,
     );
@@ -73,7 +72,8 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
       localStorage.setItem(ruleToJumpTo, ruleNumber);
     }
 
-    final filteredRules = context.select<TournamentRulesViewModel, List<RuleModel>>((vm) => vm.rules);
+    final filteredRules = context
+        .select<TournamentRulesViewModel, List<RuleModel>>((vm) => vm.rules);
 
     return PopScope(
       canPop: false,
@@ -94,7 +94,8 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
           itemScrollController: scrollController,
           itemCount: filteredRules.length,
           itemBuilder: (context, index) {
-            return RuleWidget(model: filteredRules[index], callback: linkCallback);
+            return RuleWidget(
+                model: filteredRules[index], callback: linkCallback);
           },
           separatorBuilder: (context, index) {
             return const Divider();

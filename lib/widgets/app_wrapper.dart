@@ -18,15 +18,11 @@ class AppWrapper extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(flex: 1, child: title)
-          ],
+          children: <Widget>[Expanded(flex: 1, child: title)],
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(12, 5, 12, 5),
-        child: body
-      ),
+          padding: const EdgeInsets.fromLTRB(12, 5, 12, 5), child: body),
     );
   }
 }
