@@ -10,7 +10,7 @@ class Rule:
         return {'number': self.number, 'text': self.text}
 
 pattern = r'^(\d+(?:\.(?:\d+)?\.?(?:\w+)?){0,5}) (.+?)(?=\n\n|\n$)'
-filename = 'riftbound-core-rules.txt'
+filename = 'core-rules.txt'
 
 rules = []
 
@@ -24,5 +24,5 @@ with open(filename, 'r', encoding='utf8') as f:
         rule = Rule(ruleNumber, textWithExamples)
         rules.append(rule)
 
-with open('../../lib/assets/riftbound_core_rules.json', 'w') as out:
+with open('../../lib/assets/core_rules.json', 'w') as out:
     json.dump([x.to_dict() for x in rules], out)

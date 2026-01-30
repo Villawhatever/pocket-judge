@@ -35,7 +35,7 @@ class CoreRulesViewModel extends ChangeNotifier {
 
   Future _load() async {
     final cr =
-        await rootBundle.loadString('lib/assets/riftbound_core_rules.json');
+        await rootBundle.loadString('lib/assets/core_rules.json');
     final data = jsonDecode(cr);
 
     var currentIndex = 0;

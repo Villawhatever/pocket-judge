@@ -35,7 +35,7 @@ class TournamentRulesViewModel extends ChangeNotifier {
 
   Future _load() async {
     final cr = await rootBundle
-        .loadString('lib/assets/riftbound_tournament_rules.json');
+        .loadString('lib/assets/tournament_rules.json');
     final data = jsonDecode(cr);
 
     var currentIndex = 0;
