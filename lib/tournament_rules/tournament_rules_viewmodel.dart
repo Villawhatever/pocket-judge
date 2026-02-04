@@ -1,7 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../core_rules/rule.dart';
 
@@ -35,14 +33,11 @@ class TournamentRulesViewModel extends ChangeNotifier {
   }
 
   Future _load() async {
-    final cr = await rootBundle
-        .loadString('lib/assets/tournament_rules.json');
-    final data = jsonDecode(cr);
-
+    final data = await FirebaseFirestore.instance.collection('tournament_rules').get();
     var currentIndex = 0;
 
-    for (final item in data) {
-      final rule = RuleModel.fromJson(item);
+    for (final item in data.docs) {
+      final rule = RuleModel.fromJson(item.data());
       _reverseLookup[rule.number] = currentIndex++;
       _rules.add(rule);
     }

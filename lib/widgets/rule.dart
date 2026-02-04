@@ -10,6 +10,7 @@ class RuleWidget extends StatelessWidget {
   final RuleModel model;
   final Function callback;
   final bool shouldIndent;
+
   final String seeRulePattern = r'See (?:rule )?(\d+\.?)(.+?)(?=for)';
 
   String _getParentRule() {
@@ -19,9 +20,9 @@ class RuleWidget extends StatelessWidget {
     return '$parentRuleNumber.';
   }
 
-  int countCharacters(String text, String charToCount)
+  double countCharacters(String text, String charToCount)
   {
-    int count = 0;
+    double count = 0;
     for (final c in text.characters) {
       if (c == charToCount){
         count++;
@@ -40,11 +41,6 @@ class RuleWidget extends StatelessWidget {
     int currentPosition = 0;
 
     for (final match in matches) {
-      if (shouldIndent) {
-        fragments.add(TextSpan(
-          text: ("  " * 2) * countCharacters(model.number, '.'))
-        );
-      }
       fragments.add(
           TextSpan(text: model.text.substring(currentPosition, match.start)));
 
@@ -63,7 +59,7 @@ class RuleWidget extends StatelessWidget {
     }
     fragments.add(TextSpan(text: model.text.substring(currentPosition)));
 
-    final double leftPadding = shouldIndent ? math.max(10 * (countCharacters(model.number, '.').toDouble() - 2), 0) : 0;
+    final double leftPadding = shouldIndent ? math.max(10 * (countCharacters(model.number, '.') - 2), 0) : 0;
 
     return Padding(
       padding: EdgeInsets.fromLTRB(leftPadding, 0, 0, 0),

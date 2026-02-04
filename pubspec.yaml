@@ -37,6 +37,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
+  cloud_firestore: ^4.15.0
+  firebase_core: ^2.25.0
   collection: any
   tuple: any
   scrollable_positioned_list: any

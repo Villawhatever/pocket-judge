@@ -43,4 +43,4 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-**/parsing/riftbound/pocketjudge*.json
+**/parsing/riftbound/firebase*.json

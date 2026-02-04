@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "16245339500",
+    "firebase_url": "https://pocketjudge-7caec-default-rtdb.firebaseio.com",
+    "project_id": "pocketjudge-7caec",
+    "storage_bucket": "pocketjudge-7caec.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:16245339500:android:1e792508373c9ca5566f49",
+        "android_client_info": {
+          "package_name": "com.primefour.pocket_judge"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRCqG1n1PqXar6w1vrTN8dUmeXYmHvOP8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

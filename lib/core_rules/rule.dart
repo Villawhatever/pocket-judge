@@ -6,6 +6,6 @@ class RuleModel {
 
   factory RuleModel.fromJson(Map<String, dynamic> json) {
     return RuleModel(
-        number: json['number'] as String, text: json['text'] as String);
+        number: json['ruleNumber'] as String, text: json['text'] as String);
   }
 }

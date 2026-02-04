@@ -1,28 +1,28 @@
+import firebase_admin
+from firebase_admin import credentials
+from google.cloud import firestore
 import json
 import re
 
-class Rule:
-    def __init__(self, number, text):
-        self.number = number
-        self.text = text
-
-    def to_dict(self):
-        return {'number': self.number, 'text': self.text}
-
 pattern = r'^(\d+(?:\.(?:\d+)?\.?(?:\w+)?){0,5}) (.+?)(?=\n\n|\n$)'
-filename = 'core-rules.txt'
+cred = credentials.Certificate('firebase-key.json')
+firebase_admin.initialize_app(cred)
+
+db = firestore.Client()
+rulesRef = db.collection('core_rules')
 
 rules = []
 
+filename = 'core-rules.txt'
 with open(filename, 'r', encoding='utf8') as f:
     data = f.read()
     lines = data.split('\n')
     matches = re.findall(pattern, data, flags=re.DOTALL | re.MULTILINE)
     for match in matches:
-        ruleNumber = match[0]
-        textWithExamples = match[1]
-        rule = Rule(ruleNumber, textWithExamples)
-        rules.append(rule)
-
-with open('../../lib/assets/core_rules.json', 'w') as out:
-    json.dump([x.to_dict() for x in rules], out)
+        number = match[0]
+        text = match[1]
+        rule = {
+            'ruleNumber': number,
+            'text': text
+        }
+        rulesRef.document(number).set(rule)
