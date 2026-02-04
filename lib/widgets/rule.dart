@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:pocket_judge/core_rules/rule.dart';
 
 class RuleWidget extends StatelessWidget {
-  const RuleWidget({super.key, required this.model, required this.callback});
+  const RuleWidget({super.key, required this.model, required this.callback, this.shouldIndent = true });
 
   final RuleModel model;
   final Function callback;
+  final bool shouldIndent;
   final String seeRulePattern = r'See (?:rule )?(\d+\.?)(.+?)(?=for)';
 
   String _getParentRule() {
@@ -16,6 +17,17 @@ class RuleWidget extends StatelessWidget {
     final parentRuleNumber =
         fragments.take(math.min(2, fragments.length)).join('.');
     return '$parentRuleNumber.';
+  }
+
+  int countCharacters(String text, String charToCount)
+  {
+    int count = 0;
+    for (final c in text.characters) {
+      if (c == charToCount){
+        count++;
+      }
+    }
+    return count;
   }
 
   @override
@@ -28,6 +40,11 @@ class RuleWidget extends StatelessWidget {
     int currentPosition = 0;
 
     for (final match in matches) {
+      if (shouldIndent) {
+        fragments.add(TextSpan(
+          text: ("  " * 2) * countCharacters(model.number, '.'))
+        );
+      }
       fragments.add(
           TextSpan(text: model.text.substring(currentPosition, match.start)));
 
@@ -46,27 +63,32 @@ class RuleWidget extends StatelessWidget {
     }
     fragments.add(TextSpan(text: model.text.substring(currentPosition)));
 
-    return Column(children: [
-      GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () => callback(_getParentRule()),
-        child: Row(children: [
-          Flexible(
-            child: RichText(
-              text: TextSpan(
-                style: TextStyle(color: Theme.of(context).colorScheme.primary),
-                children: <TextSpan>[
-                  TextSpan(
-                    text: '${model.number} ',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  ...fragments
-                ],
+    final double leftPadding = shouldIndent ? math.max(10 * (countCharacters(model.number, '.').toDouble() - 2), 0) : 0;
+
+    return Padding(
+      padding: EdgeInsets.fromLTRB(leftPadding, 0, 0, 0),
+      child: Column(children: [
+        GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () => callback(_getParentRule()),
+          child: Row(children: [
+            Flexible(
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: '${model.number} ',
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    ...fragments
+                  ],
+                ),
               ),
             ),
-          ),
-        ]),
-      ),
-    ]);
+          ]),
+        ),
+      ])
+    );
   }
 }

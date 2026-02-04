@@ -16,6 +16,7 @@ class TournamentRulesViewModel extends ChangeNotifier {
   List<RuleModel> _filteredRules = [];
 
   List<RuleModel> get rules => _filteredRules;
+  bool get isFiltered => _rules.length != _filteredRules.length;
   Map<String, int> get lookup => _reverseLookup;
 
   void search(String? search) {

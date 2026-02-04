@@ -17,8 +17,8 @@ class ErratumModel {
 
     return ErratumModel(
         name: json['name'] as String,
-        oldText: json['newText'] != null ? json['newText'] as String : null,
-        newText: json['newText'] != null ? json['oldText'] as String : null,
+        oldText: json['oldText'] != null ? json['oldText'] as String : null,
+        newText: json['newText'] != null ? json['newText'] as String : null,
         set: json['set'] as String,
         faqs: faqs
             ?.map((f) => FaqModel.fromJson(f as Map<String, dynamic>))
