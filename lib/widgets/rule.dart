@@ -17,7 +17,8 @@ class RuleWidget extends StatelessWidget {
     final fragments = model.number.split('.');
     final parentRuleNumber =
         fragments.take(math.min(2, fragments.length)).join('.');
-    return '$parentRuleNumber.';
+
+    return parentRuleNumber.endsWith('.') ? parentRuleNumber : '$parentRuleNumber.';
   }
 
   double countCharacters(String text, String charToCount)
