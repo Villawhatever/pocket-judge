@@ -1,0 +1,416 @@
+[
+  {
+    "name": "Ava Achiever",
+    "oldText": "When I attack, you may pay [C] to play a card with [Hidden] from your hand here, ignoring its cost.",
+    "newText": "When I attack, you may pay [C] to play a card with [Hidden] from your hand, ignoring its cost. If it’s a unit, play it here.",
+    "set": "OGN"
+  },
+  {
+    "name": "Baited Hook",
+    "oldText": "[1][C], [E]: Kill a friendly unit. Look at the top 5 cards of your Main Deck. You may play a unit from among them that has Might up to 1 more than the killed unit, ignoring its cost. Then recycle the rest.",
+    "newText": "[1][C], [E]: Kill a friendly unit. Look at the top 5 cards of your Main Deck. You may banish a unit from among them that has Might up to 1 more than the killed unit and play it, ignoring its cost. Then recycle the rest.",
+    "set": "OGN"
+  },
+  {
+    "name": "Blind Fury",
+    "oldText": "[Action] (Play on your turn or in showdowns.)\n\nEach opponent reveals the top card of their Main Deck. Choose one and play it, ignoring its cost. Then recycle the rest.",
+    "newText": "[Action] (Play on your turn or in showdowns.)\n\nEach opponent reveals the top card of their Main Deck. Choose one and banish it, then play it, ignoring its cost. Then recycle the rest.",
+    "set": "OGN"
+  },
+  {
+    "name": "Clockwork Keeper",
+    "oldText": "As you play me, you may pay [C] as an additional cost. If you do, draw 1.",
+    "newText": "You may pay [C] as an additional cost to play me.\n\nWhen you play me, if you paid the additional cost, draw 1.",
+    "set": "OGN"
+  },
+  {
+    "name": "Convergent Mutation",
+    "oldText": "[Reaction] (Play any time, even before spells and abilities resolve.)\n\nChoose a friendly unit. Increase its Might until it equals the Might of another friendly unit.",
+    "newText": "[Reaction] (Play any time, even before spells and abilities resolve.)\n\nChoose a friendly unit. This turn, increase its Might to the Might of another friendly unit.",
+    "set": "OGN"
+  },
+  {
+    "name": "Dark Child",
+    "oldText": "At the end of your turn, ready 2 runes.",
+    "newText": "At the end of your turn, ready up to 2 runes.",
+    "set": "OGN"
+  },
+  {
+    "name": "Dazzling Aurora",
+    "oldText": "At the end of your turn, reveal cards from the top of your Main Deck until you reveal a unit. Play it, ignoring its cost, and recycle the rest.",
+    "newText": "At the end of your turn, reveal cards from the top of your Main Deck until you reveal a unit and banish it. Play it, ignoring its cost, and recycle the rest.",
+    "set": "OGN"
+  },
+  {
+    "name": "Disintegrate",
+    "oldText": "[Action] (Play on your turn or in showdowns.)\n\nDeal 3 to a unit at a battlefield. If this kills it, draw 1.",
+    "newText": "Action (Play on your turn or in showdowns.)\n\nDeal 3 to a unit at a battlefield. If this kills it, do this: draw 1.",
+    "set": "OGN"
+  },
+  {
+    "name": "Dragon's Rage",
+    "oldText": "Move an enemy unit. Then choose another enemy unit at its destination. They deal damage equal to their Mights to each other.",
+    "newText": "Move an enemy unit. Then do this: Choose another enemy unit at its destination. They deal damage equal to their Mights to each other.",
+    "set": "OGN"
+  },
+  {
+    "name": "Dune Drake",
+    "oldText": "When I attack, give me +2 [M] if there is a ready enemy unit here.",
+    "newText": "When I attack, give me +2 [M] this turn if there is a ready enemy unit here.",
+    "set": "OGN"
+  },
+  {
+    "name": "Highlander",
+    "oldText": "[Reaction] (Play any time, even before spells and abilities resolve.)\n\nChoose a friendly unit. The next time it dies this turn, recall it exhausted instead. (Send it to base. This isn't a move.)",
+    "newText": "[Reaction] (Play any time, even before spells and abilities resolve.)\n\nChoose a friendly unit. The next time it would die this turn, heal it, exhaust it, and recall it instead. (Send it to base. This isn't a move.)",
+    "set": "OGN"
+  },
+  {
+    "name": "Karma, Channeler",
+    "oldText": "[Vision] (When you play me, look at the top card of your Main Deck. You may recycle it.)\n\nWhen you recycle one or more cards, buff a friendly unit. (If it doesn't have a buff, it gets a +1 [M] buff. Runes aren't cards.)",
+    "newText": "[Vision] (When you play me, look at the top card of your Main Deck. You may recycle it.)\n\nWhen you recycle one or more cards to your Main Deck, buff a friendly unit. (If it doesn't have a buff, it gets a +1 [M] buff. Runes aren't cards.)",
+    "set": "OGN"
+  },
+  {
+    "name": "Kinkou Monk",
+    "oldText": "When you play me, buff two other friendly units. (Each one that doesn't have a buff gets a +1 [M] buff.)",
+    "newText": "When you play me, buff up to two other friendly units. (Each one that doesn't have a buff gets a +1 [M] buff.)",
+    "set": "OGN"
+  },
+  {
+    "name": "Nocturne, Horrifying",
+    "oldText": "[Ganking] (I can move from battlefield to battlefield.)\n\nWhen you look at cards from the top of your deck (and don't draw them) and see me, you may play me for [A].",
+    "newText": "[Ganking] (I can move from battlefield to battlefield.)\n\nAs you look at or reveal me from the top of your deck, you may banish me. If you do, you may play me for [A].",
+    "set": "OGN"
+  },
+  {
+    "name": "Pack of Wonders",
+    "oldText": "[E]: Return another friendly gear, unit, or [Hidden] card to its owner's hand.",
+    "newText": "[E]: Return another friendly gear, unit, or facedown card to its owner's hand.",
+    "set": "OGN"
+  },
+  {
+    "name": "Portal Rescue",
+    "oldText": "[Action] (Play on your turn or in showdowns.)\n\nBanish a friendly unit, then play it to base, ignoring its cost.",
+    "newText": "[Action] (Play on your turn or in showdowns.)\n\nBanish a friendly unit, then its owner plays it to their base, ignoring its cost.",
+    "set": "OGN"
+  },
+  {
+    "name": "Promising Future",
+    "oldText": "Each player looks at the top 5 cards of their Main Deck, chooses one, then recycles the rest. Starting with the next player, each player plays those cards, ignoring Energy costs. (They must still pay Power costs.)",
+    "newText": "Each player looks at the top 5 cards of their Main Deck, banishes one of them, then recycles the rest. Starting with the next player, each player plays those cards, ignoring Energy costs. (They must still pay Power costs.)",
+    "set": "OGN"
+  },
+  {
+    "name": "Ravenborn Tome",
+    "oldText": "[E]: The next spell you play deals 1 Bonus Damage. (Each instance of damage the spell deals is increased by 1.)",
+    "newText": "[E]: The next spell you play this turn deals 1 Bonus Damage. (Each instance of damage the spell deals is increased by 1.)",
+    "set": "OGN"
+  },
+  {
+    "name": "Salvage",
+    "oldText": "[Action] (Play on your turn or in showdowns.)\n\nYou may kill a gear. Draw 1.",
+    "newText": "[Action] (Play on your turn or in showdowns.)\n\nYou may kill up to one gear. Draw 1.",
+    "set": "OGN"
+  },
+  {
+    "name": "Sigil of the Storm",
+    "oldText": "When you conquer here, recycle one of your runes.",
+    "newText": "When you conquer here, you must recycle one of your runes. (This doesn’t choose anything.)",
+    "set": "OGN"
+  },
+  {
+    "name": "Sona, Harmonious",
+    "oldText": "While I'm at a battlefield, ready 4 friendly runes at the end of your turn.",
+    "newText": "At the end of your turn, if I'm at a battlefield, ready up to 4 friendly runes.",
+    "set": "OGN"
+  },
+  {
+    "name": "Targon's Peak",
+    "oldText": "When you conquer here, ready 2 runes at the end of this turn.",
+    "newText": "When you conquer here, ready up to 2 runes at the end of this turn.",
+    "set": "OGN"
+  },
+  {
+    "name": "Teemo, Strategist",
+    "oldText": "[Hidden] (Hide now for [A] to react with later for [0].)\n\nWhen I defend or I'm played from [Hidden], reveal the top 5 cards of your Main Deck. Deal 1 to an enemy unit here for each card with [Hidden], then recycle them.",
+    "newText": "[Hidden] (Hide now for [A] to react with later for [0].)\n\nWhen I defend, choose an enemy unit here and reveal the top 5 cards of your Main Deck. Deal 1 to that unit for each card with [Hidden] revealed this way, then recycle the revealed cards.",
+    "set": "OGN"
+  },
+  {
+    "name": "The Boss",
+    "oldText": "When a buffed unit you control would die, you may pay [C] and exhaust me to spend its buff and recall it exhausted instead. (Send it to base. This isn't a move.)\n\nWhen you conquer, ready me.",
+    "newText": "If a buffed unit you control would die, you may pay [C], exhaust me, and spend its buff to heal it, exhaust it, and recall it instead. (Send it to base. This isn't a move.)\n\nWhen you conquer, ready me.",
+    "set": "OGN"
+  },
+  {
+    "name": "The Dreaming Tree",
+    "oldText": "The first time you choose a friendly unit with a spell here each turn, draw 1.",
+    "newText": "When a player chooses a friendly unit here with a spell for the first time each turn, they draw 1.",
+    "set": "OGN"
+  },
+  {
+    "name": "The Syren",
+    "oldText": "[1], [E]: Move a friendly unit at a battlefield to your base.",
+    "newText": "[1], [E]: Move a friendly unit at a battlefield to its base.",
+    "set": "OGN"
+  },
+  {
+    "name": "Tideturner",
+    "oldText": "[Hidden] (Hide now for [A] to react with later for [0].)\n\nWhen you play me, you may choose a friendly unit. Move me to its location and it to my original location.",
+    "newText": "[Hidden] (Hide now for [A] to react with later for [0].)\n\nWhen you play me, you may choose a unit you control at another location. Move me to its location and it to my original location.",
+    "set": "OGN"
+  },
+  {
+    "name": "Unforgiven",
+    "oldText": "[2], [E]: Move a friendly unit to or from your base.",
+    "newText": "[2], [E]: Move a friendly unit to or from its base.",
+    "set": "OGN"
+  },
+  {
+    "name": "Unlicensed Armory",
+    "oldText": "Discard 1, [E]: Choose a friendly unit. The next time it dies this turn, you may pay [C] to recall it exhausted instead. (Send it to base. This isn't a move.)",
+    "newText": "Discard 1, [E]: Choose a friendly unit. The next time it would die this turn, you may pay [C] to heal it, exhaust it, and recall it instead. (Send it to base. This isn't a move.)",
+    "set": "OGN"
+  },
+  {
+    "name": "Void Gate",
+    "oldText": "Spells and abilities affecting units here each deal 1 Bonus Damage. (Each instance of damage the spell deals is increased by 1.)",
+    "newText": "Spells and abilities deal 1 Bonus Damage to units here. (Each instance of damage the spell deals to a unit here is increased by 1.)",
+    "set": "OGN"
+  },
+  {
+    "name": "Zhonya's Hourglass",
+    "oldText": "[Hidden] (Hide now for [A] to react with later for [0].)\n\nThe next time a friendly unit would die, kill this instead. Recall that unit exhausted. (Send it to base. This isn't a move.)",
+    "newText": "[Hidden] (Hide now for [A] to react with later for [0].)\n\nIf a friendly unit would die, kill this instead. Heal that unit, exhaust it, and recall it. (Send it to base. This isn't a move.)",
+    "set": "OGN"
+  },
+  {
+    "name": "Falling Star",
+    "oldText": "Do this twice:\n\tDeal 3 to a unit. (You can choose different units.)",
+    "newText": "Deal 3 to a unit.\n\nDeal 3 to a unit.\n\n (You can choose different units.)",
+    "set": "SFD"
+  },
+  {
+    "name": "Icathian Rain",
+    "oldText": "Do this 6 times:\n\tDeal 2 to a unit. (You can choose different units.)",
+    "newText": "Deal 2 to a unit.\n\nDeal 2 to a unit.\n\nDeal 2 to a unit.\n\nDeal 2 to a unit.\n\nDeal 2 to a unit.\n\nDeal 2 to a unit.\n\n (You can choose different units.)",
+    "set": "SFD"
+  },
+  {
+    "name": "Rek'Sai, Swarm Queen",
+    "oldText": "When I attack, you may reveal the top 2 cards of your Main Deck. You may play one. Then recycle the rest. If it is a unit, you may play it here.",
+    "newText": "When I attack, you may reveal the top 2 cards of your Main Deck. You may banish one, then play it. If it is a unit, you may play it here. Recycle the rest.",
+    "set": "SFD"
+  },
+  {
+    "name": "Void Burrower",
+    "oldText": "When you conquer, you may exhaust me to reveal the top 2 cards of your Main Deck. You may play one. Then recycle the rest.",
+    "newText": "When you conquer, you may exhaust me to reveal the top 2 cards of your Main Deck. You may banish one, then play it. Recycle the rest.",
+    "set": "SFD"
+  },
+  {
+    "name": "Void Rush",
+    "oldText": "When you conquer, you may exhaust me to reveal the top 2 cards of your Main Deck. You may play one of them, reducing its cost by [2]. Draw any you did not play this way.",
+    "newText": "Reveal the top 2 cards of your Main Deck. You may banish one, then play it, reducing its cost by [2]. Draw any you didn't banish. ",
+    "set": "SFD"
+  },
+  {
+    "name": "Reinforce",
+    "oldText": "Look at the top 5 cards of your Main Deck. You may play a unit from among them. Its Energy cost is reduced by [5]. Then recycle the remaining cards.",
+    "newText": "Look at the top 5 cards of your Main Deck. You may banish a unit from among them, then play it, reducing its cost by [5]. Recycle the remaining cards.",
+    "set": "SFD"
+  },
+  {
+    "name": "Arise!",
+    "oldText": "Play a 2 [M] Sand Soldier unit token for each Equipment you control. Then ready two of them. ",
+    "newText": "Play a 2 [M] Sand Soldier unit token for each Equipment you control. Then do this: Ready up to two of them.",
+    "set": "SFD"
+  },
+  {
+    "name": "Rell, Magnetic",
+    "oldText": "Tank (I must be assigned combat damage first.)\n\nWhen I attack, you may play an Equipment with Energy cost no more than [2], ignoring its cost, and attach it to me.",
+    "newText": "Tank (I must be assigned combat damage first.)\n\nWhen I attack, you may play an Equipment with Energy cost no more than [2], ignoring its cost. If you do, then do this: Attach it to me.",
+    "set": "SFD"
+  },
+  {
+    "name": "Blood Rush",
+    "oldText": "[Action] (Play on your turn or in showdowns.)\n\n[Repeat][1] (You may pay the additional cost to repeat this spell's effect.)\n\nGive a unit [Assault 2]. (+2 [M] while it's an attacker.)",
+    "newText": "[Action] (Play on your turn or in showdowns.)\n\n[Repeat][1] (You may pay the additional cost to repeat this spell's effect.)\n\nGive a unit [Assault 2] this turn. (+2 [M] while it's an attacker.)",
+    "set": "SFD"
+  },
+  {
+    "name": "Deathgrip",
+    "oldText": "[Reaction] (Play any time, even before spells and abilities resolve.)\n\nKill a friendly unit to give +[M] equal to its Might to another friendly unit this turn.\n\nDraw 1.",
+    "newText": "[Reaction] (Play any time, even before spells and abilities resolve.)\n\nKill a friendly unit. If you do, give +[M] equal to its Might to another friendly unit this turn.\n\nDraw 1.",
+    "set": "SFD"
+  },
+  {
+    "name": "Edge of Night",
+    "oldText": "[Hidden] (Hide now for [A] to react with later for [0].)\n\nWhen you play this from face down, attach it to a unit you control here.\n\n[Equip] [C] ([C]: Attach this to a unit you control.)",
+    "newText": "[Hidden] (Hide now for [A] to react with later for [0].)\n\nWhen you play this from face down, attach it to a unit you control (here).\n\n[Equip] [C] ([C]: Attach this to a unit you control.)",
+    "set": "SFD"
+  },
+  {
+    "name": "Janna, Savior",
+    "oldText": "[Reaction] (Play any time, even before spells and abilities resolve, including to a battlefield you control.)\n\nWhen you play me, heal your units here, then move an enemy unit from here to its base.",
+    "newText": "[Reaction] (Play any time, even before spells and abilities resolve, including to a battlefield you control.)\n\nWhen you play me, heal your units here, then move up to one enemy unit from here to its base.",
+    "set": "SFD"
+  },
+  {
+    "name": "Jax, Unmatched",
+    "oldText": "[Deflect] (Opponents must pay [A] to choose me with a spell or ability.)\n\nEach Equipment in your hand has [Quick-Draw]. (Each gains [Reaction]. When you play it, attach it to a unit you control.)",
+    "newText": "[Deflect] (Opponents must pay [A] to choose me with a spell or ability.)\n\nYour Equipment everywhere have [Quick-Draw]. (Each gains [Reaction]. When you play it, attach it to a unit you control.)",
+    "set": "SFD"
+  },
+  {
+    "name": "Kato the Arm",
+    "oldText": "[Deflect] (Opponents must pay [A] to choose me with a spell or ability.)\n\nWhen I move to a battlefield, give a friendly unit my keywords and +[M] equal to my Might this turn.",
+    "newText": "[Deflect] (Opponents must pay [A] to choose me with a spell or ability.)\n\nWhen I move to a battlefield, give another friendly unit my keywords and +[M] equal to my Might this turn.",
+    "set": "SFD",
+    "faqs": [
+      {
+        "question":"Does Kato give keywords he’s gained during play? What about Might bonuses from various sources like Equipment?",
+        "answer": "Yes. Kato gives his current keywords and additional Might equal to his current Might to the unit you choose. Later changes to Kato don’t matter; what the unit gets is locked in as the ability resolves."
+      }
+    ]
+  },
+  {
+    "name": "Tianna Crownguard",
+    "oldText": "[Deflect] (Opponents must pay [A] to choose me with a spell or ability.)\n\nWhile I'm at a battlefield, opponents can't score points.",
+    "newText": "[Deflect] (Opponents must pay [A] to choose me with a spell or ability.)\n\nWhile I'm at a battlefield, opponents can't gain points.",
+    "set": "SFD",
+    "faqs": [
+      {
+        "question":"Does Forgotten Monument work the same as Tianna? Will it receive similar errata?",
+        "answer": "Forgotten Monument works differently from Tianna, and we agree that’s confusing. That’s part of why we decided to issue errata for Tianna (and not for Forgotten Monument).\n\nForgotten Monument completely prevents the process of scoring there. That means no conquer triggers, no hold triggers, and no points from doing those things. “Extra” points such as those from Renata Glasc, Mastermind are unaffected. You can still gain control of the battlefield following a showdown—you just can’t conquer it."
+      }
+    ]
+  },
+  {
+    "name": "Yone, Blademaster",
+    "oldText": "[Weaponmaster] (When you play me, you may [Equip] one of your Equipment to me for [A] less, even if it's already attached.)\n\nWhen I conquer an open battlefield, deal damage equal to my Might to an enemy unit in a base.",
+    "newText": "[Weaponmaster] (When you play me, you may [Equip] one of your Equipment to me for [A] less, even if it's already attached.)\n\nWhen I conquer a battlefield that was uncontrolled, deal damage equal to my Might to an enemy unit in a base.",
+    "set": "SFD"
+  },
+  {
+    "name": "Draven, Audacious",
+    "faqs": [
+      {
+        "question": "What does it mean to win or lose a combat?",
+        "answer": "Winning and losing combats is a system that was inadvertently left out of the most recent rules update. Here are the conditions under which you win, lose, or tie a combat.\n\nAfter combat damage has been dealt:\n\n    If neither player has units remaining at the battlefield or both players have units remaining, combat is a tie. If both players do, attackers are recalled.\n\n    If only one player has units remaining at the battlefield, that player wins the combat and the other player loses. Draven triggers if he’s among the units that survive.\n\nIt doesn’t matter whether combat damage was actually dealt, only that there was a combat showdown and only your units were left after combat damage. If you killed or removed all the opposing units with spells and abilities before Draven had to throw any punches, he still wins. (Think of it as winning by default.)\n\nYou can win a combat on either offense or defense."
+      },
+      {
+        "question": "If I win on the attack and conquer, does this happen before or after I score? Before or after conquer effects?",
+        "answer": "Draven’s ability will trigger and resolve before you gain your regular point for scoring the battlefield and before any conquer effects are triggered. This means that you can’t win from 6 points by conquering a battlefield with Draven without having scored all other battlefields—you’ll gain your point from Draven, then the game will see that you’re at 7 points and give you a card draw instead of a point for conquering."
+      }
+    ],
+    "set": "SFD"
+  },
+  {
+    "name": "Pickpocket",
+    "faqs": [
+      {
+        "question": "Can Pickpocket kill a Gold token?",
+        "answer": "Yes, but we see why you’d ask. The rules use a “NULL” system for values that aren’t available, such as the Might of a unit that’s been removed from the board. The unit is gone and the information is missing, so you can’t do any calculations or comparisons with it (not even “is it no more than 1?”).\n\nThat system could reasonably be applied to the costs of tokens, but we feel that results in unintuitive situations, like not being able to kill a Gold token with Pickpocket. After all, the token’s not missing; it just doesn’t have a cost because it doesn’t need one. We’ll be updating the rules to clarify that the cost of a token can be treated as 0 for all purposes."
+      }
+    ],
+    "set": "SFD"
+  },
+  {
+    "name": "Rumble, Hotheaded",
+    "faqs": [
+      {
+        "question": "Can Rumble, Hotheaded choose a Mech token to recycle? If he does, where does it go?",
+        "answer": "Yes, he can. This is a minor gap in the rules. Main Deck cards are recycled to the Main Deck and runes are recycled to the Rune deck, but tokens aren’t actually either of those things. We’ll be clarifying in a future rules updates that tokens “inherit” the recycle destination of their type(s), so a token that’s a unit or gear is recycled to your Main Deck just like any other gear. It then vanishes, as tokens do any time they leave the board, but it still counts as “the unit you recycled” and Rumble can check its Might."
+      }
+    ],
+    "set": "SFD"
+  },
+  {
+    "name": "Svellsongur",
+    "faqs": [
+      {
+        "question": "Does Svellsongur copy text that the unit has gained from other sources, such as the Assault granted by Cleave? What about text it’s gained from other Equipment?",
+        "answer": "No, Svellsongur only copies the text that’s actually printed on the unit. This is an ambiguity in the current rules, which refer to “appending” and “removing” rules text without reference to whether that text is original to the unit or not.\n\nThe key word here is actually copy, a system that will be fleshed out in a future rules update. For now, we’ll just tell you that copies of objects or text take on their original traits, without regard to any subsequent alterations.\n\nSvellsongur doesn’t grant the unit additional “copies” of the abilities of other Equipment. So putting 3 Svellsongur on the same unit will give that unit four total instances of its abilities, not eight. (Four should be plenty.)"
+      }
+    ],
+    "set": "SFD"
+  },
+  {
+    "name": "Aphelios, Exalted",
+    "faqs": [
+      {
+        "question": "Aphelios, Exalted has an ability that triggers when I attach an Equipment to him and tells me to “choose one that hasn’t been chosen this turn.” If I attach Svellsongur to him, does he have the second copy of his ability in time for both to trigger? And do I have to choose different options?",
+        "answer": "He does have the second copy of his ability in time, and it will trigger. The “one that hasn’t been chosen this turn” restriction applies separately to each instance of his ability. So you could choose the same option for both, but you’ll have to track which options you’ve used for each copy of his ability."
+      }
+    ],
+    "set": "SFD"
+  },
+  {
+    "name": "Cards that Reduce Might",
+    "faqs": [
+      {
+        "question": "I heard that cards that reduce Might will no longer say “to a minimum of 1” on them. Does that mean Origins cards like Stupefy will receive errata?",
+        "answer": "No. This is a change to our design philosophy beginning with Spiritforged, but Origins cards will maintain their functionality."
+      },
+      {
+        "question": "Does this mean that units’ Might can go to 0 or below now?",
+        "answer": "Units’ Might could always go to 0 or below; it was just really hard to actually make it happen. For example: If a Recruit was at Trifarian War Camp, it would have 2 Might (its 1 base Might, +1 from War Camp). If it got hit with Stupefy, Stupefy would “snapshot” at -1 Might, reducing the Recruit’s Might to 1. If the Recruit then moved away from Trifarian War Camp, it would lose the +1 Might bonus and end up at 0 Might. It’s much easier to make it happen with Spiritforged cards, though, so it’s worth reviewing the rules for units with 0 or less Might."
+      },
+      {
+        "question": "Does a unit with 0 or less Might automatically die?",
+        "answer": "No, units can stick around on the board with 0 (or less!) Might. They will die if they take any damage, but “0” is not a valid amount of damage, so it takes 1 damage to kill a unit with 0 or less Might. We realize that this is a little weird, but it’s important to us that cards like Frigid Touch can’t be used to actually kill units, only weaken them."
+      },
+      {
+        "question": "Does a unit with negative Might contribute negative damage to my Might total in combat?",
+        "answer": "No. Negative Might is treated as 0 Might for the purposes of dealing damage, but as its true value for raising it back above 0. So a unit with -3 Might would contribute 0 damage in combat, would die if it was dealt 1 or more damage, and would require +4 Might to get it back up to 1 Might."
+      }
+    ],
+    "set": "SFD"
+  },
+  {
+    "name": "Ezreal, Prodigy",
+    "faqs": [
+      {
+        "question": "What costs does Ezreal, Prodigy reduce? Does he reduce Repeat costs? Accelerate costs? Equip costs?",
+        "answer": "Ezreal, Prodigy reduces additional costs that are optional to pay. These will generally use both the words “additional cost” and the word “may.” Repeat and Accelerate are the two main sources of optional additional costs, but Ezreal can also offer a discount for one-off oddballs like Blast Corps Cadet.\n\nEzreal can’t reduce Equip costs. That’s an activation cost for an ability, so it’s neither optional nor additional. There aren’t currently any optional additional costs that apply to activating abilities."
+      },
+      {
+        "question": "What about Deflect costs? Aren’t those optional now?",
+        "answer": "No, Ezreal won’t help with Deflect costs, and Deflect is not optional. Deflect is a mandatory additional cost, meaning you must pay it if you want to finalize a spell or ability that chooses something with Deflect. It’s true that you can choose not to pay Deflect costs for triggered abilities by choosing not to finalize them, but that doesn’t make it an optional cost."
+      }
+    ],
+    "set": "SFD"
+  },
+  {
+    "name": "Hostile Takeover",
+    "faqs": [
+      {
+        "question": "If I use Hostile Takeover to take control of my opponent’s only unit at a battlefield, will there be a showdown? Will it be a combat?",
+        "answer": "You’ll start a noncombat showdown. (Hostile Takeover’s reminder text is a little misleading in this regard—you have to have some kind of showdown before you can conquer.) This ruling applies any time you have a unit at a battlefield when your opponent still controls that battlefield, but doesn’t have any units there. (Yes, that can happen. Hostile Takeover and Stormbringer are the easiest ways to do it.)\n\nThere’s a gap in the current rules that leaves this situation without an obvious outcome. We plan to address that gap in the next regular rules update. The issue is surprisingly complex, and we’re not 100% sure what the answer will be when we’re done.\n\nIn the meantime, though, we believe starting a noncombat showdown is the least disruptive way to handle this scenario. If you need really precise timing: assume that your opponent loses control of the battlefield in the same cleanup that begins the showdown, even though ordinarily control is “frozen” once the battlefield becomes contested."
+      }
+    ],
+    "set": "SFD"
+  },
+  {
+    "name": "Temporal Portal",
+    "faqs": [
+      {
+        "question": "What parts of a spell does the Repeat ability cause to be repeated? Is it the entire effect? If I use Temporal Portal to give Find Your Center Repeat and pay the cost while its cost reduction applies, does the cost reduction happen once or twice, and does the final spell cost 2 or 4?",
+        "answer": "Repeat causes you to repeat execution of a spell’s “instructions,” which are the things the spell tells you to do as it resolves. (We’ll give a better definition of “instructions” and how to define them in an upcoming rules update.) And the Repeat cost of Find Your Center isn’t reduced, even when its base cost is, because anything that asks for a card’s cost finds its printed cost as the answer.\n\nThis means that Find Your Center’s cost reduction applies only once and the final spell costs 4—its base cost of 3, plus its Repeat cost of 3, minus its cost reduction of 2."
+      }
+    ],
+    "set": "SFD"
+  },
+  {
+    "name": "Cards with Weaponmaster",
+    "faqs": [
+      {
+        "question": "The reminder text of Weaponmaster says “You may”, but the Core Rules reads like it is mandatory. Which is it?",
+        "answer": "Oh, sharp catch. Weaponmaster as a keyword is always meant to be optional. While the rules utilize a language structure that imply a mandatory target, the reminder text is more accurate here. It is always a choice on whether or not to use this play ability. We will clean up that language in the future. "
+      }
+    ],
+    "set": "SFD"
+  }
+]
