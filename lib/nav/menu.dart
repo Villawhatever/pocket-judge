@@ -32,14 +32,14 @@ class Menu extends StatelessWidget {
                     builder: (context) => const TournamentRulesView()),
               );
             }),
-        ListTile(
-            title: const Text("Card Search"),
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const SearchView()),
-              );
-            }),
+        // ListTile(
+        //     title: const Text("Card Search"),
+        //     onTap: () {
+        //       Navigator.pushReplacement(
+        //         context,
+        //         MaterialPageRoute(builder: (context) => const SearchView()),
+        //       );
+        //     }),
         ListTile(
             title: const Text("Errata/FAQs"),
             onTap: () {
