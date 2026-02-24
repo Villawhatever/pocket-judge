@@ -1,7 +1,7 @@
 {
     "name": "Pocket Judge",
     "short_name": "Pocket Judge",
-    "start_url": "Villawhatever/pocket-judge",
+    "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
