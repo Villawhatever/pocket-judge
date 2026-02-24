@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:pocket_judge/errata/errata_viewmodel.dart';
@@ -15,6 +16,7 @@ void main() async {
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform
   );
+  FirebaseFirestore.instance.enablePersistence(const PersistenceSettings(synchronizeTabs: true));
   runApp(const MyApp());
 }
 

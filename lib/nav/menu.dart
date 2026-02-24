@@ -4,6 +4,7 @@ import 'package:pocket_judge/tournament_rules/tournament_rules_view.dart';
 import 'package:pocket_judge/core_rules/core_rules_view.dart';
 
 import '../about/about_view.dart';
+import '../search/search_view.dart';
 
 class Menu extends StatelessWidget {
   const Menu({super.key});
@@ -29,6 +30,14 @@ class Menu extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => const TournamentRulesView()),
+              );
+            }),
+        ListTile(
+            title: const Text("Card Search"),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const SearchView()),
               );
             }),
         ListTile(
