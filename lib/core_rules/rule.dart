@@ -8,4 +8,9 @@ class RuleModel {
     return RuleModel(
         number: json['ruleNumber'] as String, text: json['text'] as String);
   }
+
+  @override
+  String toString() {
+    return '$number: $text';
+  }
 }
