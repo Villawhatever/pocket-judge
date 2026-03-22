@@ -68,11 +68,6 @@ class CardWidget extends StatelessWidget {
                         p: TextStyle(
                             color: Theme.of(context).colorScheme.primary)),
                 imageBuilder: (Uri uri, String? title, String? alt) {
-                  print(uri.toString() +
-                      ' ' +
-                      (title ?? "no title") +
-                      ' ' +
-                      (alt ?? "no alt"));
                   return Container(
                       child: ImageResolver.getImage(uri.path,
                           fontSize: Theme.of(context)
