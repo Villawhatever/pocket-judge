@@ -5,6 +5,7 @@ import 'package:pocket_judge/errata/errata_viewmodel.dart';
 import 'package:pocket_judge/preferences_state.dart';
 import 'package:pocket_judge/core_rules/core_rules_view.dart';
 import 'package:pocket_judge/core_rules/core_rules_viewmodel.dart';
+import 'package:pocket_judge/search/search_viewmodel.dart';
 import 'package:pocket_judge/tournament_rules/tournament_rules_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,16 +14,21 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initLocalStorage();
+
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform
   );
-  FirebaseFirestore.instance.enablePersistence(const PersistenceSettings(synchronizeTabs: true));
+
+  FirebaseFirestore.instance.settings = Settings(
+    persistenceEnabled: true,
+    cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
+  );
+
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
 
   // This widget is the root of your application.
   @override
@@ -31,9 +37,10 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (context) => PreferencesState()),
           ChangeNotifierProvider(create: (context) => CoreRulesViewModel()),
+          ChangeNotifierProvider(create: (context) => ErrataViewModel()),
+          ChangeNotifierProvider(create: (context) => SearchViewModel()),
           ChangeNotifierProvider(
               create: (context) => TournamentRulesViewModel()),
-          ChangeNotifierProvider(create: (context) => ErrataViewModel())
         ],
         builder: (context, _) {
           return SafeArea(

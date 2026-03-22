@@ -1,7 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:multi_dropdown/multi_dropdown.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
+import 'package:pocket_judge/search/search_viewmodel.dart';
 import 'package:pocket_judge/widgets/app_wrapper.dart';
+import 'package:provider/provider.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+
+import 'card.dart';
+import 'card_widget.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({super.key});
@@ -9,115 +15,94 @@ class SearchView extends StatefulWidget {
   @override
   State<SearchView> createState() => SearchViewState();
 }
-class User {
-  final String name;
-  final int id;
-
-  User({required this.name, required this.id});
-
-  @override
-  String toString() {
-    return 'User(name: $name, id: $id)';
-  }
-}
 
 class SearchViewState extends State<SearchView> {
-  final _formKey = GlobalKey<FormState>();
+  final _textController = TextEditingController();
+  final Future<String> _markdownData = rootBundle.loadString('lib/assets/search_syntax.md');
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    var items = [
-      DropdownItem(label: 'Nepal', value: User(name: 'Nepal', id: 1)),
-      DropdownItem(label: 'Australia', value: User(name: 'Australia', id: 6)),
-      DropdownItem(label: 'India', value: User(name: 'India', id: 2)),
-      DropdownItem(label: 'China', value: User(name: 'China', id: 3)),
-      DropdownItem(label: 'USA', value: User(name: 'USA', id: 4)),
-      DropdownItem(label: 'UK', value: User(name: 'UK', id: 5)),
-      DropdownItem(label: 'Germany', value: User(name: 'Germany', id: 7)),
-      DropdownItem(label: 'France', value: User(name: 'France', id: 8)),
-    ];
+    final viewModel =
+    Provider.of<SearchViewModel>(context, listen: true);
+    final scrollController = ItemScrollController();
 
-    return AppWrapper(
-      title: const Text('Card Search'),
-      body: Form(
-        key: _formKey,
-        child: MultiDropdown<User>(
-          items: items,
-          enabled: true,
-          searchEnabled: true,
-          chipDecoration: const ChipDecoration(
-            backgroundColor: Colors.yellow,
-            wrap: true,
-            runSpacing: 2,
-            spacing: 10,
-          ),
-          fieldDecoration: FieldDecoration(
-            hintText: 'Domain(s)',
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(
-                color: Colors.black87,
-              ),
-            ),
-          ),
-          dropdownDecoration: const DropdownDecoration(
-            marginTop: 2,
-            maxHeight: 500,
-            header: Padding(
-              padding: EdgeInsets.all(8),
-              child: Text(
-                'Select countries from the list',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          dropdownItemDecoration: DropdownItemDecoration(
-            selectedIcon:
-            const Icon(Icons.check_box, color: Colors.green),
-            disabledIcon:
-            Icon(Icons.lock, color: Colors.grey.shade300),
-          ),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please select a country';
+    clearSearch() {
+      _textController.clear();
+      viewModel.search(null);
+    }
+
+    final searchBar = SearchBar(
+      hintText: "[Search]",
+      onSubmitted: (value) => viewModel.search(value),
+      backgroundColor: WidgetStateProperty.all(Colors.transparent),
+      shadowColor: WidgetStateProperty.all(Colors.transparent),
+      trailing: [
+        Opacity(
+            opacity: _textController.text.isEmpty ? 0.01 : 1.0,
+            child: IconButton(
+                icon: Icon(Icons.clear, size: 25),
+                onPressed: () {
+                  clearSearch();
+                })),
+      ],
+      controller: _textController,
+    );
+
+    final filteredCards = context
+        .select<SearchViewModel, List<CardModel>>((vm) => vm.cards);
+
+    Widget body;
+    var markdownStyle = MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
+      code: TextStyle(
+        color: Theme.of(context).colorScheme.secondary
+      )
+    );
+
+    if (filteredCards.isEmpty) {
+      body = Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          FutureBuilder<String>(
+            future: _markdownData,
+            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+              List<Widget> children = [];
+              if (snapshot.hasData) {
+                children = [Flexible(
+                  fit: FlexFit.loose,
+                  child: MarkdownBody(data: snapshot.data!, styleSheet: markdownStyle),
+                )];
+              }
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: children,
+              );
             }
-            return null;
-          },
-          onSelectionChange: (selectedItems) {
-            debugPrint("OnSelectionChange: $selectedItems");
-          },
-        ),
-        // child: Column(
-        //
-        //   children: [
-        //     TextFormField(
-        //       decoration: const InputDecoration(
-        //           labelText: 'Card Name'
-        //       ),
-        //     ),
-        //     Row(
-        //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //       children: [
-        //         Column(
-        //           children: [
-        //             Text('bit 1 column a'),
-        //
-        //           ]
-        //         ),
-        //         Column(
-        //             children: [
-        //               Text('bit 1 column b')
-        //             ]
-        //         )
-        //       ]
-        //     )
-        //   ]
-        // )
-      ),
+          ),
+        ],
+      );
+    } else {
+      body = ScrollablePositionedList.separated(
+        itemScrollController: scrollController,
+        itemCount: filteredCards.length,
+        itemBuilder: (context, index) {
+          return CardWidget(
+              model: filteredCards[index]);
+        },
+        separatorBuilder: (context, index) {
+          return const Divider();
+        },
+      );
+    }
+    return AppWrapper(
+      title: searchBar,
+      body: body
     );
   }
 }

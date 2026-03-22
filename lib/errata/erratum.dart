@@ -1,3 +1,5 @@
+import 'package:pocket_judge/extensions/json_extensions.dart';
+
 class ErratumModel {
   final String name;
   final String set;
@@ -6,23 +8,23 @@ class ErratumModel {
   final List<FaqModel>? faqs;
 
   const ErratumModel(
-      {required this.name,
-      required this.set,
-      this.oldText,
-      this.newText,
-      this.faqs});
+    {required this.name,
+    required this.set,
+    this.oldText,
+    this.newText,
+    this.faqs});
 
   factory ErratumModel.fromJson(Map<String, dynamic> json) {
-    var faqs = json['faqs'] != null ? json['faqs'] as List<dynamic> : null;
+    List<dynamic>? faqs = json.tryGet('faqs');
 
     return ErratumModel(
-        name: json['name'] as String,
-        oldText: json['oldText'] != null ? json['oldText'] as String : null,
-        newText: json['newText'] != null ? json['newText'] as String : null,
-        set: json['set'] as String,
-        faqs: faqs
-            ?.map((f) => FaqModel.fromJson(f as Map<String, dynamic>))
-            .toList());
+      name: json.tryGet('name'),
+      oldText: json.tryGet('oldText'),
+      newText: json.tryGet('newText'),
+      set: json.tryGet('set'),
+      faqs: faqs
+        ?.map((f) => FaqModel.fromJson(f as Map<String, dynamic>))
+        .toList());
   }
 }
 
@@ -34,6 +36,6 @@ class FaqModel {
 
   factory FaqModel.fromJson(Map<String, dynamic> json) {
     return FaqModel(
-        question: json['question'] as String, answer: json['answer'] as String);
+      question: json['question'] as String, answer: json['answer'] as String);
   }
 }

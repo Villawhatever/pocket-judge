@@ -1,3 +1,5 @@
+import '../extensions/json_extensions.dart';
+
 class RuleModel {
   final String number;
   final String text;
@@ -6,7 +8,9 @@ class RuleModel {
 
   factory RuleModel.fromJson(Map<String, dynamic> json) {
     return RuleModel(
-        number: json['ruleNumber'] as String, text: json['text'] as String);
+      number: json.tryGet('ruleNumber'),
+      text: json.tryGet('text'),
+    );
   }
 
   @override
