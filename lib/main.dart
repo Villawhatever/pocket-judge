@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:localstorage/localstorage.dart';
+import 'package:pocket_judge/about/about_view.dart';
 import 'package:pocket_judge/errata/errata_viewmodel.dart';
 import 'package:pocket_judge/preferences_state.dart';
 import 'package:pocket_judge/core_rules/core_rules_view.dart';
@@ -12,7 +14,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  var binding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: binding);
   await initLocalStorage();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -22,47 +25,67 @@ void main() async {
     cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
   );
 
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
 
-  // This widget is the root of your application.
+class MyApp extends StatelessWidget {
+  MyApp({super.key});
+
+  final crVm = CoreRulesViewModel();
+  final errataVm = ErrataViewModel();
+  final searchVm = SearchViewModel();
+  final trVm = TournamentRulesViewModel();
+
+  Future<void> setupData() async {
+    await crVm.load();
+    await errataVm.load();
+    await searchVm.load();
+    await trVm.load();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (context) => PreferencesState()),
-          ChangeNotifierProvider(create: (context) => CoreRulesViewModel()),
-          ChangeNotifierProvider(create: (context) => ErrataViewModel()),
-          ChangeNotifierProvider(create: (context) => SearchViewModel()),
-          ChangeNotifierProvider(
-              create: (context) => TournamentRulesViewModel()),
-        ],
-        builder: (context, _) {
-          return SafeArea(
-            top: false,
-            bottom: true,
-            child: MaterialApp(
-              title: 'Pocket Judge',
-              theme: ThemeData(
-                colorScheme: ColorScheme.fromSeed(
-                  seedColor: const Color(0xff1a283f),
-                  brightness: Brightness.dark,
-                ).copyWith(
-                  primaryContainer: const Color(0xff1a283f),
-                  inversePrimary: const Color(0xff1a283f),
-                  secondary: const Color(0xffe48632),
-                  onSecondaryContainer: Colors.black,
-                  error: const Color(0xffcf6679),
-                  onError: Colors.black,
-                ),
-                useMaterial3: true,
+      providers: [
+        ChangeNotifierProvider(create: (context) => PreferencesState()),
+        ChangeNotifierProvider(create: (context) => crVm),
+        ChangeNotifierProvider(create: (context) => errataVm),
+        ChangeNotifierProvider(create: (context) => searchVm),
+        ChangeNotifierProvider(create: (context) => trVm),
+      ],
+      builder: (context, _) {
+        return SafeArea(
+          top: false,
+          bottom: true,
+          child: MaterialApp(
+            title: 'Pocket Judge',
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: const Color(0xff1b3143),
+                brightness: Brightness.dark,
+              ).copyWith(
+                primaryContainer: const Color(0xff1b3143),
+                inversePrimary: const Color(0xff1b3143),
+                secondary: const Color(0xffe48632),
+                onSecondaryContainer: Colors.black,
+                error: const Color(0xffcf6679),
+                onError: Colors.black,
               ),
-              home: const CoreRulesView(),
+              useMaterial3: true,
             ),
-          );
-        });
+            home: FutureBuilder(
+              future: setupData().then((_) => FlutterNativeSplash.remove()),
+              builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return const CoreRulesView();
+                } else {
+                  return AboutView();
+                }
+              },
+            ),
+          ),
+        );
+      });
   }
 }

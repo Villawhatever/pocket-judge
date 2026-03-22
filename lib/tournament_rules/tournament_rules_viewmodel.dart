@@ -7,9 +7,7 @@ import 'package:pocket_judge/extensions/list_extensions.dart';
 import '../core_rules/rule.dart';
 
 class TournamentRulesViewModel extends ChangeNotifier {
-  TournamentRulesViewModel() {
-    _load();
-  }
+
 
   final List<RuleModel> _rules = [];
   final Map<String, int> _reverseLookup = {};
@@ -35,7 +33,7 @@ class TournamentRulesViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future _load() async {
+  Future load() async {
     final data =
         await FirebaseFirestore.instance.collection('tournament_rules').get();
     var currentIndex = 0;

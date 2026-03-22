@@ -7,10 +7,6 @@ import '../extensions/list_extensions.dart';
 import 'card.dart';
 
 class SearchViewModel extends ChangeNotifier {
-  SearchViewModel() {
-    _load();
-  }
-
   final List<CardModel> _cards = [];
   List<CardModel> _filteredCards = [];
   Iterable<CardModel> _iterable = [];
@@ -100,7 +96,7 @@ class SearchViewModel extends ChangeNotifier {
         .contains(value));
   }
 
-  Future _load() async {
+  Future load() async {
     final cr = await rootBundle.loadString('lib/assets/cards.json');
     final data = jsonDecode(cr);
 
