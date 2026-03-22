@@ -78,6 +78,6 @@ class CoreRulesViewModel extends ChangeNotifier {
         return firstFragments[i].compareTo(secondFragments[i]);
       }
     }
-    throw Exception("How did we get here? ${firstFragments.join(',')}, ${secondFragments.join(,)}");
+    throw Exception("How did we get here? ${firstFragments.join(',')}, ${secondFragments.join(',')}");
   }
 }
