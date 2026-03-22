@@ -1,7 +1,7 @@
 import 'package:flutter_svg/svg.dart';
 
 class ImageResolver {
-  static SvgPicture getImage(String runeword) {
+  static SvgPicture getImage(String runeword, {double? fontSize = 12}) {
     final assetLocation = switch (runeword) {
       ':rb_energy_1:' => 'lib/assets/img/energy_1.svg',
       ':rb_energy_2:' => 'lib/assets/img/energy_2.svg',
@@ -16,6 +16,7 @@ class ImageResolver {
       ':rb_energy_11:' => 'lib/assets/img/energy_11.svg',
       ':rb_energy_12:' => 'lib/assets/img/energy_12.svg',
       ':rb_might:' => 'lib/assets/img/might.svg',
+      ':rb_exhaust:' => 'lib/assets/img/exhaust.svg',
       ':rb_rune_rainbow:' => 'lib/assets/img/rune_any.svg',
       ':rb_rune_body:' => 'lib/assets/img/rune_body.svg',
       ':rb_rune_calm:' => 'lib/assets/img/rune_calm.svg',
@@ -28,8 +29,8 @@ class ImageResolver {
 
     return SvgPicture.asset(
       assetLocation,
-      width: 100,
-      height: 100,
+      height: fontSize,
+      width: fontSize,
     );
   }
 }

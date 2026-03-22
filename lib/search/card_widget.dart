@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 
 import '../widgets/image_resolver.dart';
 import 'card.dart';
@@ -11,9 +12,15 @@ class CardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<TextSpan> card = [];
-    List<InlineSpan> prettifiedAbility = [];
 
-    // TODO: Build this widget the right way instead of jamming newlines
+    var cardMarkdown =
+"""
+**Card Type**: ${model.cardType}  
+**Domain(s)**: ${model.domain == null ? 'None\n' : model.domain?.join(', ')}  
+**Energy**: ${model.energy ?? 0}  
+**Power**: ${model.power ?? 0}  
+**Might**: ${model.might ?? 0}  
+""";
     card = [
       TextSpan(
         text: 'Domain(s): ',
@@ -49,67 +56,71 @@ class CardWidget extends StatelessWidget {
             text: '${model.might ?? 0}\n',
           )],
     ];
-    
-    final RegExp runeRegex =
-    RegExp(r'(:(\w+_)\w+:)', multiLine: true, dotAll: true);
+
+    final runePattern = r'(:(\w+_)\w+:)';
 
     var relevantText = model.errataText ?? model.ability;
 
     if (relevantText != null) {
-      var matches = runeRegex.allMatches(model.errataText ?? model.ability ?? "");
-
-      int currentPosition = 0;
-
-      for (final match in matches) {
-        prettifiedAbility.add(
-            TextSpan(text: relevantText.substring(currentPosition, match.start)));
-
-        prettifiedAbility.add(WidgetSpan(
-          child: Container(
-            width: Theme.of(context).textTheme.bodyMedium?.fontSize ?? 12,
-            height: Theme.of(context).textTheme.bodyMedium?.fontSize ?? 12,
-            margin: EdgeInsets.zero,
-            child: ImageResolver.getImage(match.group(1)!),
-            ),
-          ),
-        );
-
-        currentPosition = match.end;
-      }
-      prettifiedAbility.add(TextSpan(text: relevantText.substring(currentPosition)));
+      relevantText = relevantText.replaceAllMapped(RegExp(r'\[.+?\]'), (match) {
+        return '**${match.group(0)}**';
+      });
+      relevantText = relevantText.replaceAllMapped(RegExp(r'\(.+?\)'), (match) {
+        return '_${match.group(0)}_';
+      });
+      relevantText = relevantText.replaceAllMapped(RegExp(runePattern), (match) {
+        return '![might](resource:${match.group(0)})';
+      });
     }
-
+    
     return Column(children: [
       ExpansionTile(
-        title: Text(model.name),
+        shape: BoxBorder.fromLTRB(),
+        title: Text(model.name, style: TextStyle(color: Theme.of(context).colorScheme.primary),),
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            RichText(
-              text: TextSpan(
-                style:
-                TextStyle(color: Theme.of(context).colorScheme.primary),
-                children: <TextSpan>[...card],
-              ),
-            ),
-            if (relevantText != null)
-              ...[
-                const Divider(
-                  height: 25,
-                  thickness: 3,
-                  indent: 25,
-                  endIndent: 25,
-                  color: Colors.white),
-                RichText(
-                  text: TextSpan(
-                    style:
-                    TextStyle(color: Theme.of(context).colorScheme.primary),
-                    children: [...prettifiedAbility],
+              MarkdownBody(
+                data: cardMarkdown,
+                styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
+                  code: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary
                   ),
+                  p: TextStyle(
+                    color: Theme.of(context).colorScheme.primary
+                  )
                 ),
-              ]
-          ]
+              ),
+              if (relevantText != null)
+                ...[
+                  const Divider(
+                    height: 25,
+                    thickness: 3,
+                    indent: 25,
+                    endIndent: 25,
+                    color: Colors.white),
+                  MarkdownBody(
+                    data: relevantText,
+                    styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
+                      code: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary
+                      ),
+                      p: TextStyle(
+                        color: Theme.of(context).colorScheme.primary
+                      )
+                    ),
+                    imageBuilder: (Uri uri, String? title, String? alt) {
+                      print(uri.toString() + ' ' + (title ?? "no title") + ' ' + (alt ?? "no alt"));
+                      return Container(
+                        child: ImageResolver.getImage(
+                          uri.path,
+                          fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize?.toDouble() ?? 12.0)
+                      );
+                    },
+                  ),
+                ]
+            ]
           ),
         ],
       ),

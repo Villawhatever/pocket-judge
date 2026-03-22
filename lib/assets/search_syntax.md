@@ -22,6 +22,6 @@
 
 **Examples**: `p:2` or `power:2` finds all cards that cost exactly 2 of some combination of Power, such as Dazzling Aurora or Falling Star.
 ***
-`e` or `energy`: Finds cards with **exactly** the amount (not type) of Energy.
+`e` or `energy`: Finds cards with **exactly** the amount of Energy.
 
 **Examples**: `e:1` or `energy:1` finds all cards that cost exactly 1 Energy, such as Cleave or Against the Odds. 

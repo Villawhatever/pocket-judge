@@ -58,11 +58,6 @@ class SearchViewState extends State<SearchView> {
         .select<SearchViewModel, List<CardModel>>((vm) => vm.cards);
 
     Widget body;
-    var markdownStyle = MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
-      code: TextStyle(
-        color: Theme.of(context).colorScheme.secondary
-      )
-    );
 
     if (filteredCards.isEmpty) {
       body = Column(
@@ -75,7 +70,14 @@ class SearchViewState extends State<SearchView> {
               if (snapshot.hasData) {
                 children = [Flexible(
                   fit: FlexFit.loose,
-                  child: MarkdownBody(data: snapshot.data!, styleSheet: markdownStyle),
+                  child: MarkdownBody(
+                    data: snapshot.data!,
+                    styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
+                      code: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary
+                      )
+                    ),
+                  ),
                 )];
               }
               return Column(
