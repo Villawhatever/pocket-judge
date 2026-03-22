@@ -11,8 +11,7 @@ class CardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cardMarkdown =
-"""
+    var cardMarkdown = """
 **Card Type**: ${model.cardType}  
 **Domain(s)**: ${model.domain == null ? 'None\n' : model.domain?.join(', ')}  
 **Energy**: ${model.energy ?? 0}  
@@ -29,11 +28,12 @@ class CardWidget extends StatelessWidget {
       relevantText = relevantText.replaceAllMapped(RegExp(r'\(.+?\)'), (match) {
         return '_${match.group(0)}_';
       });
-      relevantText = relevantText.replaceAllMapped(RegExp(r'(:(\w+_)\w+:)'), (match) {
+      relevantText =
+          relevantText.replaceAllMapped(RegExp(r'(:(\w+_)\w+:)'), (match) {
         return '![might](resource:${match.group(0)})';
       });
     }
-    
+
     return Column(children: [
       ExpansionTile(
         shape: BoxBorder.fromLTRB(),
@@ -42,50 +42,49 @@ class CardWidget extends StatelessWidget {
           style: TextStyle(color: Theme.of(context).colorScheme.primary),
         ),
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              MarkdownBody(
-                data: cardMarkdown,
-                styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
-                  code: TextStyle(
-                    color: Theme.of(context).colorScheme.secondary
-                  ),
-                  p: TextStyle(
-                    color: Theme.of(context).colorScheme.primary
-                  )
-                ),
-              ),
-              if (relevantText != null)
-                ...[
-                  const Divider(
-                    height: 25,
-                    thickness: 3,
-                    indent: 25,
-                    endIndent: 25,
-                    color: Colors.white),
-                  MarkdownBody(
-                    data: relevantText,
-                    styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            MarkdownBody(
+              data: cardMarkdown,
+              styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context))
+                  .copyWith(
                       code: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary
-                      ),
+                          color: Theme.of(context).colorScheme.secondary),
                       p: TextStyle(
-                        color: Theme.of(context).colorScheme.primary
-                      )
-                    ),
-                    imageBuilder: (Uri uri, String? title, String? alt) {
-                      print(uri.toString() + ' ' + (title ?? "no title") + ' ' + (alt ?? "no alt"));
-                      return Container(
-                        child: ImageResolver.getImage(
-                          uri.path,
-                          fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize?.toDouble() ?? 12.0)
-                      );
-                    },
-                  ),
-                ]
+                          color: Theme.of(context).colorScheme.primary)),
+            ),
+            if (relevantText != null) ...[
+              const Divider(
+                  height: 25,
+                  thickness: 3,
+                  indent: 25,
+                  endIndent: 25,
+                  color: Colors.white),
+              MarkdownBody(
+                data: relevantText,
+                styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context))
+                    .copyWith(
+                        code: TextStyle(
+                            color: Theme.of(context).colorScheme.secondary),
+                        p: TextStyle(
+                            color: Theme.of(context).colorScheme.primary)),
+                imageBuilder: (Uri uri, String? title, String? alt) {
+                  print(uri.toString() +
+                      ' ' +
+                      (title ?? "no title") +
+                      ' ' +
+                      (alt ?? "no alt"));
+                  return Container(
+                      child: ImageResolver.getImage(uri.path,
+                          fontSize: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.fontSize
+                                  ?.toDouble() ??
+                              12.0));
+                },
+              ),
             ]
-          ),
+          ]),
         ],
       ),
     ]);

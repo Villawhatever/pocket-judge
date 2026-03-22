@@ -36,7 +36,8 @@ class TournamentRulesViewModel extends ChangeNotifier {
   }
 
   Future _load() async {
-    final data = await FirebaseFirestore.instance.collection('tournament_rules').get();
+    final data =
+        await FirebaseFirestore.instance.collection('tournament_rules').get();
     var currentIndex = 0;
 
     for (final item in data.docs) {
@@ -56,7 +57,9 @@ class TournamentRulesViewModel extends ChangeNotifier {
     firstFragments.removeWhere((s) => s.isEmpty);
     secondFragments.removeWhere((s) => s.isEmpty);
 
-    for (var i = 0; i < max(firstFragments.length, secondFragments.length); i++) {
+    for (var i = 0;
+        i < max(firstFragments.length, secondFragments.length);
+        i++) {
       var first = firstFragments.tryGet(i);
       var second = secondFragments.tryGet(i);
 
@@ -71,8 +74,7 @@ class TournamentRulesViewModel extends ChangeNotifier {
       }
 
       final firstParsed = double.tryParse(firstFragments[i]);
-      if (firstParsed != null)
-      {
+      if (firstParsed != null) {
         final secondParsed = double.tryParse(secondFragments[i]);
         return firstParsed.compareTo(secondParsed!);
       } else {

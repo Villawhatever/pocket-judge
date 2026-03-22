@@ -94,7 +94,9 @@ class CoreRulesViewState extends State<CoreRulesView> {
           itemCount: filteredRules.length,
           itemBuilder: (context, index) {
             return RuleWidget(
-                model: filteredRules[index], callback: linkCallback, shouldIndent: !viewModel.isFiltered);
+                model: filteredRules[index],
+                callback: linkCallback,
+                shouldIndent: !viewModel.isFiltered);
           },
           separatorBuilder: (context, index) {
             return const Divider();

@@ -35,7 +35,8 @@ class CoreRulesViewModel extends ChangeNotifier {
   }
 
   Future _load() async {
-    final data = await FirebaseFirestore.instance.collection('core_rules').get();
+    final data =
+        await FirebaseFirestore.instance.collection('core_rules').get();
     var currentIndex = 0;
 
     for (final item in data.docs) {
@@ -55,7 +56,9 @@ class CoreRulesViewModel extends ChangeNotifier {
     firstFragments.removeWhere((s) => s.isEmpty);
     secondFragments.removeWhere((s) => s.isEmpty);
 
-    for (var i = 0; i < max(firstFragments.length, secondFragments.length); i++) {
+    for (var i = 0;
+        i < max(firstFragments.length, secondFragments.length);
+        i++) {
       var first = firstFragments.tryGet(i);
       var second = secondFragments.tryGet(i);
 
@@ -70,14 +73,14 @@ class CoreRulesViewModel extends ChangeNotifier {
       }
 
       final firstParsed = double.tryParse(firstFragments[i]);
-      if (firstParsed != null)
-      {
+      if (firstParsed != null) {
         final secondParsed = double.tryParse(secondFragments[i]);
         return firstParsed.compareTo(secondParsed!);
       } else {
         return firstFragments[i].compareTo(secondFragments[i]);
       }
     }
-    throw Exception("How did we get here? ${firstFragments.join(',')}, ${secondFragments.join(',')}");
+    throw Exception(
+        "How did we get here? ${firstFragments.join(',')}, ${secondFragments.join(',')}");
   }
 }

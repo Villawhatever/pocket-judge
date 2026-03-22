@@ -18,7 +18,8 @@ class SearchView extends StatefulWidget {
 
 class SearchViewState extends State<SearchView> {
   final _textController = TextEditingController();
-  final Future<String> _markdownData = rootBundle.loadString('lib/assets/search_syntax.md');
+  final Future<String> _markdownData =
+      rootBundle.loadString('lib/assets/search_syntax.md');
 
   @override
   void dispose() {
@@ -28,8 +29,7 @@ class SearchViewState extends State<SearchView> {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel =
-    Provider.of<SearchViewModel>(context, listen: true);
+    final viewModel = Provider.of<SearchViewModel>(context, listen: true);
     final scrollController = ItemScrollController();
 
     clearSearch() {
@@ -54,8 +54,8 @@ class SearchViewState extends State<SearchView> {
       controller: _textController,
     );
 
-    final filteredCards = context
-        .select<SearchViewModel, List<CardModel>>((vm) => vm.cards);
+    final filteredCards =
+        context.select<SearchViewModel, List<CardModel>>((vm) => vm.cards);
 
     Widget body;
 
@@ -64,29 +64,32 @@ class SearchViewState extends State<SearchView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           FutureBuilder<String>(
-            future: _markdownData,
-            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-              List<Widget> children = [];
-              if (snapshot.hasData) {
-                children = [Flexible(
-                  fit: FlexFit.loose,
-                  child: MarkdownBody(
-                    data: snapshot.data!,
-                    styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
-                      code: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary
-                      )
-                    ),
-                  ),
-                )];
-              }
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: children,
-              );
-            }
-          ),
+              future: _markdownData,
+              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                List<Widget> children = [];
+                if (snapshot.hasData) {
+                  children = [
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: MarkdownBody(
+                        data: snapshot.data!,
+                        styleSheet:
+                            MarkdownStyleSheet.fromTheme(Theme.of(context))
+                                .copyWith(
+                                    code: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary)),
+                      ),
+                    )
+                  ];
+                }
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: children,
+                );
+              }),
         ],
       );
     } else {
@@ -94,8 +97,7 @@ class SearchViewState extends State<SearchView> {
         itemScrollController: scrollController,
         itemCount: filteredCards.length,
         itemBuilder: (context, index) {
-          return CardWidget(
-              model: filteredCards[index]);
+          return CardWidget(model: filteredCards[index]);
         },
         separatorBuilder: (context, index) {
           return const Divider();
@@ -103,9 +105,6 @@ class SearchViewState extends State<SearchView> {
       );
     }
 
-    return AppWrapper(
-      title: searchBar,
-      body: body
-    );
+    return AppWrapper(title: searchBar, body: body);
   }
 }

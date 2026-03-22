@@ -43,9 +43,7 @@ class CardModel {
       energy: json.tryGet('energy'),
       power: json.tryGet('power'),
       might: json.tryGet('might'),
-      domain: domains
-        ?.map((d) => d.toString())
-        .toList(),
+      domain: domains?.map((d) => d.toString()).toList(),
       cardType: json.tryGet('card_type'),
       rarity: json.tryGet('rarity'),
       cardSet: json.tryGet('card_set'),

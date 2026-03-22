@@ -61,49 +61,47 @@ class SearchViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _matchDomain(String value)
-  {
-    Map<String, String> domains =
-      {
-        'r': 'fury',
-        'g': 'calm',
-        'b': 'mind',
-        'o': 'body',
-        'p': 'chaos',
-        'y': 'order'
-      };
+  void _matchDomain(String value) {
+    Map<String, String> domains = {
+      'r': 'fury',
+      'g': 'calm',
+      'b': 'mind',
+      'o': 'body',
+      'p': 'chaos',
+      'y': 'order'
+    };
 
-    _iterable = _iterable
-      .where((c) => c.domain?.map((d) => d.toLowerCase()).contains(domains[value] ?? value) ?? false);
+    _iterable = _iterable.where((c) =>
+        c.domain
+            ?.map((d) => d.toLowerCase())
+            .contains(domains[value] ?? value) ??
+        false);
   }
 
-  void _matchMight(String value)
-  {
-    _iterable = _iterable
-        .where((c) => c.might != null && c.might.toString() == value);
+  void _matchMight(String value) {
+    _iterable =
+        _iterable.where((c) => c.might != null && c.might.toString() == value);
   }
 
-  void _matchEnergy(String value)
-  {
+  void _matchEnergy(String value) {
     _iterable = _iterable
         .where((c) => c.energy != null && c.energy.toString() == value);
   }
 
-  void _matchPower(String value)
-  {
-    _iterable = _iterable
-        .where((c) => c.power != null && c.power.toString() == value);
+  void _matchPower(String value) {
+    _iterable =
+        _iterable.where((c) => c.power != null && c.power.toString() == value);
   }
 
-  void _matchName(String value)
-  {
-    _iterable = _iterable
-      .where((c) => c.name.toLowerCase().replaceAll(RegExp(r'[^a-zA-Z]'), '').contains(value));
+  void _matchName(String value) {
+    _iterable = _iterable.where((c) => c.name
+        .toLowerCase()
+        .replaceAll(RegExp(r'[^a-zA-Z]'), '')
+        .contains(value));
   }
 
   Future _load() async {
-    final cr = await rootBundle
-      .loadString('lib/assets/cards.json');
+    final cr = await rootBundle.loadString('lib/assets/cards.json');
     final data = jsonDecode(cr);
 
     Set<String> alreadyAdded = {};
