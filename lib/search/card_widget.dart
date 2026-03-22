@@ -59,6 +59,7 @@ class CardWidget extends StatelessWidget {
         children: [
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Markdown(
+              physics: const NeverScrollableScrollPhysics(),
               data: cardMarkdown,
               padding: const EdgeInsets.only(left: 16, right: 16),
               shrinkWrap: true,

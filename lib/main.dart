@@ -62,12 +62,12 @@ class MyApp extends StatelessWidget {
             title: 'Pocket Judge',
             theme: ThemeData(
               colorScheme: ColorScheme.fromSeed(
-                seedColor: const Color(0xff1b3143),
+                seedColor: const Color(0xff1d3143),
                 brightness: Brightness.dark,
               ).copyWith(
-                primaryContainer: const Color(0xff1b3143),
-                inversePrimary: const Color(0xff1b3143),
-                secondary: const Color(0xffe48632),
+                primaryContainer: const Color(0xff1d3143),
+                inversePrimary: const Color(0xff1d3143),
+                secondary: const Color(0xffea7d24),
                 onSecondaryContainer: Colors.black,
                 error: const Color(0xffcf6679),
                 onError: Colors.black,
