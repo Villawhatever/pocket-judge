@@ -102,6 +102,7 @@ class SearchViewState extends State<SearchView> {
         },
       );
     }
+
     return AppWrapper(
       title: searchBar,
       body: body

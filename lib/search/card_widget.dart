@@ -11,8 +11,6 @@ class CardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<TextSpan> card = [];
-
     var cardMarkdown =
 """
 **Card Type**: ${model.cardType}  
@@ -21,43 +19,6 @@ class CardWidget extends StatelessWidget {
 **Power**: ${model.power ?? 0}  
 **Might**: ${model.might ?? 0}  
 """;
-    card = [
-      TextSpan(
-        text: 'Domain(s): ',
-        style: TextStyle(
-            fontWeight: FontWeight.bold),
-      ),
-      TextSpan(
-        text: model.domain == null ? 'None\n' : '${model.domain?.join(', ')}\n',
-      ),
-      TextSpan(
-        text: 'Energy: ',
-        style: TextStyle(
-            fontWeight: FontWeight.bold),
-      ),
-      TextSpan(
-        text: '${model.energy ?? 0}\n',
-      ),
-      TextSpan(
-        text: 'Power: ',
-        style: TextStyle(
-            fontWeight: FontWeight.bold),
-      ),
-      TextSpan(
-        text: '${model.power ?? 0}\n',
-      ),
-      if (model.cardType == "Unit")
-        ...[TextSpan(
-          text: 'Might: ',
-          style: TextStyle(
-              fontWeight: FontWeight.bold),
-        ),
-          TextSpan(
-            text: '${model.might ?? 0}\n',
-          )],
-    ];
-
-    final runePattern = r'(:(\w+_)\w+:)';
 
     var relevantText = model.errataText ?? model.ability;
 
@@ -68,7 +29,7 @@ class CardWidget extends StatelessWidget {
       relevantText = relevantText.replaceAllMapped(RegExp(r'\(.+?\)'), (match) {
         return '_${match.group(0)}_';
       });
-      relevantText = relevantText.replaceAllMapped(RegExp(runePattern), (match) {
+      relevantText = relevantText.replaceAllMapped(RegExp(r'(:(\w+_)\w+:)'), (match) {
         return '![might](resource:${match.group(0)})';
       });
     }
@@ -76,7 +37,10 @@ class CardWidget extends StatelessWidget {
     return Column(children: [
       ExpansionTile(
         shape: BoxBorder.fromLTRB(),
-        title: Text(model.name, style: TextStyle(color: Theme.of(context).colorScheme.primary),),
+        title: Text(
+          model.name,
+          style: TextStyle(color: Theme.of(context).colorScheme.primary),
+        ),
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
