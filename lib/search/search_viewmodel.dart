@@ -11,6 +11,8 @@ class SearchViewModel extends ChangeNotifier {
   List<CardModel> _filteredCards = [];
   Iterable<CardModel> _iterable = [];
   List<CardModel> get cards => _filteredCards;
+  late String _searchSyntax = '';
+  String get searchSyntax => _searchSyntax;
 
   void search(String? search) {
     if (search == null || search.isEmpty) {
@@ -97,6 +99,13 @@ class SearchViewModel extends ChangeNotifier {
   }
 
   Future load() async {
+    if (_searchSyntax.isEmpty) {
+      _searchSyntax = await rootBundle.loadString('lib/assets/search_syntax.md');
+    }
+
+    if (_cards.isNotEmpty) {
+      return;
+    }
     final cr = await rootBundle.loadString('lib/assets/cards.json');
     final data = jsonDecode(cr);
 

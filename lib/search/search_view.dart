@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:pocket_judge/search/search_viewmodel.dart';
 import 'package:pocket_judge/widgets/app_wrapper.dart';
@@ -18,8 +17,6 @@ class SearchView extends StatefulWidget {
 
 class SearchViewState extends State<SearchView> {
   final _textController = TextEditingController();
-  final Future<String> _markdownData =
-      rootBundle.loadString('lib/assets/search_syntax.md');
 
   @override
   void dispose() {
@@ -60,37 +57,21 @@ class SearchViewState extends State<SearchView> {
     Widget body;
 
     if (filteredCards.isEmpty) {
-      body = Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          FutureBuilder<String>(
-              future: _markdownData,
-              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                List<Widget> children = [];
-                if (snapshot.hasData) {
-                  children = [
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: MarkdownBody(
-                        data: snapshot.data!,
-                        styleSheet:
-                            MarkdownStyleSheet.fromTheme(Theme.of(context))
-                                .copyWith(
-                                    code: TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .secondary)),
-                      ),
-                    )
-                  ];
-                }
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: children,
-                );
-              }),
-        ],
+      body = SingleChildScrollView(
+        child: Column(
+          children: [
+            MarkdownBody(
+              data: viewModel.searchSyntax ?? "",
+              styleSheet:
+              MarkdownStyleSheet.fromTheme(Theme.of(context))
+                  .copyWith(
+                  code: TextStyle(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .secondary)),
+            ),
+          ],
+        ),
       );
     } else {
       body = ScrollablePositionedList.separated(

@@ -25,6 +25,9 @@ class ErrataViewModel extends ChangeNotifier {
   }
 
   Future load() async {
+    if (_errata.isNotEmpty) {
+      return;
+    }
     final cr = await rootBundle.loadString('lib/assets/errata.json');
     final data = jsonDecode(cr);
 

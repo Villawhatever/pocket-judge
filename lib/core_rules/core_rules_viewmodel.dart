@@ -31,6 +31,10 @@ class CoreRulesViewModel extends ChangeNotifier {
   }
 
   Future load() async {
+    if (_rules.isNotEmpty) {
+      return;
+    }
+
     final data =
         await FirebaseFirestore.instance.collection('core_rules').get();
     var currentIndex = 0;

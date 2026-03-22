@@ -34,6 +34,9 @@ class TournamentRulesViewModel extends ChangeNotifier {
   }
 
   Future load() async {
+    if (_rules.isNotEmpty) {
+      return;
+    }
     final data =
         await FirebaseFirestore.instance.collection('tournament_rules').get();
     var currentIndex = 0;
