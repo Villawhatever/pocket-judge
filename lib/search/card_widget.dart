@@ -85,6 +85,7 @@ class CardWidget extends StatelessWidget {
           model.name,
           style: TextStyle(color: Theme.of(context).colorScheme.primary),
         ),
+        subtitle: Text(model.idsWithImages!.keys.join(', ')),
         children: [
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Markdown(

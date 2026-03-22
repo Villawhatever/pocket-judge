@@ -109,16 +109,20 @@ class SearchViewModel extends ChangeNotifier {
     final cr = await rootBundle.loadString('lib/assets/cards.json');
     final data = jsonDecode(cr);
 
-    Set<String> alreadyAdded = {};
+    Map<String, CardModel> alreadyAdded = {};
+    Set<String> existingCardNames = {};
+
     for (final item in data) {
-      // TODO: Do some mapping stuff to get all IDs+Images for a given card name
-      if (alreadyAdded.contains(item['name'])) {
+      if (existingCardNames.contains(item['name'])) {
+        var existingCard = alreadyAdded[item['name']];
+        existingCard!.idsWithImages![item['id']] = item['image_url'];
         continue;
       }
 
       final card = CardModel.fromJson(item);
       _cards.add(card);
-      alreadyAdded.add(card.name);
+      existingCardNames.add(card.name);
+      alreadyAdded[card.name] = card;
     }
 
     _filteredCards = [];

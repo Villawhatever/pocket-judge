@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ImageResolver {
   static SvgPicture getImage(String runeword, {double? fontSize = 12}) {
     final assetLocation = switch (runeword) {
+      ':rb_energy_0:' => 'lib/assets/img/energy_0.svg',
       ':rb_energy_1:' => 'lib/assets/img/energy_1.svg',
       ':rb_energy_2:' => 'lib/assets/img/energy_2.svg',
       ':rb_energy_3:' => 'lib/assets/img/energy_3.svg',
