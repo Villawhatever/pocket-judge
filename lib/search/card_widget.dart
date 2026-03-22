@@ -20,18 +20,33 @@ class CardWidget extends StatelessWidget {
 """;
 
     var relevantText = model.errataText ?? model.ability;
+    List<InlineSpan> prettified = [];
 
     if (relevantText != null) {
-      relevantText = relevantText.replaceAllMapped(RegExp(r'\[.+?\]'), (match) {
-        return '**${match.group(0)}**';
-      });
-      relevantText = relevantText.replaceAllMapped(RegExp(r'\(.+?\)'), (match) {
-        return '_${match.group(0)}_';
-      });
-      relevantText =
-          relevantText.replaceAllMapped(RegExp(r'(:(\w+_)\w+:)'), (match) {
-        return '![might](resource:${match.group(0)})';
-      });
+      var currentPosition = 0;
+
+      var matches = RegExp(r'\[.+?\]|\(.+?\)|(:(\w+_)\w+:)').allMatches(relevantText);
+
+      for (final match in matches) {
+        prettified.add(
+            TextSpan(text: relevantText.substring(currentPosition, match.start)));
+
+        if (match.group(0)!.startsWith('[')) {
+          prettified.add(TextSpan(
+              text: relevantText.substring(match.start, match.end),
+              style: TextStyle(fontWeight: FontWeight.bold)));
+        } else if (match.group(0)!.startsWith('(')) {
+          prettified.add(TextSpan(
+              text: relevantText.substring(match.start, match.end),
+              style: TextStyle(fontStyle: FontStyle.italic)));
+        } else if (match.group(0)!.startsWith(':')) {
+          prettified.add(WidgetSpan(
+            child: ImageResolver.getImage(match.group(0)!)
+          ));
+        }
+        currentPosition = match.end;
+      }
+      prettified.add(TextSpan(text: relevantText.substring(currentPosition)));
     }
 
     return Column(children: [
@@ -43,8 +58,10 @@ class CardWidget extends StatelessWidget {
         ),
         children: [
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            MarkdownBody(
+            Markdown(
               data: cardMarkdown,
+              padding: const EdgeInsets.only(left: 16, right: 16),
+              shrinkWrap: true,
               styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context))
                   .copyWith(
                       code: TextStyle(
@@ -59,24 +76,14 @@ class CardWidget extends StatelessWidget {
                   indent: 25,
                   endIndent: 25,
                   color: Colors.white),
-              MarkdownBody(
-                data: relevantText,
-                styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context))
-                    .copyWith(
-                        code: TextStyle(
-                            color: Theme.of(context).colorScheme.secondary),
-                        p: TextStyle(
-                            color: Theme.of(context).colorScheme.primary)),
-                imageBuilder: (Uri uri, String? title, String? alt) {
-                  return Container(
-                      child: ImageResolver.getImage(uri.path,
-                          fontSize: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.fontSize
-                                  ?.toDouble() ??
-                              12.0));
-                },
+              Padding(
+                padding: const EdgeInsets.only(left: 16, right: 16),
+                child: RichText(
+                    text: TextSpan(
+                        style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                        children: prettified
+                    ),
+                ),
               ),
             ]
           ]),
