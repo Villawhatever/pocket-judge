@@ -28,17 +28,46 @@ class CardWidget extends StatelessWidget {
       var matches = RegExp(r'\[.+?\]|\(.+?\)|(:(\w+_)\w+:)').allMatches(relevantText);
 
       for (final match in matches) {
+        final textStyle = match.group(0)!.startsWith('[')
+            ? const TextStyle(fontWeight: FontWeight.bold)
+            : const TextStyle(fontStyle: FontStyle.italic);
+
         prettified.add(
             TextSpan(text: relevantText.substring(currentPosition, match.start)));
 
-        if (match.group(0)!.startsWith('[')) {
-          prettified.add(TextSpan(
-              text: relevantText.substring(match.start, match.end),
-              style: TextStyle(fontWeight: FontWeight.bold)));
-        } else if (match.group(0)!.startsWith('(')) {
-          prettified.add(TextSpan(
-              text: relevantText.substring(match.start, match.end),
-              style: TextStyle(fontStyle: FontStyle.italic)));
+        if (match.group(0)!.startsWith('[') || match.group(0)!.startsWith('(')) {
+          final innerRunes = RegExp(r':\w+:').allMatches(match.group(0)!);
+          RegExpMatch previousRune;
+
+          if (innerRunes.isNotEmpty) {
+            prettified.add(
+                TextSpan(text: match.group(0)!.substring(0, innerRunes.first.start)));
+            prettified.add(WidgetSpan(
+                child: ImageResolver.getImage(innerRunes.first.group(0)!)
+            ));
+
+            previousRune = innerRunes.first;
+
+            for (final currentRune in innerRunes.skip(1)) {
+              if (previousRune.end != currentRune.start) {
+                prettified.add(
+                  TextSpan(
+                    text: match.group(0)!.substring(previousRune.end, currentRune.start),
+                    style: textStyle));
+              }
+              prettified.add(WidgetSpan(
+                  child: ImageResolver.getImage(currentRune.group(0)!)
+              ));
+              previousRune = currentRune;
+            }
+            prettified.add(TextSpan(
+              text: relevantText.substring(match.start + previousRune.end, match.end),
+              style: textStyle));
+          } else {
+            prettified.add(TextSpan(
+                text: relevantText.substring(match.start, match.end),
+                style: textStyle));
+          }
         } else if (match.group(0)!.startsWith(':')) {
           prettified.add(WidgetSpan(
             child: ImageResolver.getImage(match.group(0)!)

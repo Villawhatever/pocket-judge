@@ -481,7 +481,7 @@
     "rarity": "Uncommon",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/97cd20e414c7282abb18cf7691eb1a5a2435af90-744x1039.png?accountingTag=RB",
-    "ability": "[Equip] :rb_rune_order: (:rb_rune_order:: Attach this to a unit you control.)"
+    "ability": "[Equip] :rb_rune_order: (:rb_rune_order:: Attach this to a unit you control.)\n[Effect]: +3:rb_might:"
   },
   {
     "id": "ogn-206-298",
@@ -707,7 +707,7 @@
     "rarity": "Epic",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/26ab126258a15afd380c313e973f7469808ce55f-744x1039.png?accountingTag=RB",
-    "ability": "[Equip] — :rb_rune_order:, Kill a friendly unit (Pay the cost: Attach this to a unit you control.)"
+    "ability": "[Equip] — :rb_rune_order:, Kill a friendly unit (Pay the cost: Attach this to a unit you control.)\n[Effect] +4:rb_might:"
   },
   {
     "id": "sfd-013-221",
@@ -916,7 +916,7 @@
     "rarity": "Epic",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/c3e4d8c3f3975a7429428ac90e5ebcffa1f8e5a9-744x1039.png?accountingTag=RB",
-    "ability": "[Equip] :rb_energy_1::rb_rune_body: (:rb_energy_1::rb_rune_body:: Attach this to a unit you control.)"
+    "ability": "[Equip] :rb_energy_1::rb_rune_body: (:rb_energy_1::rb_rune_body:: Attach this to a unit you control.)\n[Effect] +2:rb_might:. When I conquer, channel 1 rune exhausted."
   },
   {
     "id": "sfd-133-221",
@@ -929,7 +929,7 @@
     "rarity": "Uncommon",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/a8a8e977f7427227adac69b5d2db07f643d0df09-744x1039.png?accountingTag=RB",
-    "ability": "[Equip] :rb_rune_chaos: (:rb_rune_chaos:: Attach this to a unit you control.)"
+    "ability": "[Equip] :rb_rune_chaos: (:rb_rune_chaos:: Attach this to a unit you control.)\n[Effect]+2:rb_might:. [Ganking] (I can move from battlefield to battlefield.)"
   },
   {
     "id": "ogn-309-298",
@@ -1011,7 +1011,7 @@
     "rarity": "Uncommon",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/3a0de7eec3de501f79f33c09b43c7fe42721d10d-744x1039.png?accountingTag=RB",
-    "ability": "[Equip] :rb_rune_calm: (:rb_rune_calm:: Attach this to a unit you control.)"
+    "ability": "[Equip] :rb_rune_calm: (:rb_rune_calm:: Attach this to a unit you control.)\n[Effect]+1:rb_might: If this was attached to me this turn, I have an additional +2:rb_might:."
   },
   {
     "id": "ogn-026-298",
@@ -1373,7 +1373,7 @@
     "rarity": "Common",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/fe02bf01609ff2e6cc6fa8fbd578fd596ab5cb84-744x1039.png?accountingTag=RB",
-    "ability": "[Quick-Draw] (This has [Reaction]. When you play it, attach it to a unit you control.) [Equip] :rb_rune_mind: (:rb_rune_mind:: Attach this to a unit you control.)"
+    "ability": "[Quick-Draw] (This has [Reaction]. When you play it, attach it to a unit you control.) [Equip] :rb_rune_mind: (:rb_rune_mind:: Attach this to a unit you control.)\n[Effect]+0:rb_might_ [Shield 2] (+2:rb_might: while I'm a defender.)"
   },
   {
     "id": "sfd-092-221",
@@ -1522,7 +1522,7 @@
     "rarity": "Uncommon",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/885ee56a4153b4f9fd064e9d24c9d55400e1291f-744x1039.png?accountingTag=RB",
-    "ability": "[Equip] :rb_rune_chaos: (:rb_rune_chaos:: Attach this to a unit you control.)"
+    "ability": "[Equip] :rb_rune_chaos: (:rb_rune_chaos:: Attach this to a unit you control.)\n[Effect] +1:rb_might: When I conquer, play a Gold gear token exhausted."
   },
   {
     "id": "ogn-209-298",
@@ -1925,7 +1925,7 @@
     "rarity": "Common",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/53fc0c307c83871c9755a496764ef7d6aa11f510-744x1039.png?accountingTag=RB",
-    "ability": "[Equip] :rb_rune_body: (:rb_rune_body:: Attach this to a unit you control.)"
+    "ability": "[Equip] :rb_rune_body: (:rb_rune_body:: Attach this to a unit you control.)\n[Effect] +2:rb_might:"
   },
   {
     "id": "sfd-124-221",
@@ -1938,7 +1938,7 @@
     "rarity": "Common",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/054df5a11967b768430a2f763e1b5d4dbbac3b50-744x1039.png?accountingTag=RB",
-    "ability": "[Equip] :rb_rune_chaos: (:rb_rune_chaos:: Attach this to a unit you control.)"
+    "ability": "[Equip] :rb_rune_chaos: (:rb_rune_chaos:: Attach this to a unit you control.)\n[Effect] +1:rb_might: When I conquer, discard 1, then draw 1."
   },
   {
     "id": "sfd-033-221",
@@ -1951,7 +1951,7 @@
     "rarity": "Common",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/49a24d4c6d770ed233c4a69bf8d87385bfc997d8-744x1039.png?accountingTag=RB",
-    "ability": "[Equip] :rb_rune_calm: (:rb_rune_calm:: Attach this to a unit you control.)"
+    "ability": "[Equip] :rb_rune_calm: (:rb_rune_calm:: Attach this to a unit you control.)\n[Effect] +1:rb_might: [Tank] (I must be assigned combat damage first)"
   },
   {
     "id": "sfd-147-221",
@@ -2173,8 +2173,8 @@
     "rarity": "Rare",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/b3e385162bf3566618bb58b7a866eef846beefba-744x1039.png?accountingTag=RB",
-    "ability": "[Hidden] (Hide now for :rb_rune_rainbow: to react with later for :rb_energy_0:.) When you play this from face down, attach it to a unit you control here. [Equip] :rb_rune_chaos: (:rb_rune_chaos:: Attach this to a unit you control.)",
-    "errata_text": "[Hidden] (Hide now for [A] to react with later for [0].) When you play this from face down, attach it to a unit you control (here) . [Equip] [C] ([C]: Attach this to a unit you control.)",
+    "ability": "[Hidden] (Hide now for :rb_rune_rainbow: to react with later for :rb_energy_0:.) When you play this from face down, attach it to a unit you control here. [Equip] :rb_rune_chaos: (:rb_rune_chaos:: Attach this to a unit you control.)\n[Effect] +2:rb_might:",
+    "errata_text": "[Hidden] (Hide now for [A] to react with later for [0].) When you play this from face down, attach it to a unit you control (here) . [Equip] [C] ([C]: Attach this to a unit you control.)\n[Effect] +2:rb_might:",
     "errata_old_text": "[Hidden] (Hide now for [A] to react with later for [0].) When you play this from face down, attach it to a unit you control here. [Equip] [C] ([C]: Attach this to a unit you control.)"
   },
   {
@@ -2303,7 +2303,7 @@
     "rarity": "Uncommon",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/940a5e9796d4ac10a238d9b2612545c04bd9a570-744x1039.png?accountingTag=RB",
-    "ability": "[Equip] :rb_rune_mind: (:rb_rune_mind:: Attach this to a unit you control.)"
+    "ability": "[Equip] :rb_rune_mind: (:rb_rune_mind:: Attach this to a unit you control.)\n[Effect] +1:rb_might: I am a Mech."
   },
   {
     "id": "sfd-153-221",
@@ -2315,7 +2315,7 @@
     "rarity": "Common",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/fc3e26e0e4ff94de360f1163c41641daf81c1900-744x1039.png?accountingTag=RB",
-    "ability": "[Equip] :rb_rune_order: (:rb_rune_order:: Attach this to a unit you control.)"
+    "ability": "[Equip] :rb_rune_order: (:rb_rune_order:: Attach this to a unit you control.)\n[Effect] +0:rb_might: When I move, play a 1:rb_might: Recruit unit token here."
   },
   {
     "id": "sfd-082a-221",
@@ -2765,7 +2765,7 @@
     "rarity": "Epic",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/9bc49433a6ec5a8f4f1b44351094523d51b6bc11-744x1039.png",
-    "ability": "[Unique]** ** (Your deck can have only 1 card with this name.) [Equip] :rb_rune_rainbow: (:rb_rune_rainbow:: Attach this to a unit you control.)"
+    "ability": "[Unique]** ** (Your deck can have only 1 card with this name.) [Equip] :rb_rune_rainbow: (:rb_rune_rainbow:: Attach this to a unit you control.)\n[Effect] +3:rb_might: When I attack or defend, deal 2 to all enemy units here."
   },
   {
     "id": "sfd-209-221",
@@ -3101,7 +3101,7 @@
     "rarity": "Rare",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/d09a797345659a1853d6d12910cf3c634990ea0c-744x1039.png",
-    "ability": "[Equip] :rb_rune_calm: (:rb_rune_calm:: Attach this to a unit you control.)"
+    "ability": "[Equip] :rb_rune_calm: (:rb_rune_calm:: Attach this to a unit you control.)\n[Effect] +1:rb_might: If I would die, kill Guardian Angel instead. heal me, exhaust me, and recall me."
   },
   {
     "id": "sfd-035-221",
@@ -3365,7 +3365,7 @@
     "rarity": "Uncommon",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e7fdd555cbf9ef8c4ff8bd3ba38d187842de563d-744x1039.png",
-    "ability": "[Equip] :rb_rune_body: (:rb_rune_body:: Attach this to a unit you control.)"
+    "ability": "[Equip] :rb_rune_body: (:rb_rune_body:: Attach this to a unit you control.)\n[Effect] +1:rb_might: [Deflect] (Opponents must pay :rb_rainbow: to choose me with a spell or ability.)"
   },
   {
     "id": "sfd-083-221",
@@ -4058,7 +4058,7 @@
     "rarity": "Epic",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/6cfab85030bff454262794e4fa12f11b5dc45a74-744x1039.png",
-    "ability": "[Equip] — :rb_rune_chaos:, Recycle 2 cards from your trash (Pay the cost:** **Attach this to a unit you control.)"
+    "ability": "[Equip] — :rb_rune_chaos:, Recycle 2 cards from your trash (Pay the cost:** **Attach this to a unit you control.)\n[Effect] +2:rb_might: When I conquer or hold, you may play a unit from your trash. (You still pay its costs.)"
   },
   {
     "id": "ogn-069-298",
@@ -4273,7 +4273,7 @@
     "rarity": "Rare",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/48d798bf93afd1ef139dcafc6cd8705742b93169-744x1039.png",
-    "ability": "[Quick-Draw] (This has [Reaction]. When you play it, attach it to a unit you control.) [Equip] :rb_rune_fury: (:rb_rune_fury:: Attach this to a unit you control.)"
+    "ability": "[Quick-Draw] (This has [Reaction]. When you play it, attach it to a unit you control.) [Equip] :rb_rune_fury: (:rb_rune_fury:: Attach this to a unit you control.)\n[Effect] +2:rb_might:"
   },
   {
     "id": "ogn-251-298",
@@ -5561,7 +5561,7 @@
     "rarity": "Epic",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e93d11bdae446762b1932f0327d2ffe489fa4481-744x1039.png",
-    "ability": "[Unique]** ** (Your deck can have only 1 card with this name.) [Equip] :rb_rune_rainbow: (:rb_rune_rainbow:: Attach this to a unit you control.)"
+    "ability": "[Unique]** ** (Your deck can have only 1 card with this name.) [Equip] :rb_rune_rainbow: (:rb_rune_rainbow:: Attach this to a unit you control.)\n[Effect] +3:rb_might: Your spells and abilities deal 3 Bonus Damage (while this is attached)."
   },
   {
     "id": "ogn-261-298",
@@ -5775,7 +5775,7 @@
     "rarity": "Uncommon",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/763604237b4b59df5df98f61528be2233b850dd5-744x1039.png",
-    "ability": "[Equip] :rb_rune_fury: (:rb_rune_fury:: Attach this to a unit you control.)"
+    "ability": "[Equip] :rb_rune_fury: (:rb_rune_fury:: Attach this to a unit you control.)\n[Effect] +0:rb_might: When I attack or defend, deal 2 to an enemy unit here."
   },
   {
     "id": "ogn-062-298",
@@ -6228,7 +6228,7 @@
     "rarity": "Rare",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/af1069aef68d413127dfa84e4e96b8d66a8720ca-744x1039.png",
-    "ability": "[Equip] :rb_rune_order: (:rb_rune_order:: Attach this to a unit you control.)"
+    "ability": "[Equip] :rb_rune_order: (:rb_rune_order:: Attach this to a unit you control.)\n[Effect] +1:rb_might: [Deathknell] - Draw 1. (When I die, get the effect.)"
   },
   {
     "id": "ogn-174-298",
@@ -6501,7 +6501,7 @@
     "rarity": "Common",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/9498c8146745124fc45a7b55184854a9c9da21f5-744x1039.png",
-    "ability": "[Equip] :rb_rune_fury: (:rb_rune_fury:: Attach this to a unit you control.)"
+    "ability": "[Equip] :rb_rune_fury: (:rb_rune_fury:: Attach this to a unit you control.)\n[Effect] +0:rb_might: [Assault 2] (+2:rb_might_ while I'm an attacker.)"
   },
   {
     "id": "sfd-232-star-221",
@@ -6671,7 +6671,7 @@
     "rarity": "Epic",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/6f2f7175e61486859d7f5da804e41733d66b2254-744x1039.png",
-    "ability": "[Unique]** ** (Your deck can have only 1 card with this name.) [Equip] :rb_rune_rainbow: (:rb_rune_rainbow:: Attach this to a unit you control.) When you play this, ready your units."
+    "ability": "[Unique]** ** (Your deck can have only 1 card with this name.)\n[Equip] :rb_rune_rainbow: (:rb_rune_rainbow:: Attach this to a unit you control.)\nWhen you play this, ready your units.\n[Effect] +2:rb_might: Your units here have [Ganking] (We can move from battlefield to battlefield.)"
   },
   {
     "id": "ogn-287-298",
@@ -6809,7 +6809,7 @@
     "rarity": "Epic",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/bea8390beb651502413cf644319c8ca6a8db1102-744x1039.png",
-    "ability": "[Equip] :rb_energy_1::rb_rune_fury: (:rb_energy_1::rb_rune_fury:: Attach this to a unit you control.)"
+    "ability": "[Equip] :rb_energy_1::rb_rune_fury: (:rb_energy_1::rb_rune_fury:: Attach this to a unit you control.)\n[Effect] +2:rb_might: My hold effects are also conquer effects, and vice versa."
   },
   {
     "id": "ogn-093-298",
@@ -6990,7 +6990,7 @@
     "rarity": "Epic",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e4e0328034e605d000e23ac5e820d233f0e3b520-744x1039.png",
-    "ability": "[Quick-Draw] (This has [Reaction]. When you play it, attach it to a unit you control.) [Equip] :rb_rune_rainbow: (:rb_rune_rainbow:: Attach this to a unit you control.) [Temporary] (If this is unattached, kill it at the start of its controller's Beginning Phase, before scoring.)"
+    "ability": "[Quick-Draw] (This has [Reaction]. When you play it, attach it to a unit you control.)\n[Equip] :rb_rune_rainbow: (:rb_rune_rainbow:: Attach this to a unit you control.)\n[Temporary] (If this is unattached, kill it at the start of its controller's Beginning Phase, before scoring.)\n[Effect] +3:rb_might:"
   },
   {
     "id": "sfd-144-221",
@@ -7155,7 +7155,7 @@
     "rarity": "Rare",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/df16e6b668fc6771ff657512deba1bf48363e23a-744x1039.png",
-    "ability": "[Quick-Draw] (This has [Reaction]. When you play it, attach it to a unit you control.) [Equip] :rb_rune_calm: (:rb_rune_calm:: Attach this to a unit you control.)"
+    "ability": "[Quick-Draw] (This has [Reaction]. When you play it, attach it to a unit you control.)\n[Equip] :rb_rune_calm: (:rb_rune_calm:: Attach this to a unit you control.)\n[Effect] +3:rb_might:"
   },
   {
     "id": "ogn-250-298",
@@ -7287,7 +7287,7 @@
     "rarity": "Epic",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/bc254398dfb5db217327b56862011a2fd6020789-744x1039.png",
-    "ability": "[Equip] :rb_energy_1::rb_rune_calm: (:rb_energy_1::rb_rune_calm:: Attach this to a unit you control.) As this is attached to a unit, copy that unit's text to this Equipment's effect text for as long as this is attached to it."
+    "ability": "[Equip] :rb_energy_1::rb_rune_calm: (:rb_energy_1::rb_rune_calm:: Attach this to a unit you control.)\nAs this is attached to a unit, copy that unit's text to this Equipment's effect text for as long as this is attached to it.\n[Effect] +0:rb_might:"
   },
   {
     "id": "ogn-307-298",
@@ -7653,7 +7653,7 @@
     "rarity": "Epic",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/cc80cbfa1a64ad22dc5f7df870e9206f6938f7f5-744x1039.png",
-    "ability": "[Equip] :rb_energy_1::rb_rune_mind: (:rb_energy_1::rb_rune_mind:: Attach this to a unit you control.) :rb_energy_3::rb_rune_mind:, Banish this: Play all units banished with this, ignoring their costs. (Use only if unattached.)"
+    "ability": "[Equip] :rb_energy_1::rb_rune_mind: (:rb_energy_1::rb_rune_mind:: Attach this to a unit you control.)\n:rb_energy_3::rb_rune_mind:, Banish this: Play all units banished with this, ignoring their costs. (Use only if unattached.)\n[Effect] +2:rb_might: [Deathknell] - Banish me. (When I die, get the effect.)"
   },
   {
     "id": "ogn-022-298",
@@ -7839,7 +7839,7 @@
     "rarity": "Rare",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e8b64985389e5792afc2a2fe0dc23ae7590d7709-744x1039.png",
-    "ability": "[Equip] :rb_rune_body: (:rb_rune_body:: Attach this to a unit you control.)"
+    "ability": "[Equip] :rb_rune_body: (:rb_rune_body:: Attach this to a unit you control.)\n[Effect] +2:rb_might: When I hold, score 1 point."
   },
   {
     "id": "sfd-174-221",
@@ -8471,7 +8471,7 @@
     "rarity": "Uncommon",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/0d680867670dd75a66a632cd6f044a7f7e39b42b-744x1039.png",
-    "ability": "[Equip] :rb_rune_body: (:rb_rune_body:: Attach this to a unit you control.)"
+    "ability": "[Equip] :rb_rune_body: (:rb_rune_body:: Attach this to a unit you control.)\n[Effect] +1:rb_might: When I conquer, buff me. (If I don't have a buff, I get a +1:rb_might: buff.)"
   },
   {
     "id": "ogn-159-298",
@@ -8614,7 +8614,7 @@
     "rarity": "Rare",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/7b8d96e128c19c5ff368119a60759cffa644e942-744x1039.png",
-    "ability": "[Equip] :rb_rune_mind: (:rb_rune_mind:: Attach this to a unit you control.)"
+    "ability": "[Equip] :rb_rune_mind: (:rb_rune_mind:: Attach this to a unit you control.)\n[Effect] +2:rb_might: When I hold, play two Gold gear tokens exhausted."
   },
   {
     "id": "ogn-118-298",
