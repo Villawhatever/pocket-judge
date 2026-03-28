@@ -69,6 +69,7 @@ flutter_native_splash:
   android_12:
     color: '#1d3143'
     image: lib/assets/img/pocket_judge_icon.png
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
