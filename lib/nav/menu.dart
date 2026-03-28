@@ -24,10 +24,10 @@ class Menu extends StatelessWidget {
     final String aboutTitle = 'About';
 
     return Drawer(
-        child: ListView(
-      padding: MediaQuery.of(context).viewPadding,
-      children: [
-        ListTile(
+      child: ListView(
+        padding: MediaQuery.of(context).viewPadding,
+        children: [
+          ListTile(
             title: Text(crTitle.toUpperCase(), style: style),
             onTap: () {
               Navigator.pushReplacement(
@@ -35,7 +35,7 @@ class Menu extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => CoreRulesView(title: crTitle)),
               );
             }),
-        ListTile(
+          ListTile(
             title: Text(trTitle.toUpperCase(), style: style),
             onTap: () {
               Navigator.pushReplacement(
@@ -44,7 +44,7 @@ class Menu extends StatelessWidget {
                     builder: (context) => TournamentRulesView(title: trTitle)),
               );
             }),
-        ListTile(
+          ListTile(
             title: Text(searchTitle.toUpperCase(), style: style),
             onTap: () {
               Navigator.pushReplacement(
@@ -52,7 +52,7 @@ class Menu extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => SearchView(title: searchTitle)),
               );
             }),
-        ListTile(
+          ListTile(
             title: Text(errataTitle.toUpperCase(), style: style),
             onTap: () {
               Navigator.pushReplacement(
@@ -60,7 +60,7 @@ class Menu extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => ErrataView(title: errataTitle)),
               );
             }),
-        ListTile(
+          ListTile(
             title: Text(aboutTitle.toUpperCase(), style: style),
             onTap: () {
               Navigator.pushReplacement(
@@ -68,7 +68,8 @@ class Menu extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => AboutView(title: aboutTitle)),
               );
             }),
-      ],
-    ));
+        ],
+      )
+    );
   }
 }

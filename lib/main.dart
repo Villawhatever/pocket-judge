@@ -11,6 +11,7 @@ import 'package:pocket_judge/search/search_viewmodel.dart';
 import 'package:pocket_judge/tournament_rules/tournament_rules_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:upgrader/upgrader.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -27,7 +28,6 @@ void main() async {
 
   runApp(MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});
@@ -74,15 +74,17 @@ class MyApp extends StatelessWidget {
               ),
               useMaterial3: true,
             ),
-            home: FutureBuilder(
-              future: setupData().then((_) => FlutterNativeSplash.remove()),
-              builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return CoreRulesView(title: 'Core Rules');
-                } else {
-                  return AboutView(title: 'About');
-                }
-              },
+            home: UpgradeAlert(
+              child: FutureBuilder(
+                future: setupData().then((_) => FlutterNativeSplash.remove()),
+                builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return CoreRulesView(title: 'Core Rules');
+                  } else {
+                    return AboutView(title: 'About');
+                  }
+                },
+              ),
             ),
           ),
         );

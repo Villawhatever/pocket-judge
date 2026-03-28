@@ -78,7 +78,7 @@ class AboutView extends StatelessWidget {
                 ]
             ),
             Text('Pocket Judge will never collect any personal information for any reason.'),
-            Text('This app is not produced by or affiliated with Riot Games, Riftbound, Tencent, or any related entities. All card images remain the copyright of Riot games. All rules, guides, card information, etc are published by Riot Games.')
+            Text('This app is not produced by or affiliated with Riot Games, Riftbound, Tencent, or any related entities. All card images remain the copyright of Riot Games. All rules, guides, card information, etc are published by Riot Games.')
 
         ]));
   }
