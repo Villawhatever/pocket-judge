@@ -15,8 +15,6 @@ class RuleWidget extends StatelessWidget {
   final Function callback;
   final bool shouldIndent;
 
-  final String seeRulePattern = r'See (?:rule )?(\d+\.?)(.+?)(?=for)';
-
   String _getParentRule() {
     final fragments = model.number.split('.');
     final parentRuleNumber =
@@ -39,8 +37,10 @@ class RuleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String seeRulePattern = r'See (?:rule )?(\d+\.?)(.+?)(?=for)';
     final RegExp seeRuleRegex =
         RegExp(seeRulePattern, multiLine: true, dotAll: true);
+
     var matches = seeRuleRegex.allMatches(model.text);
 
     List<TextSpan> fragments = [];
@@ -70,7 +70,7 @@ class RuleWidget extends StatelessWidget {
         : 0;
 
     return Padding(
-        padding: EdgeInsets.fromLTRB(leftPadding, 0, 0, 0),
+        padding: EdgeInsets.fromLTRB(leftPadding, 0, 0, 12),
         child: Column(children: [
           GestureDetector(
             behavior: HitTestBehavior.opaque,

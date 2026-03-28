@@ -9,8 +9,9 @@ import 'erratum.dart';
 import 'erratum_widget.dart';
 
 class ErrataView extends StatefulWidget {
-  const ErrataView({super.key});
+  const ErrataView({super.key, required this.title});
 
+  final String title;
   @override
   State<ErrataView> createState() => ErrataViewState();
 }
@@ -38,16 +39,19 @@ class ErrataViewState extends State<ErrataView> {
       hintText: "[Search]",
       onChanged: (value) => viewModel.search(value),
       onSubmitted: (value) => viewModel.search(value),
-      backgroundColor: WidgetStateProperty.all(Colors.transparent),
+      backgroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.tertiary),
       shadowColor: WidgetStateProperty.all(Colors.transparent),
       trailing: [
-        Opacity(
-            opacity: _textController.text.isEmpty ? 0.01 : 1.0,
-            child: IconButton(
-                icon: Icon(Icons.clear, size: 25),
-                onPressed: () {
-                  clearSearch();
-                })),
+        IconButton(
+            icon: Icon(
+                _textController.text.isEmpty ? Icons.search : Icons.clear,
+                size: 25,
+                color: Theme.of(context).colorScheme.secondary
+            ),
+            onPressed: () {
+              clearSearch();
+            }
+        ),
       ],
       controller: _textController,
     );
@@ -56,15 +60,13 @@ class ErrataViewState extends State<ErrataView> {
         context.select<ErrataViewModel, List<ErratumModel>>((vm) => vm.errata);
 
     return AppWrapper(
-      title: searchBar,
-      body: ScrollablePositionedList.separated(
+      title: 'Card Specific Notes',
+      searchBar: searchBar,
+      body: ScrollablePositionedList.builder(
         itemScrollController: scrollController,
         itemCount: filteredErrata.length,
         itemBuilder: (context, index) {
           return ErratumWidget(model: filteredErrata[index]);
-        },
-        separatorBuilder: (context, index) {
-          return const Divider();
         },
       ),
     );

@@ -11,7 +11,9 @@ import '../widgets/stack.dart';
 import 'core_rules_viewmodel.dart';
 
 class CoreRulesView extends StatefulWidget {
-  const CoreRulesView({super.key});
+  const CoreRulesView({super.key, required this.title});
+
+  final String title;
 
   @override
   State<CoreRulesView> createState() => CoreRulesViewState();
@@ -52,16 +54,19 @@ class CoreRulesViewState extends State<CoreRulesView> {
       hintText: "[Search]",
       onChanged: (value) => viewModel.search(value),
       onSubmitted: (value) => viewModel.search(value),
-      backgroundColor: WidgetStateProperty.all(Colors.transparent),
+      backgroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.tertiary),
       shadowColor: WidgetStateProperty.all(Colors.transparent),
       trailing: [
-        Opacity(
-            opacity: _textController.text.isEmpty ? 0.01 : 1.0,
-            child: IconButton(
-                icon: Icon(Icons.clear, size: 25),
-                onPressed: () {
-                  clearSearch();
-                })),
+        IconButton(
+          icon: Icon(
+            _textController.text.isEmpty ? Icons.search : Icons.clear,
+            size: 25,
+            color: Theme.of(context).colorScheme.secondary
+          ),
+          onPressed: () {
+            clearSearch();
+          }
+        ),
       ],
       controller: _textController,
     );
@@ -88,20 +93,25 @@ class CoreRulesViewState extends State<CoreRulesView> {
         }
       },
       child: AppWrapper(
-        title: searchBar,
-        body: ScrollablePositionedList.separated(
-          itemScrollController: scrollController,
-          itemCount: filteredRules.length,
-          itemBuilder: (context, index) {
-            return RuleWidget(
-                model: filteredRules[index],
-                callback: linkCallback,
-                shouldIndent: !viewModel.isFiltered);
-          },
-          separatorBuilder: (context, index) {
-            return const Divider();
-          },
-        ),
+        title: 'Core Rules',
+        searchBar: searchBar,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: ScrollablePositionedList.builder(
+                  itemScrollController: scrollController,
+                  itemCount: filteredRules.length,
+                  itemBuilder: (context, index) {
+                    return RuleWidget(
+                        model: filteredRules[index],
+                        callback: linkCallback,
+                        shouldIndent: !viewModel.isFiltered);
+                  }
+              )
+            )
+          ]
+        )
       ),
     );
   }

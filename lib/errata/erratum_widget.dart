@@ -49,7 +49,10 @@ class _ErratumWidgetState extends State<ErratumWidget> {
     return Column(children: [
       ExpansionTile(
           shape: BoxBorder.fromLTRB(),
-          title: Text(widget.model.name),
+          title: Text(
+            widget.model.name,
+            style: TextStyle(color: Theme.of(context).colorScheme.secondary, fontFamily: 'Beaufort', fontWeight: FontWeight.bold),
+          ),
           subtitle: Text(widget.model.set),
           children: [
             Column(children: [

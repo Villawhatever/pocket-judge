@@ -12,7 +12,9 @@ import '../widgets/rule.dart';
 import '../widgets/stack.dart';
 
 class TournamentRulesView extends StatefulWidget {
-  const TournamentRulesView({super.key});
+  const TournamentRulesView({super.key, required this.title});
+
+  final String title;
 
   @override
   State<TournamentRulesView> createState() => TournamentRulesViewState();
@@ -53,16 +55,19 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
       hintText: "[Search]",
       onChanged: (value) => viewModel.search(value),
       onSubmitted: (value) => viewModel.search(value),
-      backgroundColor: WidgetStateProperty.all(Colors.transparent),
+      backgroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.tertiary),
       shadowColor: WidgetStateProperty.all(Colors.transparent),
       trailing: [
-        Opacity(
-            opacity: _textController.text.isEmpty ? 0.01 : 1.0,
-            child: IconButton(
-                icon: Icon(Icons.clear, size: 25),
-                onPressed: () {
-                  clearSearch();
-                })),
+        IconButton(
+            icon: Icon(
+                _textController.text.isEmpty ? Icons.search : Icons.clear,
+                size: 25,
+                color: Theme.of(context).colorScheme.secondary
+            ),
+            onPressed: () {
+              clearSearch();
+            }
+        ),
       ],
       controller: _textController,
     );
@@ -89,19 +94,24 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
         }
       },
       child: AppWrapper(
-        title: searchBar,
-        body: ScrollablePositionedList.separated(
-          itemScrollController: scrollController,
-          itemCount: filteredRules.length,
-          itemBuilder: (context, index) {
-            return RuleWidget(
-                model: filteredRules[index],
-                callback: linkCallback,
-                shouldIndent: !viewModel.isFiltered);
-          },
-          separatorBuilder: (context, index) {
-            return const Divider();
-          },
+        title: 'Tournament Rules',
+        searchBar: searchBar,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: ScrollablePositionedList.builder(
+                itemScrollController: scrollController,
+                itemCount: filteredRules.length,
+                itemBuilder: (context, index) {
+                  return RuleWidget(
+                      model: filteredRules[index],
+                      callback: linkCallback,
+                      shouldIndent: !viewModel.isFiltered);
+                }
+              )
+            )
+          ]
         ),
       ),
     );

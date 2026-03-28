@@ -9,7 +9,9 @@ import 'card.dart';
 import 'card_widget.dart';
 
 class SearchView extends StatefulWidget {
-  const SearchView({super.key});
+  const SearchView({super.key, required this.title});
+
+  final String title;
 
   @override
   State<SearchView> createState() => SearchViewState();
@@ -37,16 +39,19 @@ class SearchViewState extends State<SearchView> {
     final searchBar = SearchBar(
       hintText: "[Search]",
       onSubmitted: (value) => viewModel.search(value),
-      backgroundColor: WidgetStateProperty.all(Colors.transparent),
+      backgroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.tertiary),
       shadowColor: WidgetStateProperty.all(Colors.transparent),
       trailing: [
-        Opacity(
-            opacity: _textController.text.isEmpty ? 0.01 : 1.0,
-            child: IconButton(
-                icon: Icon(Icons.clear, size: 25),
-                onPressed: () {
-                  clearSearch();
-                })),
+        IconButton(
+            icon: Icon(
+                _textController.text.isEmpty ? Icons.search : Icons.clear,
+                size: 25,
+                color: Theme.of(context).colorScheme.secondary
+            ),
+            onPressed: () {
+              clearSearch();
+            }
+        ),
       ],
       controller: _textController,
     );
@@ -74,18 +79,15 @@ class SearchViewState extends State<SearchView> {
         ),
       );
     } else {
-      body = ScrollablePositionedList.separated(
+      body = ScrollablePositionedList.builder(
         itemScrollController: scrollController,
         itemCount: filteredCards.length,
         itemBuilder: (context, index) {
           return CardWidget(model: filteredCards[index]);
         },
-        separatorBuilder: (context, index) {
-          return const Divider();
-        },
       );
     }
 
-    return AppWrapper(title: searchBar, body: body);
+    return AppWrapper(title: 'Card Search', searchBar: searchBar, body: body);
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 
 import '../widgets/image_resolver.dart';
 import 'card.dart';
@@ -11,21 +10,13 @@ class CardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cardMarkdown = """
-**Card Type**: ${model.cardType}  
-**Domain(s)**: ${model.domain == null ? 'None\n' : model.domain?.join(', ')}  
-**Energy**: ${model.energy ?? 0}  
-**Power**: ${model.power ?? 0}  
-**Might**: ${model.might ?? 0}  
-""";
-
     var relevantText = model.errataText ?? model.ability;
     List<InlineSpan> prettified = [];
 
     if (relevantText != null) {
       var currentPosition = 0;
 
-      var matches = RegExp(r'\[.+?\]|\(.+?\)|(:(\w+_)\w+:)').allMatches(relevantText);
+      var matches = RegExp(r'\[.+?\]|\(.+?\)|:\w+:').allMatches(relevantText);
 
       for (final match in matches) {
         final textStyle = match.group(0)!.startsWith('[')
@@ -78,46 +69,70 @@ class CardWidget extends StatelessWidget {
       prettified.add(TextSpan(text: relevantText.substring(currentPosition)));
     }
 
+    Widget buildCardInfo(String title, dynamic value) {
+      return Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: RichText(
+            text: TextSpan(
+              style: TextStyle(color: Theme.of(context).colorScheme.primary),
+              children: [
+                TextSpan(text: '$title\n', style: TextStyle(fontWeight: FontWeight.bold)),
+                TextSpan(text: value.toString()),
+              ]
+            ),
+          ),
+      );
+    }
+
     return Column(children: [
       ExpansionTile(
         shape: BoxBorder.fromLTRB(),
         title: Text(
           model.name,
-          style: TextStyle(color: Theme.of(context).colorScheme.primary),
+          style: TextStyle(color: Theme.of(context).colorScheme.secondary, fontFamily: 'Beaufort', fontWeight: FontWeight.bold),
         ),
-        subtitle: Text(model.idsWithImages!.keys.join(', ')),
         children: [
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Markdown(
-              physics: const NeverScrollableScrollPhysics(),
-              data: cardMarkdown,
+          Padding(
               padding: const EdgeInsets.only(left: 16, right: 16),
-              shrinkWrap: true,
-              styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context))
-                  .copyWith(
-                      code: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary),
-                      p: TextStyle(
-                          color: Theme.of(context).colorScheme.primary)),
-            ),
-            if (relevantText != null) ...[
-              const Divider(
-                  height: 25,
-                  thickness: 3,
-                  indent: 25,
-                  endIndent: 25,
-                  color: Colors.white),
-              Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16),
-                child: RichText(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min, children: [
+                Table(
+                    children: [
+                      TableRow(
+                          children: [
+                            buildCardInfo('Printing(s)', model.idsWithImages!.keys.join(', ')),
+                            buildCardInfo('Domain(s)', model.domain?.join(', ')),
+                          ]
+                      ),
+                      TableRow(
+                          children: [
+                            buildCardInfo('Card Type', model.cardType),
+                            model.cardType.toLowerCase() == 'unit'
+                                ? buildCardInfo('Might', model.might)
+                                : SizedBox.shrink(),
+                          ]
+                      ),
+                      TableRow(
+                          children: [
+                            model.energy == null
+                                ? SizedBox.shrink()
+                                : buildCardInfo('Energy', model.energy),
+                            model.power == null
+                                ? SizedBox.shrink()
+                                : buildCardInfo('Power', model.power),
+                          ]
+                      )
+                    ]
+                ),
+                if (relevantText != null) ...[
+                  RichText(
                     text: TextSpan(
                         style: TextStyle(color: Theme.of(context).colorScheme.primary),
                         children: prettified
                     ),
-                ),
-              ),
-            ]
-          ]),
+                  ),
+                ]
+              ]),
+          ),
         ],
       ),
     ]);

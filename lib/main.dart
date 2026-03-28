@@ -65,10 +65,10 @@ class MyApp extends StatelessWidget {
                 seedColor: const Color(0xff1d3143),
                 brightness: Brightness.dark,
               ).copyWith(
-                primaryContainer: const Color(0xff1d3143),
+                primary: const Color(0xffbbcfdd),
                 inversePrimary: const Color(0xff1d3143),
                 secondary: const Color(0xffea7d24),
-                onSecondaryContainer: Colors.black,
+                tertiary: const Color(0xff1b1b1b),
                 error: const Color(0xffcf6679),
                 onError: Colors.black,
               ),
@@ -78,9 +78,9 @@ class MyApp extends StatelessWidget {
               future: setupData().then((_) => FlutterNativeSplash.remove()),
               builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
-                  return const CoreRulesView();
+                  return CoreRulesView(title: 'Core Rules');
                 } else {
-                  return AboutView();
+                  return AboutView(title: 'About');
                 }
               },
             ),
