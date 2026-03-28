@@ -87,6 +87,7 @@ class CardWidget extends StatelessWidget {
     return Column(children: [
       ExpansionTile(
         shape: BoxBorder.fromLTRB(),
+        tilePadding: EdgeInsets.zero,
         title: Text(
           model.name,
           style: TextStyle(color: Theme.of(context).colorScheme.secondary, fontFamily: 'Beaufort', fontWeight: FontWeight.bold),
