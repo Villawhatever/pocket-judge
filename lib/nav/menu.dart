@@ -4,70 +4,77 @@ import 'package:pocket_judge/tournament_rules/tournament_rules_view.dart';
 import 'package:pocket_judge/core_rules/core_rules_view.dart';
 
 import '../about/about_view.dart';
+import '../constants.dart';
 import '../search/search_view.dart';
+import '../utils/extensions/context_extensions.dart';
+
+class LinkGenerator {
+  const LinkGenerator({
+    required this.name,
+    required this.img,
+    required this.view
+  });
+
+  final String name;
+  final String img;
+  final Widget view;
+}
 
 class Menu extends StatelessWidget {
   const Menu({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final style = TextStyle(
-      color: Theme.of(context).colorScheme.secondary,
-      fontFamily: 'Beaufort',
-      fontWeight: FontWeight.bold
-    );
+    var linkBuilders = [
+      LinkGenerator(
+        name:'Core Rules',
+        img: 'lib/assets/img/core_rules.png',
+        view: CoreRulesView(title: 'Core Rules')
+      ),
+      LinkGenerator(
+        name:'Tournament Rules',
+        img: 'lib/assets/img/tournament_rules.png',
+        view: TournamentRulesView(title: 'Tournament Rules')
+      ),
+      LinkGenerator(
+        name:'Card Search',
+        img: 'lib/assets/img/card_search.png',
+        view: SearchView(title: 'Card Search')
+      ),
+      LinkGenerator(
+        name:'Card Specific Notes',
+        img: 'lib/assets/img/card_notes.png',
+        view: ErrataView(title: 'Card Specific Notes')
+      ),
+      LinkGenerator(
+        name:'About',
+        img: 'lib/assets/img/about.png',
+        view: AboutView(title: 'About')
+      ),
+    ];
 
-    final String crTitle = 'Core Rules';
-    final String trTitle = 'Tournament Rules';
-    final String searchTitle = 'Card Search';
-    final String errataTitle = 'Card Specific Notes';
-    final String aboutTitle = 'About';
+    var links = [];
+    for (final item in linkBuilders) {
+      links.add(ListTile(
+        leading: item.name == 'Card Specific Notes' ? Transform.translate(
+          offset: Offset(2, 0),
+          child: Image.asset(item.img, width: 32, height: 32),
+        ) : Image.asset(item.img, width: 32, height: 32),
+        title: Text(item.name.toUpperCase(), style: TextStyle(color: context.colorScheme.secondary, fontFamily: Fonts.beaufort, fontWeight: FontWeight.bold)),
+        onTap: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => item.view),
+          );
+        })
+      );
+    }
 
     return Drawer(
       child: ListView(
         padding: MediaQuery.of(context).viewPadding,
         children: [
-          ListTile(
-            title: Text(crTitle.toUpperCase(), style: style),
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => CoreRulesView(title: crTitle)),
-              );
-            }),
-          ListTile(
-            title: Text(trTitle.toUpperCase(), style: style),
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => TournamentRulesView(title: trTitle)),
-              );
-            }),
-          ListTile(
-            title: Text(searchTitle.toUpperCase(), style: style),
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => SearchView(title: searchTitle)),
-              );
-            }),
-          ListTile(
-            title: Text(errataTitle.toUpperCase(), style: style),
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => ErrataView(title: errataTitle)),
-              );
-            }),
-          ListTile(
-            title: Text(aboutTitle.toUpperCase(), style: style),
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => AboutView(title: aboutTitle)),
-              );
-            }),
+          ...links
         ],
       )
     );

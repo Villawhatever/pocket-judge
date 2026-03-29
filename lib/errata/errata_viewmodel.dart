@@ -12,6 +12,10 @@ class ErrataViewModel extends ChangeNotifier {
 
   List<ErratumModel> get errata => _filteredErrata;
 
+  void reset() {
+    _filteredErrata = _errata;
+  }
+
   void search(String? search) {
     if (search == null || search.isEmpty) {
       _filteredErrata = _errata;

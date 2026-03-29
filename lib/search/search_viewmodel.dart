@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
-import '../extensions/list_extensions.dart';
+import '../utils/extensions/list_extensions.dart';
 import 'card.dart';
 
 class SearchViewModel extends ChangeNotifier {
@@ -13,6 +13,10 @@ class SearchViewModel extends ChangeNotifier {
   List<CardModel> get cards => _filteredCards;
   late String _searchSyntax = '';
   String get searchSyntax => _searchSyntax;
+
+  void reset() {
+    _filteredCards = [];
+  }
 
   void search(String? search) {
     if (search == null || search.isEmpty) {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pocket_judge/constants.dart';
 
+import '../utils/extensions/context_extensions.dart';
 import 'erratum.dart';
 
 class ErratumWidget extends StatefulWidget {
@@ -28,11 +30,11 @@ class _ErratumWidgetState extends State<ErratumWidget> {
           text: 'OLD TEXT\n',
           style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.error),
+              color: context.colorScheme.error),
         ),
         TextSpan(
           text: widget.model.oldText,
-          style: TextStyle(color: Theme.of(context).colorScheme.error),
+          style: TextStyle(color: context.colorScheme.error),
         )
       ];
     }
@@ -52,7 +54,7 @@ class _ErratumWidgetState extends State<ErratumWidget> {
           tilePadding: EdgeInsets.zero,
           title: Text(
             widget.model.name,
-            style: TextStyle(color: Theme.of(context).colorScheme.secondary, fontFamily: 'Beaufort', fontWeight: FontWeight.bold),
+            style: TextStyle(color: context.colorScheme.secondary, fontFamily: Fonts.beaufort, fontWeight: FontWeight.bold),
           ),
           subtitle: Text(widget.model.set),
           children: [
@@ -60,7 +62,7 @@ class _ErratumWidgetState extends State<ErratumWidget> {
               RichText(
                 text: TextSpan(
                   style:
-                      TextStyle(color: Theme.of(context).colorScheme.primary),
+                      TextStyle(color: context.colorScheme.primary),
                   children: <TextSpan>[...erratum],
                 ),
               ),
@@ -74,7 +76,7 @@ class _ErratumWidgetState extends State<ErratumWidget> {
               RichText(
                 text: TextSpan(
                   style:
-                      TextStyle(color: Theme.of(context).colorScheme.primary),
+                      TextStyle(color: context.colorScheme.primary),
                   children: <TextSpan>[...faqs],
                 ),
               ),

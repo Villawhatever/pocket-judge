@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:pocket_judge/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../utils/extensions/context_extensions.dart';
 import '../widgets/app_wrapper.dart';
 
 class VersionInfo {
@@ -34,17 +36,17 @@ class AboutView extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Pocket Judge', style: TextStyle(color: Theme.of(context).colorScheme.secondary, fontFamily: 'Beaufort', fontWeight: FontWeight.bold, fontSize: 24)),
+            Text('Pocket Judge', style: TextStyle(color: context.colorScheme.secondary, fontFamily: Fonts.beaufort, fontWeight: FontWeight.bold, fontSize: 24)),
             Text(
                 'Built by Villa and Tobias Vyseri',
-                style: TextStyle(color: Theme.of(context).colorScheme.primary)),
+                style: TextStyle(color: context.colorScheme.primary)),
             FutureBuilder<VersionInfo>(
               future: _fetchPackageInfo(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return RichText(
                     text: TextSpan(
-                      style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                      style: TextStyle(color: context.colorScheme.primary),
                       children: [
                         TextSpan(text: 'Version ', style: TextStyle(fontWeight: FontWeight.bold)),
                         TextSpan(text: '${snapshot.data!.version} (build# ${snapshot.data!.buildNumber})')
@@ -57,7 +59,7 @@ class AboutView extends StatelessWidget {
             ),
             Text(
                 'For feedback, feature requests, or bug reports, please contact @villawhatever on Discord or open an issue on Github.',
-                style: TextStyle(color: Theme.of(context).colorScheme.primary)),
+                style: TextStyle(color: context.colorScheme.primary)),
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -66,14 +68,14 @@ class AboutView extends StatelessWidget {
                       launchUrl(githubUri);
                     },
                     child: FaIcon(FontAwesomeIcons.github,
-                        color: Theme.of(context).colorScheme.primary, size: 25),
+                        color: context.colorScheme.primary, size: 25),
                   ),
                   TextButton(
                     onPressed: () async {
                       launchUrl(discordUri);
                     },
                     child: FaIcon(FontAwesomeIcons.discord,
-                        color: Theme.of(context).colorScheme.primary, size: 25),
+                        color: context.colorScheme.primary, size: 25),
                   ),
                 ]
             ),

@@ -4,6 +4,7 @@ import 'package:pocket_judge/widgets/app_wrapper.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+import '../widgets/search.dart';
 import 'errata_viewmodel.dart';
 import 'erratum.dart';
 import 'erratum_widget.dart';
@@ -18,16 +19,18 @@ class ErrataView extends StatefulWidget {
 
 class ErrataViewState extends State<ErrataView> {
   final _textController = TextEditingController();
+  late ErrataViewModel viewModel;
 
   @override
   void dispose() {
     _textController.dispose();
+    viewModel.reset();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<ErrataViewModel>(context, listen: true);
+    viewModel = Provider.of<ErrataViewModel>(context, listen: true);
     final scrollController = ItemScrollController();
 
     clearSearch() {
@@ -35,26 +38,11 @@ class ErrataViewState extends State<ErrataView> {
       viewModel.search(null);
     }
 
-    final searchBar = SearchBar(
-      hintText: "[Search]",
-      onChanged: (value) => viewModel.search(value),
-      onSubmitted: (value) => viewModel.search(value),
-      backgroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.tertiary),
-      shadowColor: WidgetStateProperty.all(Colors.transparent),
-      trailing: [
-        IconButton(
-            icon: Icon(
-                _textController.text.isEmpty ? Icons.search : Icons.clear,
-                size: 25,
-                color: Theme.of(context).colorScheme.secondary
-            ),
-            onPressed: () {
-              clearSearch();
-            }
-        ),
-      ],
-      controller: _textController,
-    );
+    final searchBar = CustomSearchBar(
+        textController: _textController,
+        onChanged: viewModel.search,
+        onSubmitted: viewModel.search,
+        onClear: clearSearch);
 
     final filteredErrata =
         context.select<ErrataViewModel, List<ErratumModel>>((vm) => vm.errata);

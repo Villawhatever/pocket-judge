@@ -1,4 +1,4 @@
-import '../extensions/json_extensions.dart';
+import '../utils/extensions/json_extensions.dart';
 
 class CardModel {
   final String id;

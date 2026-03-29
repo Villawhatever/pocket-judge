@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+import '../utils/extensions/context_extensions.dart';
 import '../widgets/image_resolver.dart';
 import 'card.dart';
 
@@ -74,7 +76,7 @@ class CardWidget extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 12),
           child: RichText(
             text: TextSpan(
-              style: TextStyle(color: Theme.of(context).colorScheme.primary),
+              style: TextStyle(color: context.colorScheme.primary),
               children: [
                 TextSpan(text: '$title\n', style: TextStyle(fontWeight: FontWeight.bold)),
                 TextSpan(text: value.toString()),
@@ -90,7 +92,7 @@ class CardWidget extends StatelessWidget {
         tilePadding: EdgeInsets.zero,
         title: Text(
           model.name,
-          style: TextStyle(color: Theme.of(context).colorScheme.secondary, fontFamily: 'Beaufort', fontWeight: FontWeight.bold),
+          style: TextStyle(color: context.colorScheme.secondary, fontFamily: Fonts.beaufort, fontWeight: FontWeight.bold),
         ),
         children: [
           Padding(
@@ -127,7 +129,7 @@ class CardWidget extends StatelessWidget {
                 if (relevantText != null) ...[
                   RichText(
                     text: TextSpan(
-                        style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                        style: TextStyle(color: context.colorScheme.primary),
                         children: prettified
                     ),
                   ),

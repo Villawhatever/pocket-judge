@@ -1,22 +1,38 @@
-import 'dart:math';
-
 import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:pocket_judge/extensions/list_extensions.dart';
 
 import '../core_rules/rule.dart';
+import '../utils/sorts.dart';
+
+class TrIndex {
+  final String number;
+  final String text;
+  final int lookup;
+  final bool isSubrule;
+
+  TrIndex(
+    this.number,
+    this.text,
+    this.lookup,
+    this.isSubrule,
+  );
+}
 
 class TournamentRulesViewModel extends ChangeNotifier {
-
-
   final List<RuleModel> _rules = [];
   final Map<String, int> _reverseLookup = {};
 
   List<RuleModel> _filteredRules = [];
+  final List<TrIndex> _indexMap = [];
 
   List<RuleModel> get rules => _filteredRules;
   bool get isFiltered => _rules.length != _filteredRules.length;
   Map<String, int> get lookup => _reverseLookup;
+  List<TrIndex> get indexMap => _indexMap;
+
+  void reset() {
+    _filteredRules = _rules;
+  }
 
   void search(String? search) {
     if (search == null || search.isEmpty) {
@@ -24,6 +40,7 @@ class TournamentRulesViewModel extends ChangeNotifier {
       notifyListeners();
       return;
     }
+
     search = search.toLowerCase();
     _filteredRules = _rules
         .where((r) =>
@@ -39,49 +56,30 @@ class TournamentRulesViewModel extends ChangeNotifier {
     }
     final data =
         await FirebaseFirestore.instance.collection('tournament_rules').get();
-    var currentIndex = 0;
 
+    // TODO: Sort this on parser side so firestore has things ordered?
     for (final item in data.docs) {
       final rule = RuleModel.fromJson(item.data());
-      _reverseLookup[rule.number] = currentIndex++;
       _rules.add(rule);
     }
 
-    _rules.sort((a, b) => _compareRules(a, b));
-    _filteredRules = _rules;
-    notifyListeners();
-  }
+    _rules.sort((a, b) => sortRules(a.number, b.number));
 
-  int _compareRules(RuleModel first, RuleModel second) {
-    var firstFragments = first.number.split('.');
-    var secondFragments = second.number.split('.');
-    firstFragments.removeWhere((s) => s.isEmpty);
-    secondFragments.removeWhere((s) => s.isEmpty);
-
-    for (var i = 0;
-        i < max(firstFragments.length, secondFragments.length);
-        i++) {
-      var first = firstFragments.tryGet(i);
-      var second = secondFragments.tryGet(i);
-
-      if (first == null) {
-        return -1;
-      } else if (second == null) {
-        return 1;
-      }
-
-      if (first == second) {
-        continue;
-      }
-
-      final firstParsed = double.tryParse(firstFragments[i]);
-      if (firstParsed != null) {
-        final secondParsed = double.tryParse(secondFragments[i]);
-        return firstParsed.compareTo(secondParsed!);
-      } else {
-        return firstFragments[i].compareTo(secondFragments[i]);
+    for (var i = 0; i < _rules.length; i++) {
+      _reverseLookup[_rules[i].number] = i;
+      var ruleFragments = _rules[i].number.split('.');
+      ruleFragments.removeWhere((item) => item.isEmpty);
+      if (ruleFragments.length <= 2) {
+        final num = int.parse(_rules[i].number.split('.').first);
+        // Trimming this to only errors for now.
+        if (num < 702) {
+          continue;
+        }
+        _indexMap.add(TrIndex(ruleFragments.join('.'), _rules[i].text.split(RegExp(r'[:\[]')).first, _reverseLookup[_rules[i].number]!, ruleFragments.length == 2));
       }
     }
-    throw Exception("How did we get here?");
+
+    _filteredRules = _rules;
+    notifyListeners();
   }
 }

@@ -5,6 +5,8 @@ import 'package:pocket_judge/widgets/app_wrapper.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+import '../utils/extensions/context_extensions.dart';
+import '../widgets/search.dart';
 import 'card.dart';
 import 'card_widget.dart';
 
@@ -19,16 +21,18 @@ class SearchView extends StatefulWidget {
 
 class SearchViewState extends State<SearchView> {
   final _textController = TextEditingController();
+  late SearchViewModel viewModel;
 
   @override
   void dispose() {
     _textController.dispose();
+    viewModel.reset();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<SearchViewModel>(context, listen: true);
+    viewModel = Provider.of<SearchViewModel>(context, listen: true);
     final scrollController = ItemScrollController();
 
     clearSearch() {
@@ -36,28 +40,21 @@ class SearchViewState extends State<SearchView> {
       viewModel.search(null);
     }
 
-    final searchBar = SearchBar(
-      hintText: "[Search]",
-      onSubmitted: (value) => viewModel.search(value),
-      backgroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.tertiary),
-      shadowColor: WidgetStateProperty.all(Colors.transparent),
-      trailing: [
-        IconButton(
-            icon: Icon(
-                _textController.text.isEmpty ? Icons.search : Icons.clear,
-                size: 25,
-                color: Theme.of(context).colorScheme.secondary
-            ),
-            onPressed: () {
-              clearSearch();
-            }
-        ),
-      ],
-      controller: _textController,
+    onSearchTextChanged(value) {
+      setState(() {
+        _textController.text = value;
+      });
+    }
+
+    final searchBar = CustomSearchBar(
+      textController: _textController,
+      onChanged: onSearchTextChanged,
+      onSubmitted: viewModel.search,
+      onClear: clearSearch
     );
 
     final filteredCards =
-        context.select<SearchViewModel, List<CardModel>>((vm) => vm.cards);
+      context.select<SearchViewModel, List<CardModel>>((vm) => vm.cards);
 
     Widget body;
 
@@ -66,14 +63,14 @@ class SearchViewState extends State<SearchView> {
         child: Column(
           children: [
             MarkdownBody(
-              data: viewModel.searchSyntax ?? "",
+              data: viewModel.searchSyntax,
               styleSheet:
               MarkdownStyleSheet.fromTheme(Theme.of(context))
-                  .copyWith(
-                  code: TextStyle(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .secondary)),
+                .copyWith(
+                code: TextStyle(
+                  color: context.colorScheme.secondary
+                )
+              ),
             ),
           ],
         ),

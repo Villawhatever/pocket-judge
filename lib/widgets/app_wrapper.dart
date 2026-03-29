@@ -1,37 +1,67 @@
 import 'package:flutter/material.dart';
+import 'package:pocket_judge/constants.dart';
 
 import '../nav/menu.dart';
+import '../utils/extensions/context_extensions.dart';
 
 class AppWrapper extends StatelessWidget {
-  const AppWrapper({super.key, required this.title, required this.body, this.searchBar});
+  const AppWrapper({super.key, required this.title, required this.body, this.searchBar, this.endDrawer});
 
   final String title;
   final Widget body;
   final Widget? searchBar;
+  final Widget? endDrawer;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const Menu(),
+      endDrawer: endDrawer,
       appBar: AppBar(
         centerTitle: true,
-        foregroundColor: Theme.of(context).colorScheme.primary,
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        iconTheme: IconThemeData(
-          color: Theme.of(context).colorScheme.secondary,
-        ),
-        scrolledUnderElevation: 0,
         title: Text(title.toUpperCase(),
-          style: TextStyle(color: Theme.of(context).colorScheme.secondary,
-            fontFamily: 'Beaufort',
+          style: TextStyle(color: context.colorScheme.secondary,
+            fontFamily: Fonts.beaufort,
             fontWeight: FontWeight.bold)
         ),
+        automaticallyImplyActions: false,
+        foregroundColor: context.colorScheme.primary,
+        backgroundColor: context.colorScheme.inversePrimary,
+        iconTheme: IconThemeData(
+          color: context.colorScheme.secondary,
+        ),
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              icon: Image.asset('lib/assets/img/menu.png', width: 25),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              }
+            );
+          }
+        ),
+        scrolledUnderElevation: 0,
+        actions: [
+          Builder(
+            builder: (context) {
+              if (endDrawer != null) {
+                return IconButton(
+                    icon: Image.asset('lib/assets/img/index.png', width: 25),
+                    onPressed: () {
+                      Scaffold.of(context).openEndDrawer();
+                    }
+                );
+              }
+              return SizedBox.shrink();
+            }
+          )
+        ]
       ),
       body: Column(
         children: [
           if (searchBar != null)
             Container(
-              color: Theme.of(context).colorScheme.inversePrimary,
+              color: context.colorScheme.inversePrimary,
               height: 55,
               child: Row(
                   children: [

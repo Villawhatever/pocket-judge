@@ -2,6 +2,7 @@ import 'package:flutter/material.dart' hide Stack;
 import 'package:flutter/services.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:pocket_judge/widgets/app_wrapper.dart';
+import 'package:pocket_judge/widgets/search.dart';
 
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -22,16 +23,18 @@ class CoreRulesView extends StatefulWidget {
 class CoreRulesViewState extends State<CoreRulesView> {
   final _textController = TextEditingController();
   final _history = Stack<String>();
+  late CoreRulesViewModel viewModel;
 
   @override
   void dispose() {
     _textController.dispose();
+    viewModel.reset();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<CoreRulesViewModel>(context, listen: true);
+    viewModel = Provider.of<CoreRulesViewModel>(context, listen: true);
     final scrollController = ItemScrollController();
     final ruleToJumpTo = 'RuleToJumpTo';
 
@@ -50,26 +53,11 @@ class CoreRulesViewState extends State<CoreRulesView> {
       viewModel.search(null);
     }
 
-    final searchBar = SearchBar(
-      hintText: "[Search]",
-      onChanged: (value) => viewModel.search(value),
-      onSubmitted: (value) => viewModel.search(value),
-      backgroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.tertiary),
-      shadowColor: WidgetStateProperty.all(Colors.transparent),
-      trailing: [
-        IconButton(
-          icon: Icon(
-            _textController.text.isEmpty ? Icons.search : Icons.clear,
-            size: 25,
-            color: Theme.of(context).colorScheme.secondary
-          ),
-          onPressed: () {
-            clearSearch();
-          }
-        ),
-      ],
-      controller: _textController,
-    );
+    final searchBar = CustomSearchBar(
+        textController: _textController,
+        onChanged: viewModel.search,
+        onSubmitted: viewModel.search,
+        onClear: clearSearch);
 
     void linkCallback(String ruleNumber) {
       clearSearch();

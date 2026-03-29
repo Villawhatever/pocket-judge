@@ -7,8 +7,11 @@ import 'package:pocket_judge/widgets/app_wrapper.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+import '../constants.dart';
 import '../core_rules/rule.dart';
+import '../utils/extensions/context_extensions.dart';
 import '../widgets/rule.dart';
+import '../widgets/search.dart';
 import '../widgets/stack.dart';
 
 class TournamentRulesView extends StatefulWidget {
@@ -23,16 +26,18 @@ class TournamentRulesView extends StatefulWidget {
 class TournamentRulesViewState extends State<TournamentRulesView> {
   final _textController = TextEditingController();
   final _history = Stack<String>();
+  late TournamentRulesViewModel viewModel;
 
   @override
   void dispose() {
     _textController.dispose();
+    viewModel.reset();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final viewModel =
+    viewModel =
         Provider.of<TournamentRulesViewModel>(context, listen: true);
     final scrollController = ItemScrollController();
     final ruleToJumpTo = 'RuleToJumpTo';
@@ -51,26 +56,11 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
       viewModel.search(null);
     }
 
-    final searchBar = SearchBar(
-      hintText: "[Search]",
-      onChanged: (value) => viewModel.search(value),
-      onSubmitted: (value) => viewModel.search(value),
-      backgroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.tertiary),
-      shadowColor: WidgetStateProperty.all(Colors.transparent),
-      trailing: [
-        IconButton(
-            icon: Icon(
-                _textController.text.isEmpty ? Icons.search : Icons.clear,
-                size: 25,
-                color: Theme.of(context).colorScheme.secondary
-            ),
-            onPressed: () {
-              clearSearch();
-            }
-        ),
-      ],
-      controller: _textController,
-    );
+    final searchBar = CustomSearchBar(
+      textController: _textController,
+      onChanged: viewModel.search,
+      onSubmitted: viewModel.search,
+      onClear: clearSearch);
 
     void linkCallback(String ruleNumber) {
       clearSearch();
@@ -78,8 +68,122 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
     }
 
     final filteredRules = context
-        .select<TournamentRulesViewModel, List<RuleModel>>((vm) => vm.rules);
+      .select<TournamentRulesViewModel, List<RuleModel>>((vm) => vm.rules);
 
+    final indexList =
+      context.select<TournamentRulesViewModel,
+        List<TrIndex>>((vm) => vm.indexMap);
+
+    TrIndex? waitingTopLevelItem;
+    var topLevelIndices = [];
+    var childIndices = [];
+
+    for (final item in indexList) {
+      if (!item.isSubrule) {
+        if (waitingTopLevelItem != null) {
+          topLevelIndices.add(
+            ExpansionTile(
+              shape: BoxBorder.fromLTRB(),
+              tilePadding: EdgeInsets.zero,
+              title: Text(
+                waitingTopLevelItem.text,
+                style: TextStyle(
+                  color: context.colorScheme.secondary,
+                  fontFamily: Fonts.beaufort,
+                  fontWeight: FontWeight.bold
+                )
+              ),
+              children: [...childIndices],
+            )
+          );
+        }
+        childIndices = [];
+        waitingTopLevelItem = item;
+      } else {
+        childIndices.add(
+          InkWell(
+            onTap: () {
+              scrollController.jumpTo(index: item.lookup);
+              Navigator.pop(context);
+            },
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    item.number,
+                    style: TextStyle(
+                      color: context.colorScheme.secondary,
+                      fontFamily: Fonts.spiegel,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 10,
+                  child: Padding(
+                    padding: EdgeInsetsGeometry.only(left: 10),
+                    child: Text(
+                      item.text,
+                      style: TextStyle(
+                        color: context.colorScheme.secondary,
+                        fontFamily: Fonts.spiegel,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        );
+      }
+    }
+
+    topLevelIndices.add(
+      ExpansionTile(
+        shape: BoxBorder.fromLTRB(),
+        tilePadding: EdgeInsets.zero,
+        title: Text(
+          waitingTopLevelItem!.text,
+          style: TextStyle(
+            color: context.colorScheme.secondary,
+            fontFamily: Fonts.beaufort,
+            fontWeight: FontWeight.bold
+          )
+        ),
+        children: [...childIndices],
+      )
+    );
+
+    var indexDrawer = Drawer(
+      child: Padding(
+        padding: MediaQuery.of(context).viewPadding,
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsetsGeometry.only(top: 15, bottom: 1),
+              child: Text(
+                'PENALTY INDEX',
+                style: TextStyle(
+                  color: context.colorScheme.secondary,
+                  fontFamily: Fonts.beaufort,
+                  fontWeight: FontWeight.bold
+                )
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsetsGeometry.only(left: 12, right: 12),
+                child: ListView(
+                  padding: MediaQuery.of(context).viewPadding,
+                  children: [...topLevelIndices]
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (bool didPop, Object? _) {
@@ -90,12 +194,14 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
           final jump = _history.pop();
           scrollController.jumpTo(index: viewModel.lookup[jump] ?? 0);
         } else {
+          clearSearch();
           SystemNavigator.pop();
         }
       },
       child: AppWrapper(
         title: 'Tournament Rules',
         searchBar: searchBar,
+        endDrawer: indexDrawer,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -105,9 +211,10 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
                 itemCount: filteredRules.length,
                 itemBuilder: (context, index) {
                   return RuleWidget(
-                      model: filteredRules[index],
-                      callback: linkCallback,
-                      shouldIndent: !viewModel.isFiltered);
+                    model: filteredRules[index],
+                    callback: linkCallback,
+                    shouldIndent: !viewModel.isFiltered
+                  );
                 }
               )
             )

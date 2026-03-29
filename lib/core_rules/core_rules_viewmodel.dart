@@ -1,8 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:pocket_judge/extensions/list_extensions.dart';
+import '../utils/sorts.dart';
 import 'rule.dart';
 
 class CoreRulesViewModel extends ChangeNotifier {
@@ -14,6 +12,10 @@ class CoreRulesViewModel extends ChangeNotifier {
   List<RuleModel> get rules => _filteredRules;
   bool get isFiltered => _rules.length != _filteredRules.length;
   Map<String, int> get lookup => _reverseLookup;
+
+  void reset() {
+    _filteredRules = _rules;
+  }
 
   void search(String? search) {
     if (search == null || search.isEmpty) {
@@ -37,50 +39,19 @@ class CoreRulesViewModel extends ChangeNotifier {
 
     final data =
         await FirebaseFirestore.instance.collection('core_rules').get();
-    var currentIndex = 0;
 
     for (final item in data.docs) {
       final rule = RuleModel.fromJson(item.data());
-      _reverseLookup[rule.number] = currentIndex++;
       _rules.add(rule);
     }
 
-    _rules.sort((a, b) => _compareRules(a, b));
+    _rules.sort((a, b) => sortRules(a.number, b.number));
+
+    for (var i = 0; i < _rules.length; i++) {
+      _reverseLookup[_rules[i].number] = i;
+    }
+
     _filteredRules = _rules;
     notifyListeners();
-  }
-
-  int _compareRules(RuleModel first, RuleModel second) {
-    var firstFragments = first.number.split('.');
-    var secondFragments = second.number.split('.');
-    firstFragments.removeWhere((s) => s.isEmpty);
-    secondFragments.removeWhere((s) => s.isEmpty);
-
-    for (var i = 0;
-        i < max(firstFragments.length, secondFragments.length);
-        i++) {
-      var first = firstFragments.tryGet(i);
-      var second = secondFragments.tryGet(i);
-
-      if (first == null) {
-        return -1;
-      } else if (second == null) {
-        return 1;
-      }
-
-      if (first == second) {
-        continue;
-      }
-
-      final firstParsed = double.tryParse(firstFragments[i]);
-      if (firstParsed != null) {
-        final secondParsed = double.tryParse(secondFragments[i]);
-        return firstParsed.compareTo(secondParsed!);
-      } else {
-        return firstFragments[i].compareTo(secondFragments[i]);
-      }
-    }
-    throw Exception(
-        "How did we get here? ${firstFragments.join(',')}, ${secondFragments.join(',')}");
   }
 }

@@ -1,4 +1,4 @@
-import 'package:pocket_judge/extensions/json_extensions.dart';
+import '../utils/extensions/json_extensions.dart';
 
 class ErratumModel {
   final String name;
