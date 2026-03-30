@@ -48,7 +48,7 @@ class ErrataViewState extends State<ErrataView> {
         context.select<ErrataViewModel, List<ErratumModel>>((vm) => vm.errata);
 
     return AppWrapper(
-      title: 'Card Specific Notes',
+      title: widget.title,
       searchBar: searchBar,
       body: ScrollablePositionedList.builder(
         itemScrollController: scrollController,

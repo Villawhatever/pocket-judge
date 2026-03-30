@@ -199,7 +199,7 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
         }
       },
       child: AppWrapper(
-        title: 'Tournament Rules',
+        title: widget.title,
         searchBar: searchBar,
         endDrawer: indexDrawer,
         body: Column(

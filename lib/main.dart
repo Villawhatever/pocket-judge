@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:localstorage/localstorage.dart';
-import 'package:pocket_judge/about/about_view.dart';
+import 'package:pocket_judge/simple_views/about_view.dart';
 import 'package:pocket_judge/errata/errata_viewmodel.dart';
 import 'package:pocket_judge/preferences_state.dart';
 import 'package:pocket_judge/core_rules/core_rules_view.dart';
@@ -76,18 +76,23 @@ class MyApp extends StatelessWidget {
             ),
             home: UpgradeAlert(
               child: FutureBuilder(
-                future: setupData().then((_) => FlutterNativeSplash.remove()),
+                future: setupData()
+                    .then((_) => FlutterNativeSplash.remove())
+                    .catchError((_) => FlutterNativeSplash.remove()),
                 builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     return CoreRulesView(title: 'Core Rules');
-                  } else {
+                  } else if (snapshot.hasError) {
                     return AboutView(title: 'About');
+                  } else {
+                    return SizedBox.shrink();
                   }
                 },
               ),
             ),
           ),
         );
-      });
+      }
+    );
   }
 }

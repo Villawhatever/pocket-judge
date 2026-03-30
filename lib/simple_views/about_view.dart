@@ -32,7 +32,7 @@ class AboutView extends StatelessWidget {
     final Uri discordUri = Uri.parse('https://discord.com/channels/@me/49416803398455296');
 
     return AppWrapper(
-        title: 'About',
+        title: title,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

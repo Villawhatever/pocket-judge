@@ -81,7 +81,7 @@ class CoreRulesViewState extends State<CoreRulesView> {
         }
       },
       child: AppWrapper(
-        title: 'Core Rules',
+        title: widget.title,
         searchBar: searchBar,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,

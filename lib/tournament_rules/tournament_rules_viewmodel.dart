@@ -62,7 +62,6 @@ class TournamentRulesViewModel extends ChangeNotifier {
       final rule = RuleModel.fromJson(item.data());
       _rules.add(rule);
     }
-
     _rules.sort((a, b) => sortRules(a.number, b.number));
 
     for (var i = 0; i < _rules.length; i++) {

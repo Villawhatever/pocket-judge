@@ -3,7 +3,7 @@ import 'package:pocket_judge/errata/errata_view.dart';
 import 'package:pocket_judge/tournament_rules/tournament_rules_view.dart';
 import 'package:pocket_judge/core_rules/core_rules_view.dart';
 
-import '../about/about_view.dart';
+import '../simple_views/about_view.dart';
 import '../constants.dart';
 import '../search/search_view.dart';
 import '../utils/extensions/context_extensions.dart';
