@@ -22,8 +22,8 @@ class CardWidget extends StatelessWidget {
 
       for (final match in matches) {
         final textStyle = match.group(0)!.startsWith('[')
-            ? const TextStyle(fontWeight: FontWeight.bold)
-            : const TextStyle(fontStyle: FontStyle.italic);
+            ? context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold)
+            : context.textTheme.bodyMedium!.copyWith(fontStyle: FontStyle.italic);
 
         prettified.add(
             TextSpan(text: relevantText.substring(currentPosition, match.start)));
@@ -73,16 +73,15 @@ class CardWidget extends StatelessWidget {
 
     Widget buildCardInfo(String title, dynamic value) {
       return Padding(
-          padding: const EdgeInsets.only(bottom: 12),
-          child: RichText(
-            text: TextSpan(
-              style: TextStyle(color: context.colorScheme.primary),
-              children: [
-                TextSpan(text: '$title\n', style: TextStyle(fontWeight: FontWeight.bold)),
-                TextSpan(text: value.toString()),
-              ]
-            ),
-          ),
+        padding: const EdgeInsets.only(bottom: 12),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title, style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold)),
+            Text(value.toString(), style: context.textTheme.bodyMedium),
+          ]
+        )
       );
     }
 
@@ -92,7 +91,7 @@ class CardWidget extends StatelessWidget {
         tilePadding: EdgeInsets.zero,
         title: Text(
           model.name,
-          style: TextStyle(color: context.colorScheme.secondary, fontFamily: Fonts.beaufort, fontWeight: FontWeight.bold),
+          style: context.textTheme.titleMedium,
         ),
         children: [
           Padding(
@@ -129,7 +128,7 @@ class CardWidget extends StatelessWidget {
                 if (relevantText != null) ...[
                   RichText(
                     text: TextSpan(
-                        style: TextStyle(color: context.colorScheme.primary),
+                        style: context.textTheme.bodyMedium,
                         children: prettified
                     ),
                   ),

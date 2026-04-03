@@ -412,5 +412,41 @@
       }
     ],
     "set": "SFD"
+  },
+  {
+    "name": "Guards!",
+    "oldText": "[Hidden] (Hide now for [A] to react with later for [0].)\n\nPlay a 2 [M] Sand Soldier unit token. You may pay [C] to ready it.",
+    "newText": "[Hidden] (Hide now for [A] to react with later for [0].)\n\nPlay a 2 [M] Sand Soldier unit token. Then do this: You may pay [C] to ready it.",
+    "set": "SFD"
+  },
+  {
+    "name": "Relentless Pursuit",
+    "oldText": "[Action] (Play on your turn or in showdowns.)\n\nMove a friendly unit. You may attach an Equipment with the same controller to it. This turn, that unit has \"When I conquer, you may move me to my base.\"",
+    "newText": "[Action] (Play on your turn or in showdowns.)\n\nMove a friendly unit. You may attach up to one Equipment with the same controller to it. This turn, that unit has \"When I conquer, you may move me to my base.\"",
+    "set": "SFD"
+  },
+  {
+    "name": "Bone Skewer",
+    "oldText": "[Hidden] (Hide now for [A] to react with later for [0].)\n\nChoose a battlefield. An opponent reveals their hand. You may choose a unit from it. They play that unit to that battlefield, ignoring any and all costs. When they do, [Stun] it. (It doesn't deal combat damage this turn.)",
+    "newText": "[Hidden] (Hide now for [A] to react with later for [0].)\n\nChoose a battlefield. An opponent reveals their hand. You may choose a unit from it. They play that unit to that battlefield, ignoring any and all costs. If they do, then do this: [Stun] it. (It doesn't deal combat damage this turn.)",
+    "set": "UNL"
+  },
+  {
+    "name": "Leblanc, Deceiver",
+    "oldText": "When you conquer or hold, you may discard 1 and exhaust me to play a ready Reflection unit token there. It becomes a copy of another unit there. Give it [Temporary].",
+    "newText": "When you conquer or hold, you may discard 1 and exhaust me to play a ready Reflection unit token there. Then do this: It becomes a copy of another unit there. Give it [Temporary].",
+    "set": "UNL"
+  },
+  {
+    "name": "Mirror Image",
+    "oldText": "[Hidden] (Hide now for [A] to react with later for [0].)\n\n[Temporary] (Kill me at the start of my controller's Beginning Phase, before scoring.)\n\nWhen you play me, play two Reflection unit tokens here. They become copies of me.",
+    "newText": "[Hidden] (Hide now for [A] to react with later for [0].)\n\n[Temporary] (Kill me at the start of my controller's Beginning Phase, before scoring.)\n\nWhen you play me, play two Reflection unit tokens here. Then do this: They become copies of me.",
+    "set": "UNL"
+  },
+  {
+    "name": "Rengar, Trophy Hunter",
+    "oldText": "[Ambush] (You may play me as a [Reaction] to a battlefield where you have units.)\n\nI can be played to a battlefield where there are enemy units (even if you don't have units there).",
+    "newText": "[Ambush] (You may play me as a [Reaction] to a battlefield where you have units.)\n\nI can [Ambush] to a battlefield where there are enemy units, even if you don't have units there.",
+    "set": "UNL"
   }
 ]

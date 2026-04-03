@@ -7,7 +7,6 @@ import 'package:pocket_judge/widgets/app_wrapper.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-import '../constants.dart';
 import '../core_rules/rule.dart';
 import '../utils/extensions/context_extensions.dart';
 import '../widgets/rule.dart';
@@ -87,11 +86,7 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
               tilePadding: EdgeInsets.zero,
               title: Text(
                 waitingTopLevelItem.text,
-                style: TextStyle(
-                  color: context.colorScheme.secondary,
-                  fontFamily: Fonts.beaufort,
-                  fontWeight: FontWeight.bold
-                )
+                style: context.textTheme.titleMedium,
               ),
               children: [...childIndices],
             )
@@ -113,10 +108,7 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
                   flex: 2,
                   child: Text(
                     item.number,
-                    style: TextStyle(
-                      color: context.colorScheme.secondary,
-                      fontFamily: Fonts.spiegel,
-                    ),
+                    style: context.textTheme.bodyMedium!.copyWith(color: context.colorScheme.secondary)
                   ),
                 ),
                 Expanded(
@@ -125,10 +117,7 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
                     padding: EdgeInsetsGeometry.only(left: 10),
                     child: Text(
                       item.text,
-                      style: TextStyle(
-                        color: context.colorScheme.secondary,
-                        fontFamily: Fonts.spiegel,
-                      ),
+                      style: context.textTheme.bodyMedium!.copyWith(color: context.colorScheme.secondary)
                     ),
                   ),
                 ),
@@ -145,11 +134,7 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
         tilePadding: EdgeInsets.zero,
         title: Text(
           waitingTopLevelItem!.text,
-          style: TextStyle(
-            color: context.colorScheme.secondary,
-            fontFamily: Fonts.beaufort,
-            fontWeight: FontWeight.bold
-          )
+          style: context.textTheme.titleMedium
         ),
         children: [...childIndices],
       )
@@ -164,11 +149,7 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
               padding: EdgeInsetsGeometry.only(top: 15, bottom: 1),
               child: Text(
                 'PENALTY INDEX',
-                style: TextStyle(
-                  color: context.colorScheme.secondary,
-                  fontFamily: Fonts.beaufort,
-                  fontWeight: FontWeight.bold
-                )
+                style: context.textTheme.titleLarge
               ),
             ),
             Expanded(

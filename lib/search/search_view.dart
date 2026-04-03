@@ -65,7 +65,7 @@ class SearchViewState extends State<SearchView> {
             MarkdownBody(
               data: viewModel.searchSyntax,
               styleSheet:
-              MarkdownStyleSheet.fromTheme(Theme.of(context))
+              MarkdownStyleSheet.fromTheme(context.theme)
                 .copyWith(
                 code: TextStyle(
                   color: context.colorScheme.secondary

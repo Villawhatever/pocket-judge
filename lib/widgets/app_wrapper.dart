@@ -19,10 +19,9 @@ class AppWrapper extends StatelessWidget {
       endDrawer: endDrawer,
       appBar: AppBar(
         centerTitle: true,
-        title: Text(title.toUpperCase(),
-          style: TextStyle(color: context.colorScheme.secondary,
-            fontFamily: Fonts.beaufort,
-            fontWeight: FontWeight.bold)
+        title: Text(
+          title.toUpperCase(),
+          style: context.textTheme.titleLarge
         ),
         automaticallyImplyActions: false,
         foregroundColor: context.colorScheme.primary,
@@ -46,10 +45,10 @@ class AppWrapper extends StatelessWidget {
             builder: (context) {
               if (endDrawer != null) {
                 return IconButton(
-                    icon: Image.asset('lib/assets/img/index.png', width: 25),
-                    onPressed: () {
-                      Scaffold.of(context).openEndDrawer();
-                    }
+                  icon: Image.asset('lib/assets/img/index.png', width: 25),
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer();
+                  }
                 );
               }
               return SizedBox.shrink();
@@ -64,19 +63,20 @@ class AppWrapper extends StatelessWidget {
               color: context.colorScheme.inversePrimary,
               height: 55,
               child: Row(
-                  children: [
-                    Expanded(
-                        child: Padding(
-                          padding: EdgeInsetsGeometry.fromLTRB(5, 0, 5, 10),
-                          child: searchBar!
-                        ),
-                    )
-                  ]
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsetsGeometry.fromLTRB(5, 0, 5, 10),
+                      child: searchBar!
+                    ),
+                  )
+                ]
               ),
             ),
           Expanded(
             child: Padding(
-                padding: const EdgeInsets.fromLTRB(12, 5, 12, 5), child: body
+              padding: const EdgeInsets.fromLTRB(12, 5, 12, 5),
+              child: body
             ),
           ),
         ]

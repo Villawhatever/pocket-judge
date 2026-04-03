@@ -31,7 +31,7 @@ with open(filename, 'r', encoding='utf8') as f:
         else:
             rule = {
                 'ruleNumber': number,
-                'text': text
+                'text': text.replace('”', '"')
             }
             rulesRef.document(number).set(rule)
 

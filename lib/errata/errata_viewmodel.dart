@@ -22,9 +22,9 @@ class ErrataViewModel extends ChangeNotifier {
       notifyListeners();
       return;
     }
-    search = search.toLowerCase();
+    var fmt = search.toLowerCase();
     _filteredErrata =
-        _errata.where((r) => r.name.toLowerCase().contains(search!)).toList();
+        _errata.where((r) => r.name.toLowerCase().contains(fmt) || r.set.toLowerCase().contains(fmt)).toList();
     notifyListeners();
   }
 

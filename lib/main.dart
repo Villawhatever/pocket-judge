@@ -9,9 +9,11 @@ import 'package:pocket_judge/core_rules/core_rules_view.dart';
 import 'package:pocket_judge/core_rules/core_rules_viewmodel.dart';
 import 'package:pocket_judge/search/search_viewmodel.dart';
 import 'package:pocket_judge/tournament_rules/tournament_rules_viewmodel.dart';
+import 'package:pocket_judge/utils/extensions/context_extensions.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:upgrader/upgrader.dart';
+import 'constants.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -68,12 +70,49 @@ class MyApp extends StatelessWidget {
                 primary: const Color(0xffbbcfdd),
                 inversePrimary: const Color(0xff1d3143),
                 secondary: const Color(0xffea7d24),
+                secondaryContainer: const Color(0x45ad9d69),
                 tertiary: const Color(0xff1b1b1b),
-                error: const Color(0xffcf6679),
+                errorContainer: const Color(0x884f2714),
                 onError: Colors.black,
               ),
               useMaterial3: true,
             ),
+            builder: (context, child) {
+              return Theme(
+                data: context.theme.copyWith(
+                  textTheme: TextTheme(
+                    bodyLarge: TextStyle(
+                      fontFamily: Fonts.spiegel,
+                      color: context.colorScheme.primary,
+                    ),
+                    bodyMedium: TextStyle(
+                      fontFamily: Fonts.spiegel,
+                      color: context.colorScheme.primary,
+                    ),
+                    bodySmall: TextStyle(
+                      fontFamily: Fonts.spiegel,
+                      color: context.colorScheme.primary,
+                    ),
+                    titleLarge: TextStyle(
+                      fontFamily: Fonts.beaufort,
+                      fontWeight: FontWeight.bold,
+                      color: context.colorScheme.secondary,
+                    ),
+                    titleMedium: TextStyle(
+                      fontFamily: Fonts.beaufort,
+                      fontWeight: FontWeight.bold,
+                      color: context.colorScheme.secondary,
+                    ),
+                    titleSmall: TextStyle(
+                      fontFamily: Fonts.beaufort,
+                      fontWeight: FontWeight.bold,
+                      color: context.colorScheme.secondary,
+                    ),
+                  ),
+                ),
+                child: child!,
+              );
+            },
             home: UpgradeAlert(
               child: FutureBuilder(
                 future: setupData()

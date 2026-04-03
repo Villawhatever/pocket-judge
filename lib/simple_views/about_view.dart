@@ -36,10 +36,8 @@ class AboutView extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Pocket Judge', style: TextStyle(color: context.colorScheme.secondary, fontFamily: Fonts.beaufort, fontWeight: FontWeight.bold, fontSize: 24)),
-            Text(
-                'Built by Villa and Tobias Vyseri',
-                style: TextStyle(color: context.colorScheme.primary)),
+            Text('Pocket Judge', style: context.textTheme.titleLarge),
+            Text('Built by Villa and Tobias Vyseri'),
             FutureBuilder<VersionInfo>(
               future: _fetchPackageInfo(),
               builder: (context, snapshot) {
@@ -58,8 +56,8 @@ class AboutView extends StatelessWidget {
               }
             ),
             Text(
-                'For feedback, feature requests, or bug reports, please contact @villawhatever on Discord or open an issue on Github.',
-                style: TextStyle(color: context.colorScheme.primary)),
+              'For feedback, feature requests, or bug reports, please contact @villawhatever on Discord or open an issue on Github.',
+            ),
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -67,15 +65,13 @@ class AboutView extends StatelessWidget {
                     onPressed: () async {
                       launchUrl(githubUri);
                     },
-                    child: FaIcon(FontAwesomeIcons.github,
-                        color: context.colorScheme.primary, size: 25),
+                    child: FaIcon(FontAwesomeIcons.github, size: 25),
                   ),
                   TextButton(
                     onPressed: () async {
                       launchUrl(discordUri);
                     },
-                    child: FaIcon(FontAwesomeIcons.discord,
-                        color: context.colorScheme.primary, size: 25),
+                    child: FaIcon(FontAwesomeIcons.discord, size: 25),
                   ),
                 ]
             ),

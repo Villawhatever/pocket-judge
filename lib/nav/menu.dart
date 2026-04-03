@@ -60,7 +60,7 @@ class Menu extends StatelessWidget {
           offset: Offset(2, 0),
           child: Image.asset(item.img, width: 32, height: 32),
         ) : Image.asset(item.img, width: 32, height: 32),
-        title: Text(item.name.toUpperCase(), style: TextStyle(color: context.colorScheme.secondary, fontFamily: Fonts.beaufort, fontWeight: FontWeight.bold)),
+        title: Text(item.name.toUpperCase(), style: context.textTheme.titleMedium),
         onTap: () {
           Navigator.pushReplacement(
             context,
