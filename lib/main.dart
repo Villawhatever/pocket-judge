@@ -1,18 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:localstorage/localstorage.dart';
-import 'package:pocket_judge/simple_views/about_view.dart';
-import 'package:pocket_judge/errata/errata_viewmodel.dart';
-import 'package:pocket_judge/preferences_state.dart';
 import 'package:pocket_judge/core_rules/core_rules_view.dart';
 import 'package:pocket_judge/core_rules/core_rules_viewmodel.dart';
+import 'package:pocket_judge/errata/errata_viewmodel.dart';
+import 'package:pocket_judge/preferences_state.dart';
 import 'package:pocket_judge/search/search_viewmodel.dart';
+import 'package:pocket_judge/simple_views/about_view.dart';
 import 'package:pocket_judge/tournament_rules/tournament_rules_viewmodel.dart';
 import 'package:pocket_judge/utils/extensions/context_extensions.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:upgrader/upgrader.dart';
+
 import 'constants.dart';
 import 'firebase_options.dart';
 
@@ -82,29 +83,29 @@ class MyApp extends StatelessWidget {
                   data: context.theme.copyWith(
                     textTheme: TextTheme(
                       bodyLarge: TextStyle(
-                        fontFamily: Fonts.spiegel,
+                        fontFamily: spiegel,
                         color: context.colorScheme.primary,
                       ),
                       bodyMedium: TextStyle(
-                        fontFamily: Fonts.spiegel,
+                        fontFamily: spiegel,
                         color: context.colorScheme.primary,
                       ),
                       bodySmall: TextStyle(
-                        fontFamily: Fonts.spiegel,
+                        fontFamily: spiegel,
                         color: context.colorScheme.primary,
                       ),
                       titleLarge: TextStyle(
-                        fontFamily: Fonts.beaufort,
+                        fontFamily: beaufort,
                         fontWeight: FontWeight.bold,
                         color: context.colorScheme.secondary,
                       ),
                       titleMedium: TextStyle(
-                        fontFamily: Fonts.beaufort,
+                        fontFamily: beaufort,
                         fontWeight: FontWeight.bold,
                         color: context.colorScheme.secondary,
                       ),
                       titleSmall: TextStyle(
-                        fontFamily: Fonts.beaufort,
+                        fontFamily: beaufort,
                         fontWeight: FontWeight.bold,
                         color: context.colorScheme.secondary,
                       ),
