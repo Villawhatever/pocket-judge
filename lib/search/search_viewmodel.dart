@@ -104,7 +104,8 @@ class SearchViewModel extends ChangeNotifier {
 
   Future load() async {
     if (_searchSyntax.isEmpty) {
-      _searchSyntax = await rootBundle.loadString('lib/assets/search_syntax.md');
+      _searchSyntax =
+          await rootBundle.loadString('lib/assets/search_syntax.md');
     }
 
     if (_cards.isNotEmpty) {

@@ -47,14 +47,13 @@ class SearchViewState extends State<SearchView> {
     }
 
     final searchBar = CustomSearchBar(
-      textController: _textController,
-      onChanged: onSearchTextChanged,
-      onSubmitted: viewModel.search,
-      onClear: clearSearch
-    );
+        textController: _textController,
+        onChanged: onSearchTextChanged,
+        onSubmitted: viewModel.search,
+        onClear: clearSearch);
 
     final filteredCards =
-      context.select<SearchViewModel, List<CardModel>>((vm) => vm.cards);
+        context.select<SearchViewModel, List<CardModel>>((vm) => vm.cards);
 
     Widget body;
 
@@ -64,13 +63,8 @@ class SearchViewState extends State<SearchView> {
           children: [
             MarkdownBody(
               data: viewModel.searchSyntax,
-              styleSheet:
-              MarkdownStyleSheet.fromTheme(context.theme)
-                .copyWith(
-                code: TextStyle(
-                  color: context.colorScheme.secondary
-                )
-              ),
+              styleSheet: MarkdownStyleSheet.fromTheme(context.theme).copyWith(
+                  code: TextStyle(color: context.colorScheme.secondary)),
             ),
           ],
         ),

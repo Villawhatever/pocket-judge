@@ -49,89 +49,90 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => PreferencesState()),
-        ChangeNotifierProvider(create: (context) => crVm),
-        ChangeNotifierProvider(create: (context) => errataVm),
-        ChangeNotifierProvider(create: (context) => searchVm),
-        ChangeNotifierProvider(create: (context) => trVm),
-      ],
-      builder: (context, _) {
-        return SafeArea(
-          top: false,
-          bottom: true,
-          child: MaterialApp(
-            title: 'Pocket Judge',
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(
-                seedColor: const Color(0xff1d3143),
-                brightness: Brightness.dark,
-              ).copyWith(
-                primary: const Color(0xffbbcfdd),
-                inversePrimary: const Color(0xff1d3143),
-                secondary: const Color(0xffea7d24),
-                secondaryContainer: const Color(0x45ad9d69),
-                tertiary: const Color(0xff1b1b1b),
-                errorContainer: const Color(0x884f2714),
-                onError: Colors.black,
+        providers: [
+          ChangeNotifierProvider(create: (context) => PreferencesState()),
+          ChangeNotifierProvider(create: (context) => crVm),
+          ChangeNotifierProvider(create: (context) => errataVm),
+          ChangeNotifierProvider(create: (context) => searchVm),
+          ChangeNotifierProvider(create: (context) => trVm),
+        ],
+        builder: (context, _) {
+          return SafeArea(
+            top: false,
+            bottom: true,
+            child: MaterialApp(
+              title: 'Pocket Judge',
+              theme: ThemeData(
+                colorScheme: ColorScheme.fromSeed(
+                  seedColor: const Color(0xff1d3143),
+                  brightness: Brightness.dark,
+                ).copyWith(
+                  primary: const Color(0xffbbcfdd),
+                  inversePrimary: const Color(0xff1d3143),
+                  secondary: const Color(0xffea7d24),
+                  secondaryContainer: const Color(0x45ad9d69),
+                  tertiary: const Color(0xff1b1b1b),
+                  errorContainer: const Color(0x884f2714),
+                  onError: Colors.black,
+                ),
+                useMaterial3: true,
               ),
-              useMaterial3: true,
-            ),
-            builder: (context, child) {
-              return Theme(
-                data: context.theme.copyWith(
-                  textTheme: TextTheme(
-                    bodyLarge: TextStyle(
-                      fontFamily: Fonts.spiegel,
-                      color: context.colorScheme.primary,
-                    ),
-                    bodyMedium: TextStyle(
-                      fontFamily: Fonts.spiegel,
-                      color: context.colorScheme.primary,
-                    ),
-                    bodySmall: TextStyle(
-                      fontFamily: Fonts.spiegel,
-                      color: context.colorScheme.primary,
-                    ),
-                    titleLarge: TextStyle(
-                      fontFamily: Fonts.beaufort,
-                      fontWeight: FontWeight.bold,
-                      color: context.colorScheme.secondary,
-                    ),
-                    titleMedium: TextStyle(
-                      fontFamily: Fonts.beaufort,
-                      fontWeight: FontWeight.bold,
-                      color: context.colorScheme.secondary,
-                    ),
-                    titleSmall: TextStyle(
-                      fontFamily: Fonts.beaufort,
-                      fontWeight: FontWeight.bold,
-                      color: context.colorScheme.secondary,
+              builder: (context, child) {
+                return Theme(
+                  data: context.theme.copyWith(
+                    textTheme: TextTheme(
+                      bodyLarge: TextStyle(
+                        fontFamily: Fonts.spiegel,
+                        color: context.colorScheme.primary,
+                      ),
+                      bodyMedium: TextStyle(
+                        fontFamily: Fonts.spiegel,
+                        color: context.colorScheme.primary,
+                      ),
+                      bodySmall: TextStyle(
+                        fontFamily: Fonts.spiegel,
+                        color: context.colorScheme.primary,
+                      ),
+                      titleLarge: TextStyle(
+                        fontFamily: Fonts.beaufort,
+                        fontWeight: FontWeight.bold,
+                        color: context.colorScheme.secondary,
+                      ),
+                      titleMedium: TextStyle(
+                        fontFamily: Fonts.beaufort,
+                        fontWeight: FontWeight.bold,
+                        color: context.colorScheme.secondary,
+                      ),
+                      titleSmall: TextStyle(
+                        fontFamily: Fonts.beaufort,
+                        fontWeight: FontWeight.bold,
+                        color: context.colorScheme.secondary,
+                      ),
                     ),
                   ),
+                  child: child!,
+                );
+              },
+              home: UpgradeAlert(
+                upgrader: Upgrader(debugLogging: false),
+                child: FutureBuilder(
+                  future: setupData()
+                      .then((_) => FlutterNativeSplash.remove())
+                      .catchError((_) => FlutterNativeSplash.remove()),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<void> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return CoreRulesView(title: 'Core Rules');
+                    } else if (snapshot.hasError) {
+                      return AboutView(title: 'About');
+                    } else {
+                      return SizedBox.shrink();
+                    }
+                  },
                 ),
-                child: child!,
-              );
-            },
-            home: UpgradeAlert(
-              child: FutureBuilder(
-                future: setupData()
-                    .then((_) => FlutterNativeSplash.remove())
-                    .catchError((_) => FlutterNativeSplash.remove()),
-                builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    return CoreRulesView(title: 'Core Rules');
-                  } else if (snapshot.hasError) {
-                    return AboutView(title: 'About');
-                  } else {
-                    return SizedBox.shrink();
-                  }
-                },
               ),
             ),
-          ),
-        );
-      }
-    );
+          );
+        });
   }
 }

@@ -81,26 +81,20 @@ class CoreRulesViewState extends State<CoreRulesView> {
         }
       },
       child: AppWrapper(
-        title: widget.title,
-        searchBar: searchBar,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          title: widget.title,
+          searchBar: searchBar,
+          body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Expanded(
-              child: ScrollablePositionedList.builder(
-                  itemScrollController: scrollController,
-                  itemCount: filteredRules.length,
-                  itemBuilder: (context, index) {
-                    return RuleWidget(
-                        model: filteredRules[index],
-                        callback: linkCallback,
-                        shouldIndent: !viewModel.isFiltered);
-                  }
-              )
-            )
-          ]
-        )
-      ),
+                child: ScrollablePositionedList.builder(
+                    itemScrollController: scrollController,
+                    itemCount: filteredRules.length,
+                    itemBuilder: (context, index) {
+                      return RuleWidget(
+                          model: filteredRules[index],
+                          callback: linkCallback,
+                          shouldIndent: !viewModel.isFiltered);
+                    }))
+          ])),
     );
   }
 }

@@ -8,9 +8,7 @@ int sortRules(String first, String second) {
   firstFragments.removeWhere((s) => s.isEmpty);
   secondFragments.removeWhere((s) => s.isEmpty);
 
-  for (var i = 0;
-  i < max(firstFragments.length, secondFragments.length);
-  i++) {
+  for (var i = 0; i < max(firstFragments.length, secondFragments.length); i++) {
     var first = firstFragments.tryGet(i);
     var second = secondFragments.tryGet(i);
 

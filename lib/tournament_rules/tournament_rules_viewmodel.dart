@@ -74,7 +74,11 @@ class TournamentRulesViewModel extends ChangeNotifier {
         if (num < 702) {
           continue;
         }
-        _indexMap.add(TrIndex(ruleFragments.join('.'), _rules[i].text.split(RegExp(r'[:\[]')).first, _reverseLookup[_rules[i].number]!, ruleFragments.length == 2));
+        _indexMap.add(TrIndex(
+            ruleFragments.join('.'),
+            _rules[i].text.split(RegExp(r'[:\[]')).first,
+            _reverseLookup[_rules[i].number]!,
+            ruleFragments.length == 2));
       }
     }
 

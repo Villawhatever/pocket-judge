@@ -17,23 +17,22 @@ class CardModel {
   final String? errataOldText;
   final Map<String, String>? idsWithImages;
 
-  const CardModel({
-    required this.id,
-    required this.name,
-    required this.collectorNumber,
-    this.energy,
-    this.power,
-    this.might,
-    this.domain,
-    required this.cardType,
-    required this.rarity,
-    required this.cardSet,
-    required this.imageUrl,
-    required this.ability,
-    this.errataText,
-    this.errataOldText,
-    this.idsWithImages
-  });
+  const CardModel(
+      {required this.id,
+      required this.name,
+      required this.collectorNumber,
+      this.energy,
+      this.power,
+      this.might,
+      this.domain,
+      required this.cardType,
+      required this.rarity,
+      required this.cardSet,
+      required this.imageUrl,
+      required this.ability,
+      this.errataText,
+      this.errataOldText,
+      this.idsWithImages});
 
   factory CardModel.fromJson(Map<String, dynamic> json) {
     List<dynamic>? domains = json.tryGet('domain');
@@ -53,7 +52,7 @@ class CardModel {
       ability: json.tryGet('ability'),
       errataText: json.tryGet('errata_text'),
       errataOldText: json.tryGet('errata_old_text'),
-      idsWithImages: { json.tryGet('id'): json.tryGet('image_url') },
+      idsWithImages: {json.tryGet('id'): json.tryGet('image_url')},
     );
   }
 

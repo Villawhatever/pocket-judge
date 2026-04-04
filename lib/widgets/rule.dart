@@ -58,7 +58,8 @@ class RuleWidget extends StatelessWidget {
 
       fragments.add(TextSpan(
           text: model.text.substring(match.start, match.end),
-          style: context.textTheme.bodyMedium!.copyWith(color: context.colorScheme.secondary),
+          style: context.textTheme.bodyMedium!
+              .copyWith(color: context.colorScheme.secondary),
           recognizer: TapGestureRecognizer()
             ..onTap = () => callback(seeRuleNumber)));
 
@@ -67,7 +68,7 @@ class RuleWidget extends StatelessWidget {
     fragments.add(TextSpan(text: model.text.substring(currentPosition)));
 
     final double leftPadding = shouldIndent
-        ? math.max(10 * (countCharacters(model.number, '.') - 1), 0)
+        ? math.max(15 * (countCharacters(model.number, '.') - 1), 0)
         : 0;
 
     return Padding(

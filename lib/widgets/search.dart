@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../utils/extensions/context_extensions.dart';
 
-class CustomSearchBar extends StatefulWidget{
+class CustomSearchBar extends StatefulWidget {
   const CustomSearchBar({
     super.key,
     this.hintText,
@@ -37,18 +37,16 @@ class CustomSearchBarState extends State<CustomSearchBar> {
       shadowColor: WidgetStateProperty.all(Colors.transparent),
       trailing: [
         IconButton(
-          icon: _textController.text.isEmpty ? Image.asset('lib/assets/img/search.png', width: 25) : Icon(
-            Icons.clear,
-            size: 25,
-            color: context.colorScheme.secondary
-          ),
-          onPressed: () {
-            if (_textController.text.isNotEmpty) {
-              widget.onClear?.call();
-              return;
-            }
-          }
-        ),
+            icon: _textController.text.isEmpty
+                ? Image.asset('lib/assets/img/search.png', width: 25)
+                : Icon(Icons.clear,
+                    size: 25, color: context.colorScheme.secondary),
+            onPressed: () {
+              if (_textController.text.isNotEmpty) {
+                widget.onClear?.call();
+                return;
+              }
+            }),
       ],
       controller: _textController,
     );

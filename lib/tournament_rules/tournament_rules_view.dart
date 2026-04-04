@@ -36,8 +36,7 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
 
   @override
   Widget build(BuildContext context) {
-    viewModel =
-        Provider.of<TournamentRulesViewModel>(context, listen: true);
+    viewModel = Provider.of<TournamentRulesViewModel>(context, listen: true);
     final scrollController = ItemScrollController();
     final ruleToJumpTo = 'RuleToJumpTo';
 
@@ -56,10 +55,10 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
     }
 
     final searchBar = CustomSearchBar(
-      textController: _textController,
-      onChanged: viewModel.search,
-      onSubmitted: viewModel.search,
-      onClear: clearSearch);
+        textController: _textController,
+        onChanged: viewModel.search,
+        onSubmitted: viewModel.search,
+        onClear: clearSearch);
 
     void linkCallback(String ruleNumber) {
       clearSearch();
@@ -67,11 +66,10 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
     }
 
     final filteredRules = context
-      .select<TournamentRulesViewModel, List<RuleModel>>((vm) => vm.rules);
+        .select<TournamentRulesViewModel, List<RuleModel>>((vm) => vm.rules);
 
-    final indexList =
-      context.select<TournamentRulesViewModel,
-        List<TrIndex>>((vm) => vm.indexMap);
+    final indexList = context
+        .select<TournamentRulesViewModel, List<TrIndex>>((vm) => vm.indexMap);
 
     TrIndex? waitingTopLevelItem;
     var topLevelIndices = [];
@@ -80,65 +78,55 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
     for (final item in indexList) {
       if (!item.isSubrule) {
         if (waitingTopLevelItem != null) {
-          topLevelIndices.add(
-            ExpansionTile(
-              shape: BoxBorder.fromLTRB(),
-              tilePadding: EdgeInsets.zero,
-              title: Text(
-                waitingTopLevelItem.text,
-                style: context.textTheme.titleMedium,
-              ),
-              children: [...childIndices],
-            )
-          );
+          topLevelIndices.add(ExpansionTile(
+            shape: BoxBorder.fromLTRB(),
+            tilePadding: EdgeInsets.zero,
+            title: Text(
+              waitingTopLevelItem.text,
+              style: context.textTheme.titleMedium,
+            ),
+            children: [...childIndices],
+          ));
         }
         childIndices = [];
         waitingTopLevelItem = item;
       } else {
-        childIndices.add(
-          InkWell(
-            onTap: () {
-              scrollController.jumpTo(index: item.lookup);
-              Navigator.pop(context);
-            },
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Text(
-                    item.number,
-                    style: context.textTheme.bodyMedium!.copyWith(color: context.colorScheme.secondary)
-                  ),
+        childIndices.add(InkWell(
+          onTap: () {
+            scrollController.jumpTo(index: item.lookup);
+            Navigator.pop(context);
+          },
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 2,
+                child: Text(item.number,
+                    style: context.textTheme.bodyMedium!
+                        .copyWith(color: context.colorScheme.secondary)),
+              ),
+              Expanded(
+                flex: 10,
+                child: Padding(
+                  padding: EdgeInsetsGeometry.only(left: 10),
+                  child: Text(item.text,
+                      style: context.textTheme.bodyMedium!
+                          .copyWith(color: context.colorScheme.secondary)),
                 ),
-                Expanded(
-                  flex: 10,
-                  child: Padding(
-                    padding: EdgeInsetsGeometry.only(left: 10),
-                    child: Text(
-                      item.text,
-                      style: context.textTheme.bodyMedium!.copyWith(color: context.colorScheme.secondary)
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )
-        );
+              ),
+            ],
+          ),
+        ));
       }
     }
 
-    topLevelIndices.add(
-      ExpansionTile(
-        shape: BoxBorder.fromLTRB(),
-        tilePadding: EdgeInsets.zero,
-        title: Text(
-          waitingTopLevelItem!.text,
-          style: context.textTheme.titleMedium
-        ),
-        children: [...childIndices],
-      )
-    );
+    topLevelIndices.add(ExpansionTile(
+      shape: BoxBorder.fromLTRB(),
+      tilePadding: EdgeInsets.zero,
+      title:
+          Text(waitingTopLevelItem!.text, style: context.textTheme.titleMedium),
+      children: [...childIndices],
+    ));
 
     var indexDrawer = Drawer(
       child: Padding(
@@ -147,18 +135,14 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
           children: [
             Padding(
               padding: EdgeInsetsGeometry.only(top: 15, bottom: 1),
-              child: Text(
-                'PENALTY INDEX',
-                style: context.textTheme.titleLarge
-              ),
+              child: Text('PENALTY INDEX', style: context.textTheme.titleLarge),
             ),
             Expanded(
               child: Padding(
                 padding: EdgeInsetsGeometry.only(left: 12, right: 12),
                 child: ListView(
-                  padding: MediaQuery.of(context).viewPadding,
-                  children: [...topLevelIndices]
-                ),
+                    padding: MediaQuery.of(context).viewPadding,
+                    children: [...topLevelIndices]),
               ),
             ),
           ],
@@ -183,24 +167,18 @@ class TournamentRulesViewState extends State<TournamentRulesView> {
         title: widget.title,
         searchBar: searchBar,
         endDrawer: indexDrawer,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
+        body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Expanded(
               child: ScrollablePositionedList.builder(
-                itemScrollController: scrollController,
-                itemCount: filteredRules.length,
-                itemBuilder: (context, index) {
-                  return RuleWidget(
-                    model: filteredRules[index],
-                    callback: linkCallback,
-                    shouldIndent: !viewModel.isFiltered
-                  );
-                }
-              )
-            )
-          ]
-        ),
+                  itemScrollController: scrollController,
+                  itemCount: filteredRules.length,
+                  itemBuilder: (context, index) {
+                    return RuleWidget(
+                        model: filteredRules[index],
+                        callback: linkCallback,
+                        shouldIndent: !viewModel.isFiltered);
+                  }))
+        ]),
       ),
     );
   }
