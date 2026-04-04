@@ -68,7 +68,7 @@ class RuleWidget extends StatelessWidget {
     fragments.add(TextSpan(text: model.text.substring(currentPosition)));
 
     final double leftPadding = shouldIndent
-        ? math.max(15 * (countCharacters(model.number, '.') - 1), 0)
+        ? math.max(20 * (countCharacters(model.number, '.') - 1), 0)
         : 0;
 
     return Padding(
