@@ -29,11 +29,11 @@ void main() async {
     cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
   );
 
-  runApp(MyApp());
+  runApp(PocketJudge());
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({super.key});
+class PocketJudge extends StatelessWidget {
+  PocketJudge({super.key});
 
   final crVm = CoreRulesViewModel();
   final errataVm = ErrataViewModel();

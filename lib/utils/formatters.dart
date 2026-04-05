@@ -24,8 +24,10 @@ List<InlineSpan> formatCardText(String relevantText, BuildContext context) {
         ? context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold)
         : context.textTheme.bodyMedium!.copyWith(fontStyle: FontStyle.italic);
 
-    prettified.add(
-        TextSpan(text: relevantText.substring(currentPosition, match.start)));
+    if (match.start != 0) {
+      prettified.add(
+          TextSpan(text: relevantText.substring(currentPosition, match.start)));
+    }
 
     if (text.startsWith('(')) {
       final innerRunes = RegExp(r':\w+:').allMatches(text);
@@ -69,6 +71,10 @@ List<InlineSpan> formatCardText(String relevantText, BuildContext context) {
     }
     currentPosition = match.end;
   }
-  prettified.add(TextSpan(text: relevantText.substring(currentPosition)));
+  final lastBit = relevantText.substring(currentPosition);
+  if (lastBit.isNotEmpty) {
+    prettified.add(TextSpan(text: relevantText.substring(currentPosition)));
+  }
+
   return prettified;
 }

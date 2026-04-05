@@ -5,6 +5,11 @@ import 'package:pocket_judge/utils/map_helpers.dart';
 const String spiegel = 'Spiegel';
 const String beaufort = 'Beaufort';
 
+const Color greenish = Color(0xff68c5ad);
+const Color reddish = Color(0xffe58ab4);
+const Color grayish = Color(0xffc4c4c4);
+const Color yellowish = Color(0xffd7ed7a);
+
 final Map<String, Color> _abilityColors = createMultiKeyMap({
   [
     'Accelerate',
@@ -16,16 +21,15 @@ final Map<String, Color> _abilityColors = createMultiKeyMap({
     'Quick-Draw',
     'Reaction',
     'Repeat',
-  ]: const Color(0xff68c5ad),
+  ]: greenish,
   [
     'Assault',
     'Backline',
     'Shield',
     'Tank',
-  ]: const Color(0xffe58ab4),
-  ['Equip', 'Mighty', 'Unique', 'Vision', 'Weaponmaster']:
-      const Color(0xffc4c4c4),
-  ['Deflect', 'Ganking', 'Hunt', 'Level', 'Temporary']: const Color(0xffd7ed7a),
+  ]: reddish,
+  ['Equip', 'Mighty', 'Unique', 'Vision', 'Weaponmaster']: grayish,
+  ['Deflect', 'Ganking', 'Hunt', 'Level', 'Temporary']: yellowish,
 });
 
 String getAbilitiesRegExp() {
