@@ -10,7 +10,7 @@ WidgetSpan _buildInlineImageWidget(String runeword) {
       child: ImageResolver.getImage(runeword));
 }
 
-List<InlineSpan> doSomething(String relevantText, BuildContext context) {
+List<InlineSpan> formatCardText(String relevantText, BuildContext context) {
   List<InlineSpan> prettified = [];
 
   var currentPosition = 0;

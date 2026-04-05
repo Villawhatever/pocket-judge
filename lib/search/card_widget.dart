@@ -13,7 +13,7 @@ class CardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var relevantText = model.errataText ?? model.ability ?? '';
 
-    var prettified = doSomething(relevantText, context);
+    var prettified = formatCardText(relevantText, context);
 
     Widget buildCardInfo(String title, dynamic value) {
       return Padding(
