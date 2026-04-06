@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/extensions/context_extensions.dart';
@@ -18,6 +19,8 @@ class CardWidget extends StatefulWidget {
 
 class _CardWidgetState extends State<CardWidget> {
   late final ExpansibleController _expansibleController;
+  final _carouselSliderController = CarouselSliderController();
+  int _currentImage = 0;
 
   @override
   initState() {
@@ -45,6 +48,68 @@ class _CardWidgetState extends State<CardWidget> {
               ]));
     }
 
+    List<Image> getImages() {
+      if (widget.model.idsWithImages?.isEmpty ?? true) {
+        return [];
+      }
+      final ids = widget.model.idsWithImages!.keys;
+      final List<Image> images = [];
+      for (final id in ids) {
+        images.add(Image.asset('lib/assets/cards/${id.split('-')[0]}/$id.webp',
+            height: 400));
+      }
+      return images;
+    }
+
+    List<Widget> buildCarousel() {
+      if (widget.model.idsWithImages?.isEmpty ?? true) {
+        return [];
+      }
+
+      if (widget.model.idsWithImages!.keys.length == 1) {
+        var img = getImages().first;
+        return [
+          Padding(
+              padding: EdgeInsetsGeometry.only(top: 12),
+              child: Center(child: img))
+        ];
+      }
+
+      return [
+        Padding(
+            padding: EdgeInsetsGeometry.only(top: 12),
+            child: CarouselSlider(
+                items: getImages(),
+                carouselController: _carouselSliderController,
+                options: CarouselOptions(
+                    height: 400,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        _currentImage = index;
+                      });
+                    }))),
+        Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: getImages().asMap().entries.map((entry) {
+              return GestureDetector(
+                onTap: () => _carouselSliderController.animateToPage(entry.key),
+                child: Container(
+                  width: 12.0,
+                  height: 12.0,
+                  margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: (_currentImage == entry.key
+                              ? context.colorScheme.secondary
+                              : context.colorScheme.primary)
+                          .withValues(
+                              alpha: _currentImage == entry.key ? 1.0 : 0.5)),
+                ),
+              );
+            }).toList())
+      ];
+    }
+
     return Expansible(
       headerBuilder: (context, animation) => ExpansibleHeader(
           title: widget.model.name,
@@ -58,6 +123,7 @@ class _CardWidgetState extends State<CardWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  ...buildCarousel(),
                   Table(children: [
                     TableRow(children: [
                       buildCardInfo(

@@ -39,11 +39,11 @@ class ExpansibleHeader extends StatelessWidget {
                       child: AnimatedSwitcher(
                           duration: Duration(milliseconds: 200),
                           child: expansibleController.isExpanded
-                              ? Icon(Icons.arrow_drop_down_outlined,
+                              ? Icon(Icons.arrow_drop_up_outlined,
                                   key: ValueKey<int>(1),
                                   color: context.colorScheme.secondary,
                                   size: 25)
-                              : Icon(Icons.arrow_drop_up_outlined,
+                              : Icon(Icons.arrow_drop_down_outlined,
                                   key: ValueKey<int>(2),
                                   color: context.colorScheme.secondary,
                                   size: 25))),

@@ -57,7 +57,7 @@ class _CardSearchViewState extends State<CardSearchView> {
 
     reset(String? value) {
       _viewModel.search(value);
-      for (var exp in _expansibleMap.values) {
+      for (final exp in _expansibleMap.values) {
         exp.collapse();
       }
     }

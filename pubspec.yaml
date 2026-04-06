@@ -91,6 +91,10 @@ flutter:
   assets:
     - lib/assets/
     - lib/assets/img/
+    - lib/assets/cards/OGS/
+    - lib/assets/cards/OGN/
+    - lib/assets/cards/SFD/
+
   # An image asset can refer to one or more resolution-specific 'variants', see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
