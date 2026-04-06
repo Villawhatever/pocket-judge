@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -111,6 +112,7 @@ class SearchViewModel extends ChangeNotifier {
     if (_cards.isNotEmpty) {
       return;
     }
+
     final cr = await rootBundle.loadString('lib/assets/cards.json');
     final data = jsonDecode(cr);
 
@@ -120,7 +122,7 @@ class SearchViewModel extends ChangeNotifier {
     for (final item in data) {
       if (existingCardNames.contains(item['name'])) {
         var existingCard = alreadyAdded[item['name']];
-        existingCard!.idsWithImages![item['id']] = item['image_url'];
+        existingCard!.ids!.add(item['id']);
         continue;
       }
 
@@ -129,8 +131,37 @@ class SearchViewModel extends ChangeNotifier {
       existingCardNames.add(card.name);
       alreadyAdded[card.name] = card;
     }
-
+    for (final card in _cards) {
+      card.ids!.sort((a, b) => sortIds(a, b));
+    }
     _filteredCards = [];
     notifyListeners();
+  }
+
+  int sortIds(String first, String second) {
+    var firstFragments = first.split('-');
+    var secondFragments = second.split('-');
+    firstFragments.removeWhere((s) => s.isEmpty);
+    secondFragments.removeWhere((s) => s.isEmpty);
+
+    for (var i = 0;
+        i < max(firstFragments.length, secondFragments.length);
+        i++) {
+      var first = firstFragments.tryGet(i);
+      var second = secondFragments.tryGet(i);
+
+      if (first == null) {
+        return -1;
+      } else if (second == null) {
+        return 1;
+      }
+
+      if (first == second) {
+        continue;
+      }
+
+      return firstFragments[i].compareTo(secondFragments[i]);
+    }
+    throw Exception("How did we get here?");
   }
 }

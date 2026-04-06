@@ -15,7 +15,7 @@ class CardModel {
   final String? ability;
   final String? errataText;
   final String? errataOldText;
-  final Map<String, String>? idsWithImages;
+  final List<String>? ids;
 
   const CardModel(
       {required this.id,
@@ -32,7 +32,7 @@ class CardModel {
       required this.ability,
       this.errataText,
       this.errataOldText,
-      this.idsWithImages});
+      this.ids});
 
   factory CardModel.fromJson(Map<String, dynamic> json) {
     List<dynamic>? domains = json.tryGet('domain');
@@ -52,7 +52,7 @@ class CardModel {
       ability: json.tryGet('ability'),
       errataText: json.tryGet('errata_text'),
       errataOldText: json.tryGet('errata_old_text'),
-      idsWithImages: {json.tryGet('id'): json.tryGet('image_url')},
+      ids: [json.tryGet('id')],
     );
   }
 

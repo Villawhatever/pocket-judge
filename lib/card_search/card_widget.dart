@@ -49,10 +49,10 @@ class _CardWidgetState extends State<CardWidget> {
     }
 
     List<Image> getImages() {
-      if (widget.model.idsWithImages?.isEmpty ?? true) {
+      if (widget.model.ids?.isEmpty ?? true) {
         return [];
       }
-      final ids = widget.model.idsWithImages!.keys;
+      final ids = widget.model.ids!;
       final List<Image> images = [];
       for (final id in ids) {
         images.add(Image.asset('lib/assets/cards/${id.split('-')[0]}/$id.webp',
@@ -62,11 +62,11 @@ class _CardWidgetState extends State<CardWidget> {
     }
 
     List<Widget> buildCarousel() {
-      if (widget.model.idsWithImages?.isEmpty ?? true) {
+      if (widget.model.ids?.isEmpty ?? true) {
         return [];
       }
 
-      if (widget.model.idsWithImages!.keys.length == 1) {
+      if (widget.model.ids!.length == 1) {
         var img = getImages().first;
         return [
           Padding(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pocket_judge/constants.dart';
 
 import '../nav/menu.dart';
 import '../utils/extensions/context_extensions.dart';
