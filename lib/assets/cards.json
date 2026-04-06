@@ -1373,7 +1373,7 @@
     "rarity": "Common",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/fe02bf01609ff2e6cc6fa8fbd578fd596ab5cb84-744x1039.png?accountingTag=RB",
-    "ability": "Quick-Draw (This has Reaction. When you play it, attach it to a unit you control.)\nEquip :rb_rune_mind: (:rb_rune_mind:: Attach this to a unit you control.)\nEffect+0 :rb_might_ Shield 2 (+2 :rb_might: while I'm a defender.)"
+    "ability": "Quick-Draw (This has Reaction. When you play it, attach it to a unit you control.)\nEquip :rb_rune_mind: (:rb_rune_mind:: Attach this to a unit you control.)\nEffect+0 :rb_might: Shield 2 (+2 :rb_might: while I'm a defender.)"
   },
   {
     "id": "SFD-092",
@@ -4955,7 +4955,7 @@
     "rarity": "Common",
     "card_set": "Origins",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/c3bb6f4cb58feeb50e396d12ec9865c5434025af-744x1039.png",
-    "ability": "Legion — I cost :rb_energy_2: less._ (Get the effect if you've played another card this turn.)_"
+    "ability": "Legion — I cost :rb_energy_2: less. (Get the effect if you've played another card this turn.)"
   },
   {
     "id": "OGN-018",
@@ -6501,7 +6501,7 @@
     "rarity": "Common",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/9498c8146745124fc45a7b55184854a9c9da21f5-744x1039.png",
-    "ability": "Equip :rb_rune_fury: (:rb_rune_fury:: Attach this to a unit you control.)\nEffect +0 :rb_might: Assault 2 (+2 :rb_might_ while I'm an attacker.)"
+    "ability": "Equip :rb_rune_fury: (:rb_rune_fury:: Attach this to a unit you control.)\nEffect +0 :rb_might: Assault 2 (+2 :rb_might: while I'm an attacker.)"
   },
   {
     "id": "SFD-232-star",

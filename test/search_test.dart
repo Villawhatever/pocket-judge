@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pocket_judge/widgets/search.dart';
+import 'package:pocket_judge/widgets/search_bar.dart';
 
 void main() {
   testWidgets('Renders Clear icon when no text', (WidgetTester tester) async {
@@ -16,7 +16,8 @@ void main() {
     expect(find.byIcon(Icons.clear), findsNothing);
   });
 
-  testWidgets('Renders custom search when text', (WidgetTester tester) async {
+  testWidgets('Renders custom search icon when text',
+      (WidgetTester tester) async {
     final textCtrl = TextEditingController();
     textCtrl.text = "blah";
     await tester.pumpWidget(

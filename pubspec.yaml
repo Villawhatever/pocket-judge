@@ -52,6 +52,7 @@ dependencies:
   package_info_plus: ^9.0.0
   upgrader: ^12.5.0
   stack_trace: ^1.12.1
+  carousel_slider: ^5.1.2
 
 dev_dependencies:
   flutter_test:

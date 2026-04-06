@@ -3,14 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:pocket_judge/tournament_rules/tournament_rules_viewmodel.dart';
 import 'package:pocket_judge/widgets/app_wrapper.dart';
-
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../core_rules/rule.dart';
 import '../utils/extensions/context_extensions.dart';
 import '../widgets/rule.dart';
-import '../widgets/search.dart';
+import '../widgets/search_bar.dart';
 import '../widgets/stack.dart';
 
 class TournamentRulesView extends StatefulWidget {
@@ -19,10 +18,10 @@ class TournamentRulesView extends StatefulWidget {
   final String title;
 
   @override
-  State<TournamentRulesView> createState() => TournamentRulesViewState();
+  State<TournamentRulesView> createState() => _TournamentRulesViewState();
 }
 
-class TournamentRulesViewState extends State<TournamentRulesView> {
+class _TournamentRulesViewState extends State<TournamentRulesView> {
   final _textController = TextEditingController();
   final _history = Stack<String>();
   late TournamentRulesViewModel viewModel;

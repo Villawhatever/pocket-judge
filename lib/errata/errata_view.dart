@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pocket_judge/widgets/app_wrapper.dart';
-
 import 'package:provider/provider.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-import '../widgets/search.dart';
+import '../widgets/search_bar.dart';
 import 'errata_viewmodel.dart';
 import 'erratum.dart';
 import 'erratum_widget.dart';
@@ -14,49 +12,69 @@ class ErrataView extends StatefulWidget {
 
   final String title;
   @override
-  State<ErrataView> createState() => ErrataViewState();
+  State<ErrataView> createState() => _ErrataViewState();
 }
 
-class ErrataViewState extends State<ErrataView> {
+class _ErrataViewState extends State<ErrataView> {
   final _textController = TextEditingController();
-  late ErrataViewModel viewModel;
+  late ErrataViewModel _viewModel;
 
   @override
   void dispose() {
-    _textController.dispose();
-    viewModel.reset();
+    _viewModel.reset();
+    for (var exp in _expansibleMap.values) {
+      exp.dispose();
+    }
     super.dispose();
   }
 
+  final Map<ErratumModel, ExpansibleController> _expansibleMap = {};
+
   @override
   Widget build(BuildContext context) {
-    viewModel = Provider.of<ErrataViewModel>(context, listen: true);
-    final scrollController = ItemScrollController();
+    _viewModel = Provider.of<ErrataViewModel>(context, listen: true);
+
+    collapseAll() {
+      for (var exp in _expansibleMap.values) {
+        exp.collapse();
+      }
+    }
 
     clearSearch() {
       _textController.clear();
-      viewModel.search(null);
+      collapseAll();
+      _viewModel.search(null);
+    }
+
+    onChanged(String? value) {
+      collapseAll();
+      _viewModel.search(value);
     }
 
     final searchBar = CustomSearchBar(
         textController: _textController,
-        onChanged: viewModel.search,
-        onSubmitted: viewModel.search,
+        onChanged: onChanged,
+        onSubmitted: _viewModel.search,
         onClear: clearSearch);
 
     final filteredErrata =
         context.select<ErrataViewModel, List<ErratumModel>>((vm) => vm.errata);
 
     return AppWrapper(
-      title: widget.title,
-      searchBar: searchBar,
-      body: ScrollablePositionedList.builder(
-        itemScrollController: scrollController,
-        itemCount: filteredErrata.length,
-        itemBuilder: (context, index) {
-          return ErratumWidget(model: filteredErrata[index]);
-        },
-      ),
-    );
+        title: widget.title,
+        searchBar: searchBar,
+        body: Padding(
+          padding: EdgeInsetsGeometry.only(top: 7),
+          child: ListView.separated(
+            separatorBuilder: (context, index) => const SizedBox(height: 12),
+            itemCount: filteredErrata.length,
+            itemBuilder: (context, index) {
+              _expansibleMap[filteredErrata[index]] ??= ExpansibleController();
+              return ErratumWidget(
+                  model: filteredErrata[index],
+                  expansibleController: _expansibleMap[filteredErrata[index]]!);
+            },
+          ),
+        ));
   }
 }

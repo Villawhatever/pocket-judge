@@ -47,4 +47,5 @@ app.*.map.json
 # Firebase-related security stuff.
 **/parsing/riftbound/firebase*.json
 /lib/firebase_options.dart
+/lib/assets/cards/*
 /android/app/google-services.json

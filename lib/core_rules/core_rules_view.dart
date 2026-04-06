@@ -2,14 +2,14 @@ import 'package:flutter/material.dart' hide Stack;
 import 'package:flutter/services.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:pocket_judge/widgets/app_wrapper.dart';
-import 'package:pocket_judge/widgets/search.dart';
-
+import 'package:pocket_judge/widgets/search_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'rule.dart';
+
 import '../widgets/rule.dart';
 import '../widgets/stack.dart';
 import 'core_rules_viewmodel.dart';
+import 'rule.dart';
 
 class CoreRulesView extends StatefulWidget {
   const CoreRulesView({super.key, required this.title});
@@ -17,10 +17,10 @@ class CoreRulesView extends StatefulWidget {
   final String title;
 
   @override
-  State<CoreRulesView> createState() => CoreRulesViewState();
+  State<CoreRulesView> createState() => _CoreRulesViewState();
 }
 
-class CoreRulesViewState extends State<CoreRulesView> {
+class _CoreRulesViewState extends State<CoreRulesView> {
   final _textController = TextEditingController();
   final _history = Stack<String>();
   late CoreRulesViewModel viewModel;
