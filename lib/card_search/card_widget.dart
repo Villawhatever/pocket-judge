@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -48,25 +49,33 @@ class _CardWidgetState extends State<CardWidget> {
               ]));
     }
 
-    List<Image> getImages() {
-      if (widget.model.ids?.isEmpty ?? true) {
+    List<CachedNetworkImage> getImages() {
+      if (widget.model.images?.isEmpty ?? true) {
         return [];
       }
-      final ids = widget.model.ids!;
-      final List<Image> images = [];
-      for (final id in ids) {
-        images.add(Image.asset('lib/assets/cards/${id.split('-')[0]}/$id.webp',
-            height: 400));
+      final imageData = widget.model.images!;
+      final List<CachedNetworkImage> images = [];
+      for (final datum in imageData) {
+        images.add(CachedNetworkImage(
+          imageUrl: datum.imgUrl,
+          placeholder: (context, url) => CircularProgressIndicator(
+              constraints: BoxConstraints(
+                  maxHeight: 100,
+                  minHeight: 100,
+                  minWidth: 100,
+                  maxWidth: 100)),
+          errorWidget: (context, url, error) => Icon(Icons.error, size: 45),
+        ));
       }
       return images;
     }
 
     List<Widget> buildCarousel() {
-      if (widget.model.ids?.isEmpty ?? true) {
+      if (widget.model.images?.isEmpty ?? true) {
         return [];
       }
 
-      if (widget.model.ids!.length == 1) {
+      if (widget.model.images!.length == 1) {
         var img = getImages().first;
         return [
           Padding(
@@ -77,17 +86,20 @@ class _CardWidgetState extends State<CardWidget> {
 
       return [
         Padding(
-            padding: EdgeInsetsGeometry.only(top: 12),
-            child: CarouselSlider(
-                items: getImages(),
-                carouselController: _carouselSliderController,
-                options: CarouselOptions(
-                    height: 400,
-                    onPageChanged: (index, reason) {
-                      setState(() {
-                        _currentImage = index;
-                      });
-                    }))),
+          padding: EdgeInsetsGeometry.only(top: 12),
+          child: Container(
+              color: Colors.grey,
+              child: CarouselSlider(
+                  items: getImages(),
+                  carouselController: _carouselSliderController,
+                  options: CarouselOptions(
+                      height: 400,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _currentImage = index;
+                        });
+                      }))),
+        ),
         Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: getImages().asMap().entries.map((entry) {

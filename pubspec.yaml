@@ -53,6 +53,7 @@ dependencies:
   upgrader: ^12.5.0
   stack_trace: ^1.12.1
   carousel_slider: ^5.1.2
+  cached_network_image: ^3.4.1
 
 dev_dependencies:
   flutter_test:
@@ -91,9 +92,6 @@ flutter:
   assets:
     - lib/assets/
     - lib/assets/img/
-    - lib/assets/cards/OGS/
-    - lib/assets/cards/OGN/
-    - lib/assets/cards/SFD/
 
   # An image asset can refer to one or more resolution-specific 'variants', see
   # https://flutter.dev/assets-and-images/#resolution-aware

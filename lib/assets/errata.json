@@ -439,6 +439,12 @@
   },
   {
     "name": "Mirror Image",
+    "oldText": "Choose a unit. Play a ready Reflection unit token to your base. It becomes a copy of that unit. Give it [Temporary]. (Kill it at the start of its controller's Beginning Phase, before scoring.)",
+    "newText": "Choose a unit. Play a ready Reflection unit token to your base. Then do this: It becomes a copy of that unit. Give it [Temporary]. (Kill it at the start of its controller's Beginning Phase, before scoring.)",
+    "set": "UNL"
+  },
+  {
+    "name": "Keeper of Masks",
     "oldText": "[Hidden] (Hide now for [A] to react with later for [0].)\n\n[Temporary] (Kill me at the start of my controller's Beginning Phase, before scoring.)\n\nWhen you play me, play two Reflection unit tokens here. They become copies of me.",
     "newText": "[Hidden] (Hide now for [A] to react with later for [0].)\n\n[Temporary] (Kill me at the start of my controller's Beginning Phase, before scoring.)\n\nWhen you play me, play two Reflection unit tokens here. Then do this: They become copies of me.",
     "set": "UNL"

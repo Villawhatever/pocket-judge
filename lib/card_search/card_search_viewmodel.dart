@@ -122,7 +122,8 @@ class SearchViewModel extends ChangeNotifier {
     for (final item in data) {
       if (existingCardNames.contains(item['name'])) {
         var existingCard = alreadyAdded[item['name']];
-        existingCard!.ids!.add(item['id']);
+        existingCard!.images!
+            .add(ImageData(id: item['id'], imgUrl: item['image_url']));
         continue;
       }
 
@@ -132,7 +133,7 @@ class SearchViewModel extends ChangeNotifier {
       alreadyAdded[card.name] = card;
     }
     for (final card in _cards) {
-      card.ids!.sort((a, b) => sortIds(a, b));
+      card.images!.sort((a, b) => sortIds(a.id, b.id));
     }
     _filteredCards = [];
     notifyListeners();
