@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pocket_judge/widgets/app_wrapper.dart';
 import 'package:provider/provider.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../widgets/search_bar.dart';
 import 'errata_viewmodel.dart';
@@ -16,8 +17,17 @@ class ErrataView extends StatefulWidget {
 }
 
 class _ErrataViewState extends State<ErrataView> {
-  final _textController = TextEditingController();
+  late TextEditingController _textController;
+  late ItemScrollController _scrollController;
+
   late ErrataViewModel _viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ItemScrollController();
+    _textController = TextEditingController();
+  }
 
   @override
   void dispose() {
@@ -65,14 +75,20 @@ class _ErrataViewState extends State<ErrataView> {
         searchBar: searchBar,
         body: Padding(
           padding: EdgeInsetsGeometry.only(top: 7),
-          child: ListView.separated(
+          child: ScrollablePositionedList.separated(
+            itemScrollController: _scrollController,
             separatorBuilder: (context, index) => const SizedBox(height: 12),
             itemCount: filteredErrata.length,
             itemBuilder: (context, index) {
-              _expansibleMap[filteredErrata[index]] ??= ExpansibleController();
+              final erratum = filteredErrata[index];
+
+              _expansibleMap[erratum] ??= ExpansibleController();
+              _expansibleMap[erratum]!.addListener(() {
+                _scrollController.jumpTo(index: index);
+              });
               return ErratumWidget(
-                  model: filteredErrata[index],
-                  expansibleController: _expansibleMap[filteredErrata[index]]!);
+                  model: erratum,
+                  expansibleController: _expansibleMap[erratum]!);
             },
           ),
         ));

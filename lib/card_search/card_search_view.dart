@@ -3,6 +3,7 @@ import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:pocket_judge/card_search/card_search_viewmodel.dart';
 import 'package:pocket_judge/widgets/app_wrapper.dart';
 import 'package:provider/provider.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../utils/extensions/context_extensions.dart';
 import '../widgets/search_bar.dart';
@@ -20,12 +21,15 @@ class CardSearchView extends StatefulWidget {
 
 class _CardSearchViewState extends State<CardSearchView> {
   late TextEditingController _textController;
+  late ItemScrollController _scrollController;
+
   late SearchViewModel _viewModel;
 
   @override
   void initState() {
     super.initState();
     _textController = TextEditingController();
+    _scrollController = ItemScrollController();
   }
 
   @override
@@ -86,18 +90,25 @@ class _CardSearchViewState extends State<CardSearchView> {
       );
     } else {
       body = Padding(
-        padding: EdgeInsetsGeometry.only(top: 7),
-        child: ListView.separated(
-          separatorBuilder: (context, index) => const SizedBox(height: 12),
-          itemCount: filteredCards.length,
-          itemBuilder: (context, index) {
-            _expansibleMap[filteredCards[index]] ??= ExpansibleController();
-            return CardWidget(
-                model: filteredCards[index],
-                expansibleController: _expansibleMap[filteredCards[index]]!);
-          },
-        ),
-      );
+          padding: EdgeInsetsGeometry.only(top: 7),
+          child: Padding(
+            padding: EdgeInsetsGeometry.only(top: 7),
+            child: ScrollablePositionedList.separated(
+              itemScrollController: _scrollController,
+              separatorBuilder: (context, index) => const SizedBox(height: 12),
+              itemCount: filteredCards.length,
+              itemBuilder: (context, index) {
+                final card = filteredCards[index];
+
+                _expansibleMap[card] ??= ExpansibleController();
+                _expansibleMap[card]!.addListener(() {
+                  _scrollController.jumpTo(index: index);
+                });
+                return CardWidget(
+                    model: card, expansibleController: _expansibleMap[card]!);
+              },
+            ),
+          ));
     }
 
     return AppWrapper(title: widget.title, searchBar: searchBar, body: body);
