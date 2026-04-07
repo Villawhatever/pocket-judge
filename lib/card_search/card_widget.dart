@@ -87,18 +87,16 @@ class _CardWidgetState extends State<CardWidget> {
       return [
         Padding(
           padding: EdgeInsetsGeometry.only(top: 12),
-          child: Container(
-              color: Colors.grey,
-              child: CarouselSlider(
-                  items: getImages(),
-                  carouselController: _carouselSliderController,
-                  options: CarouselOptions(
-                      height: 400,
-                      onPageChanged: (index, reason) {
-                        setState(() {
-                          _currentImage = index;
-                        });
-                      }))),
+          child: CarouselSlider(
+              items: getImages(),
+              carouselController: _carouselSliderController,
+              options: CarouselOptions(
+                  height: 400,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _currentImage = index;
+                    });
+                  }))
         ),
         Row(
             mainAxisAlignment: MainAxisAlignment.center,
