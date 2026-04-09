@@ -17,8 +17,8 @@ class ErrataView extends StatefulWidget {
 }
 
 class _ErrataViewState extends State<ErrataView> {
-  late TextEditingController _textController;
   late ItemScrollController _scrollController;
+  late TextEditingController _textController;
 
   late ErrataViewModel _viewModel;
 
@@ -38,7 +38,7 @@ class _ErrataViewState extends State<ErrataView> {
     super.dispose();
   }
 
-  final Map<ErratumModel, ExpansibleController> _expansibleMap = {};
+  final Map<int, ExpansibleController> _expansibleMap = {};
 
   @override
   Widget build(BuildContext context) {
@@ -80,15 +80,13 @@ class _ErrataViewState extends State<ErrataView> {
             separatorBuilder: (context, index) => const SizedBox(height: 12),
             itemCount: filteredErrata.length,
             itemBuilder: (context, index) {
-              final erratum = filteredErrata[index];
-
-              _expansibleMap[erratum] ??= ExpansibleController();
-              _expansibleMap[erratum]!.addListener(() {
+              _expansibleMap[index] ??= ExpansibleController();
+              _expansibleMap[index]!.addListener(() {
                 _scrollController.jumpTo(index: index);
               });
               return ErratumWidget(
-                  model: erratum,
-                  expansibleController: _expansibleMap[erratum]!);
+                  model: filteredErrata[index],
+                  expansibleController: _expansibleMap[index]!);
             },
           ),
         ));
