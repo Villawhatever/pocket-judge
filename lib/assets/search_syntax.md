@@ -1,10 +1,16 @@
 ### Search Syntax
-`n` or `name`: Searches the card\'s name. Punctuation, and capitalization are ignored. This is also the default behavior for any unqualified search terms.
+`n` or `name`: Searches the card\'s name. Punctuation and capitalization are ignored. This is also the default behavior for any unqualified search terms.
 
-**Examples**: `n:draven` finds all cards with \'draven\' in the name. `kaisa` finds all cards with \'Kai\'sa\' in the name.
+**Examples**: `n:draven` finds all cards with \'Draven\' in the name. `kaisa` finds all cards with \'Kai\'sa\' in the name.
+***
+`w` or `watcher`: Searches card text for the given term. Punctuation and capitalization are ignored.
+
+**Examples**: `w:deathknell` finds all cards with \'Deathknell\' in the text.
 ***
 `d` or `domain`: Searches the card's domain. Accepts exactly one of the following values:
 
+
+***
 - `fury` or `r`
 -  `calm` or `g`
 - `mind` or `b`

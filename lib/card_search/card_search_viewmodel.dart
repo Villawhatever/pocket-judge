@@ -54,6 +54,9 @@ class SearchViewModel extends ChangeNotifier {
         case 'p' || 'power':
           _matchPower(value);
           break;
+        case 'w' || 'watcher':
+          _matchWatcherText(value);
+          break;
         case 'n' || 'name' || _:
           _matchName(search);
           break;
@@ -101,6 +104,15 @@ class SearchViewModel extends ChangeNotifier {
         .toLowerCase()
         .replaceAll(RegExp(r'[^a-zA-Z]'), '')
         .contains(value));
+  }
+
+  void _matchWatcherText(String value) {
+    _iterable = _iterable.where((c) {
+      final String relevantText =
+          c.errataText?.toLowerCase() ?? c.ability?.toLowerCase() ?? '';
+      relevantText.replaceAll(RegExp(r'[^a-zA-Z]'), '');
+      return relevantText.contains(value);
+    });
   }
 
   Future load() async {

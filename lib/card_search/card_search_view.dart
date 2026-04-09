@@ -20,16 +20,16 @@ class CardSearchView extends StatefulWidget {
 }
 
 class _CardSearchViewState extends State<CardSearchView> {
-  late TextEditingController _textController;
   late ItemScrollController _scrollController;
+  late TextEditingController _textController;
 
   late SearchViewModel _viewModel;
 
   @override
   void initState() {
     super.initState();
-    _textController = TextEditingController();
     _scrollController = ItemScrollController();
+    _textController = TextEditingController();
   }
 
   @override
@@ -42,7 +42,7 @@ class _CardSearchViewState extends State<CardSearchView> {
     super.dispose();
   }
 
-  final Map<CardModel, ExpansibleController> _expansibleMap = {};
+  final Map<int, ExpansibleController> _expansibleMap = {};
 
   @override
   Widget build(BuildContext context) {
@@ -98,14 +98,13 @@ class _CardSearchViewState extends State<CardSearchView> {
               separatorBuilder: (context, index) => const SizedBox(height: 12),
               itemCount: filteredCards.length,
               itemBuilder: (context, index) {
-                final card = filteredCards[index];
-
-                _expansibleMap[card] ??= ExpansibleController();
-                _expansibleMap[card]!.addListener(() {
+                _expansibleMap[index] ??= ExpansibleController();
+                _expansibleMap[index]!.addListener(() {
                   _scrollController.jumpTo(index: index);
                 });
                 return CardWidget(
-                    model: card, expansibleController: _expansibleMap[card]!);
+                    model: filteredCards[index],
+                    expansibleController: _expansibleMap[index]!);
               },
             ),
           ));

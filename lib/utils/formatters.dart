@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
-import '../widgets/image_resolver.dart';
 import 'extensions/context_extensions.dart';
+import 'image_resolver.dart';
 
 WidgetSpan _buildInlineImageWidget(String runeword) {
   return WidgetSpan(
