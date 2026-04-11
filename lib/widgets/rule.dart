@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pocket_judge/core_rules/rule.dart';
 import 'package:pocket_judge/utils/extensions/context_extensions.dart';
 
@@ -70,6 +71,18 @@ class RuleWidget extends StatelessWidget {
     final double leftPadding = shouldIndent
         ? math.max(20 * (countCharacters(model.number, '.') - 1), 0)
         : 0;
+    final richText = RichText(
+      text: TextSpan(
+        style: context.textTheme.bodyMedium,
+        children: <TextSpan>[
+          TextSpan(
+            text: '${model.number} ',
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          ...fragments
+        ],
+      ),
+    );
 
     return Padding(
         padding: EdgeInsets.fromLTRB(leftPadding, 0, 0, 12),
@@ -77,6 +90,11 @@ class RuleWidget extends StatelessWidget {
           GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTap: () => callback(_getParentRule()),
+            onLongPress: () {
+              Clipboard.setData(
+                  ClipboardData(text: richText.text.toPlainText()));
+              HapticFeedback.vibrate();
+            },
             child: Row(children: [
               Flexible(
                 child: RichText(
