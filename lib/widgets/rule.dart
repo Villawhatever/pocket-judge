@@ -97,18 +97,7 @@ class RuleWidget extends StatelessWidget {
             },
             child: Row(children: [
               Flexible(
-                child: RichText(
-                  text: TextSpan(
-                    style: context.textTheme.bodyMedium,
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: '${model.number} ',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      ...fragments
-                    ],
-                  ),
-                ),
+                child: richText,
               ),
             ]),
           ),
