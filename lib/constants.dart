@@ -29,7 +29,7 @@ final Map<String, Color> _abilityColors = createMultiKeyMap({
     'Tank',
   ]: reddish,
   ['Equip', 'Mighty', 'Unique', 'Vision', 'Weaponmaster']: grayish,
-  ['Deflect', 'Ganking', 'Hunt', 'Level', 'Temporary']: yellowish,
+  ['Deathknell', 'Deflect', 'Ganking', 'Hunt', 'Level', 'Temporary']: yellowish,
 });
 
 String getAbilitiesRegExp() {
