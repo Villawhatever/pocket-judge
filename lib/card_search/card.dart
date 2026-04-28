@@ -5,6 +5,7 @@ class CardModel {
       {required this.id,
       required this.name,
       required this.collectorNumber,
+      this.realName,
       this.energy,
       this.power,
       this.might,
@@ -21,6 +22,7 @@ class CardModel {
   final String id;
   final String name;
   final int collectorNumber;
+  final String? realName;
   final int? energy;
   final int? power;
   final int? might;
@@ -49,6 +51,7 @@ class CardModel {
         might: json.tryGet('might'),
         domain: domains?.map((d) => d.toString()).toList(),
         cardType: json.tryGet('card_type'),
+        realName: json.tryGet('real_name'),
         rarity: json.tryGet('rarity'),
         cardSet: json.tryGet('card_set'),
         imageUrl: json.tryGet('image_url'),

@@ -594,6 +594,7 @@
       "Body",
       "Chaos"
     ],
+    "real_name": "Sivir",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Spiritforged",
@@ -608,6 +609,7 @@
       "Body",
       "Chaos"
     ],
+    "real_name": "Sivir",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Spiritforged",
@@ -675,6 +677,7 @@
       "Calm",
       "Chaos"
     ],
+    "real_name": "Irelia",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Spiritforged",
@@ -689,6 +692,7 @@
       "Calm",
       "Chaos"
     ],
+    "real_name": "Irelia",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Spiritforged",
@@ -785,6 +789,7 @@
       "Calm",
       "Body"
     ],
+    "real_name": "Lee Sin",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -799,6 +804,7 @@
       "Calm",
       "Body"
     ],
+    "real_name": "Lee Sin",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -813,6 +819,7 @@
       "Calm",
       "Body"
     ],
+    "real_name": "Lee Sin",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Origins",
@@ -939,6 +946,7 @@
       "Body",
       "Chaos"
     ],
+    "real_name": "Miss Fortune",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -953,6 +961,7 @@
       "Body",
       "Chaos"
     ],
+    "real_name": "Miss Fortune",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Origins",
@@ -967,6 +976,7 @@
       "Body",
       "Chaos"
     ],
+    "real_name": "Miss Fortune",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -1278,6 +1288,7 @@
       "Mind",
       "Order"
     ],
+    "real_name": "Renata Glasc",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Spiritforged",
@@ -1292,6 +1303,7 @@
       "Mind",
       "Order"
     ],
+    "real_name": "Renata Glasc",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Spiritforged",
@@ -1671,6 +1683,7 @@
       "Fury",
       "Chaos"
     ],
+    "real_name": "Annie",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Proving Grounds",
@@ -1687,6 +1700,7 @@
       "Fury",
       "Mind"
     ],
+    "real_name": "Kai'Sa",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Origins",
@@ -1701,6 +1715,7 @@
       "Fury",
       "Mind"
     ],
+    "real_name": "Kai'Sa",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -1715,6 +1730,7 @@
       "Fury",
       "Mind"
     ],
+    "real_name": "Kai'Sa",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -2225,6 +2241,7 @@
       "Calm",
       "Order"
     ],
+    "real_name": "Azir",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Spiritforged",
@@ -2239,6 +2256,7 @@
       "Calm",
       "Order"
     ],
+    "real_name": "Azir",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Spiritforged",
@@ -2617,6 +2635,7 @@
       "Calm",
       "Mind"
     ],
+    "real_name": "Ornn",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Spiritforged",
@@ -2631,6 +2650,7 @@
       "Calm",
       "Mind"
     ],
+    "real_name": "Ornn",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Spiritforged",
@@ -2736,7 +2756,7 @@
     "rarity": "Uncommon",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/6ad10353e7fc1337d8cc79086f8eaac1c75f5598-1039x744.png",
-    "ability": "While you control this battlefield, friendly legends have &quot;:rb_exhaust:: Attach an Equipment you control to a unit you control.&quot;"
+    "ability": "While you control this battlefield, friendly legends have \":rb_exhaust:: Attach an Equipment you control to a unit you control.\""
   },
   {
     "id": "OGN-212",
@@ -2979,6 +2999,7 @@
       "Fury",
       "Chaos"
     ],
+    "real_name": "Draven",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Spiritforged",
@@ -2993,6 +3014,7 @@
       "Fury",
       "Chaos"
     ],
+    "real_name": "Draven",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Spiritforged",
@@ -3018,6 +3040,7 @@
       "Body",
       "Order"
     ],
+    "real_name": "Fiora",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Spiritforged",
@@ -3032,6 +3055,7 @@
       "Body",
       "Order"
     ],
+    "real_name": "Fiora",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Spiritforged",
@@ -3059,6 +3083,7 @@
       "Calm",
       "Body"
     ],
+    "real_name": "Jax",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Spiritforged",
@@ -3073,6 +3098,7 @@
       "Calm",
       "Body"
     ],
+    "real_name": "Jax",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Spiritforged",
@@ -3186,6 +3212,7 @@
       "Fury",
       "Order"
     ],
+    "real_name": "Darius",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -3200,6 +3227,7 @@
       "Fury",
       "Order"
     ],
+    "real_name": "Darius",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Origins",
@@ -3214,6 +3242,7 @@
       "Fury",
       "Order"
     ],
+    "real_name": "Darius",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -3307,6 +3336,7 @@
       "Mind",
       "Order"
     ],
+    "real_name": "Viktor",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -3321,6 +3351,7 @@
       "Mind",
       "Order"
     ],
+    "real_name": "Viktor",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Origins",
@@ -3335,6 +3366,7 @@
       "Mind",
       "Order"
     ],
+    "real_name": "Viktor",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -4025,6 +4057,7 @@
       "Mind",
       "Order"
     ],
+    "real_name": "Lux",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Proving Grounds",
@@ -4058,7 +4091,7 @@
     "rarity": "Epic",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/6cfab85030bff454262794e4fa12f11b5dc45a74-744x1039.png",
-    "ability": "Equip — :rb_rune_chaos:, Recycle 2 cards from your trash (Pay the cost:** **Attach this to a unit you control.)\nEffect +2 :rb_might: When I conquer or hold, you may play a unit from your trash. (You still pay its costs.)"
+    "ability": "Equip — :rb_rune_chaos:, Recycle 2 cards from your trash (Pay the cost: Attach this to a unit you control.)\nEffect +2 :rb_might: When I conquer or hold, you may play a unit from your trash. (You still pay its costs.)"
   },
   {
     "id": "OGN-069",
@@ -4283,6 +4316,7 @@
       "Fury",
       "Chaos"
     ],
+    "real_name": "Jinx",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Origins",
@@ -4297,6 +4331,7 @@
       "Fury",
       "Chaos"
     ],
+    "real_name": "Jinx",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -4311,6 +4346,7 @@
       "Fury",
       "Chaos"
     ],
+    "real_name": "Jinx",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -4533,6 +4569,7 @@
       "Fury",
       "Mind"
     ],
+    "real_name": "Rumble",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Spiritforged",
@@ -4547,6 +4584,7 @@
       "Fury",
       "Mind"
     ],
+    "real_name": "Rumble",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Spiritforged",
@@ -4586,6 +4624,7 @@
       "Body",
       "Order"
     ],
+    "real_name": "Garen",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Proving Grounds",
@@ -4852,6 +4891,7 @@
       "Calm",
       "Mind"
     ],
+    "real_name": "Ahri",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -4866,6 +4906,7 @@
       "Calm",
       "Mind"
     ],
+    "real_name": "Ahri",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -4880,6 +4921,7 @@
       "Calm",
       "Mind"
     ],
+    "real_name": "Ahri",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Origins",
@@ -5430,6 +5472,7 @@
       "Mind",
       "Chaos"
     ],
+    "real_name": "Ezreal",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Spiritforged",
@@ -5444,6 +5487,7 @@
       "Mind",
       "Chaos"
     ],
+    "real_name": "Ezreal",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Spiritforged",
@@ -5512,6 +5556,7 @@
       "Fury",
       "Body"
     ],
+    "real_name": "Lucian",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Spiritforged",
@@ -5526,6 +5571,7 @@
       "Fury",
       "Body"
     ],
+    "real_name": "Lucian",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Spiritforged",
@@ -5571,6 +5617,7 @@
       "Calm",
       "Order"
     ],
+    "real_name": "Leona",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Origins",
@@ -5585,6 +5632,7 @@
       "Calm",
       "Order"
     ],
+    "real_name": "Leona",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -5599,6 +5647,7 @@
       "Calm",
       "Order"
     ],
+    "real_name": "Leona",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -5863,7 +5912,7 @@
     "rarity": "Epic",
     "card_set": "Spiritforged",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/48754730486abefdb56221d0760b9c963aae7c09-744x1039.png",
-    "ability": "Action (Play on your turn or in showdowns.)\nMove a friendly unit. You may attach an Equipment with the same controller to it. This turn, that unit has &quot;When I conquer, you may move me to my base.&quot;"
+    "ability": "Action (Play on your turn or in showdowns.)\nMove a friendly unit. You may attach an Equipment with the same controller to it. This turn, that unit has \"When I conquer, you may move me to my base.\""
   },
   {
     "id": "OGN-249",
@@ -5873,6 +5922,7 @@
       "Fury",
       "Body"
     ],
+    "real_name": "Volibear",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Origins",
@@ -5887,6 +5937,7 @@
       "Fury",
       "Body"
     ],
+    "real_name": "Volibear",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -5901,6 +5952,7 @@
       "Fury",
       "Body"
     ],
+    "real_name": "Volibear",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -7297,6 +7349,7 @@
       "Mind",
       "Chaos"
     ],
+    "real_name": "Teemo",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -7311,6 +7364,7 @@
       "Mind",
       "Chaos"
     ],
+    "real_name": "Teemo",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Origins",
@@ -7325,6 +7379,7 @@
       "Mind",
       "Chaos"
     ],
+    "real_name": "Teemo",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -7529,6 +7584,7 @@
       "Body",
       "Order"
     ],
+    "real_name": "Sett",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -7545,6 +7601,7 @@
       "Body",
       "Order"
     ],
+    "real_name": "Sett",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Origins",
@@ -7561,6 +7618,7 @@
       "Body",
       "Order"
     ],
+    "real_name": "Sett",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -7958,6 +8016,7 @@
       "Calm",
       "Chaos"
     ],
+    "real_name": "Yasuo",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Origins",
@@ -7974,6 +8033,7 @@
       "Calm",
       "Chaos"
     ],
+    "real_name": "Yasuo",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -7990,6 +8050,7 @@
       "Calm",
       "Chaos"
     ],
+    "real_name": "Yasuo",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Origins",
@@ -8286,6 +8347,7 @@
       "Fury",
       "Order"
     ],
+    "real_name": "Rek'Sai",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Spiritforged",
@@ -8302,6 +8364,7 @@
       "Fury",
       "Order"
     ],
+    "real_name": "Rek'Sai",
     "card_type": "Legend",
     "rarity": "Showcase",
     "card_set": "Spiritforged",
@@ -8638,6 +8701,7 @@
       "Calm",
       "Body"
     ],
+    "real_name": "Master Yi",
     "card_type": "Legend",
     "rarity": "Rare",
     "card_set": "Proving Grounds",
@@ -8744,7 +8808,7 @@
   },
   {
     "id": "OGS-009",
-    "name": "Yi, Honed",
+    "name": "Master Yi, Honed",
     "collector_number": 9,
     "energy": 7,
     "power": 1,
@@ -8758,7 +8822,7 @@
   },
   {
     "id": "OGS-004",
-    "name": "Yi, Meditative",
+    "name": "Master Yi, Meditative",
     "collector_number": 4,
     "energy": 5,
     "power": 1,
