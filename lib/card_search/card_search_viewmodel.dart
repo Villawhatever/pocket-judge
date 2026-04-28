@@ -57,6 +57,9 @@ class SearchViewModel extends ChangeNotifier {
         case 'w' || 'watcher':
           _matchWatcherText(value);
           break;
+        case 's' || 'set':
+          _matchSet(value);
+          break;
         case 'n' || 'name' || _:
           _matchName(search);
           break;
@@ -99,18 +102,32 @@ class SearchViewModel extends ChangeNotifier {
         _iterable.where((c) => c.power != null && c.power.toString() == value);
   }
 
+  void _matchSet(String value) {
+    // TODO: Pull this somewhere else so it's more configurable and reusable.
+    Map<String, String> sets = {
+      'ogn': 'origins',
+      'ogs': 'provinggrounds',
+      'sfd': 'spiritforged',
+      'unl': 'unleashed',
+    };
+
+    _iterable = _iterable
+        .where((c) => _flatten(c.cardSet).contains(sets[value] ?? value));
+  }
+
+  /* TODO: This currently only matches eg "kaisa" instead of "Kai'Sa"
+   * Likely most common user experience, but modify this to handle when people
+   * DO use proper punctuation.
+   */
   void _matchName(String value) {
-    _iterable = _iterable.where((c) => c.name
-        .toLowerCase()
-        .replaceAll(RegExp(r'[^a-zA-Z]'), '')
-        .contains(value));
+    _iterable = _iterable.where((c) =>
+        _flatten(c.name).contains(value) ||
+        c.cardType == "Legend" && _flatten(c.realName!).contains(value));
   }
 
   void _matchWatcherText(String value) {
     _iterable = _iterable.where((c) {
-      final String relevantText =
-          c.errataText?.toLowerCase() ?? c.ability?.toLowerCase() ?? '';
-      relevantText.replaceAll(RegExp(r'[^a-zA-Z]'), '');
+      final String relevantText = _flatten(c.errataText ?? c.ability ?? '');
       return relevantText.contains(value);
     });
   }
@@ -176,5 +193,9 @@ class SearchViewModel extends ChangeNotifier {
       return firstFragments[i].compareTo(secondFragments[i]);
     }
     throw Exception("How did we get here?");
+  }
+
+  String _flatten(String value) {
+    return value.toLowerCase().replaceAll(RegExp(r'[^a-zA-Z]'), '');
   }
 }
