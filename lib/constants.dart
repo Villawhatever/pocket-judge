@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:pocket_judge/utils/extensions/context_extensions.dart';
 import 'package:pocket_judge/utils/map_helpers.dart';
 
-const String spiegel = 'Spiegel';
 const String beaufort = 'Beaufort';
+const String molde = 'Molde';
+const String spiegel = 'Spiegel';
 
-const Color greenish = Color(0xff68c5ad);
-const Color reddish = Color(0xffe58ab4);
-const Color grayish = Color(0xffc4c4c4);
-const Color yellowish = Color(0xffd7ed7a);
+const Color greenish = Color(0xff157661);
+const Color reddish = Color(0xffca3b70);
+const Color grayish = Color(0xff717171);
+const Color yellowish = Color(0xff90b236);
 
 final Map<String, Color> _abilityColors = createMultiKeyMap({
   [
@@ -30,13 +31,14 @@ final Map<String, Color> _abilityColors = createMultiKeyMap({
     'Shield',
     'Tank',
   ]: reddish,
-  ['Equip', 'Mighty', 'Predict', 'Unique', 'Vision', 'Weaponmaster']: grayish,
+  ['Add', 'Equip', 'Mighty', 'Predict', 'Unique', 'Vision', 'Weaponmaster']:
+      grayish,
   ['Deathknell', 'Deflect', 'Ganking', 'Hunt', 'Level', 'Temporary']: yellowish,
 });
 
 String getAbilitiesRegExp() {
   return _abilityColors.keys
-      .map((ability) => ability + r'\b(?: \d+)?')
+      .map((ability) => ability + r'\b(?: \d+)?(?: >)?')
       .join('|');
 }
 

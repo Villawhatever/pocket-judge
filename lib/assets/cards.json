@@ -10606,7 +10606,7 @@
     "rarity": "Rare",
     "card_set": "Unleashed",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8ca1bfde8d898a11a6abc73bbab8fc7092b0dcb4-744x1039.png?accountingTag=RB",
-    "ability": ":rb_energy_1:, :rb_exhaust:: Return a friendly unit at a battlefield to its owner's hand. Play a Gold gear token exhausted. (It has &quot;Reaction > Kill this, :rb_exhaust:: Add :rb_rune_rainbow:.&quot;)",
+    "ability": ":rb_energy_1:, :rb_exhaust:: Return a friendly unit at a battlefield to its owner's hand. Play a Gold gear token exhausted. (It has \"Reaction > Kill this, :rb_exhaust:: Add :rb_rune_rainbow:.\")",
     "tags": [
       "Pyke"
     ]
@@ -11599,7 +11599,7 @@
     "rarity": "Uncommon",
     "card_set": "Unleashed",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/0497a44ab302ea055b6f1f0d00a36c8023ed2344-1039x744.png",
-    "ability": "Units here have &quot;:rb_exhaust:: Gain 1 XP.&quot;"
+    "ability": "Units here have \":rb_exhaust:: Gain 1 XP.\""
   },
   {
     "id": "unl-094-219",
@@ -13408,7 +13408,7 @@
     "rarity": "Rare",
     "card_set": "Unleashed",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/2eaa5396b1cac9b245bde5a56b87314f8ae76a38-744x1039.png",
-    "ability": "Hidden (Hide now for :rb_rune_rainbow: to react with later for :rb_energy_0:.)\nBackline (I must be assigned combat damage last.)\nOnce each turn, when an enemy unit dies while I'm at a battlefield, play a Gold gear token exhausted. (It has &quot;Reaction > Kill this, :rb_exhaust:: Add :rb_rune_rainbow:.&quot;)",
+    "ability": "Hidden (Hide now for :rb_rune_rainbow: to react with later for :rb_energy_0:.)\nBackline (I must be assigned combat damage last.)\nOnce each turn, when an enemy unit dies while I'm at a battlefield, play a Gold gear token exhausted. (It has \"Reaction > Kill this, :rb_exhaust:: Add :rb_rune_rainbow:.\")",
     "tags": [
       "Pyke",
       "Bilgewater"
@@ -15064,7 +15064,7 @@
     "rarity": "Uncommon",
     "card_set": "Unleashed",
     "image_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/38b59ae384ef6df8c94d5c51418101b2630b43a7-744x1039.png",
-    "ability": "When I conquer, if you assigned 3 or more excess damage, play two Gold gear tokens exhausted. (They have &quot;Reaction > Kill this, :rb_exhaust:: Add :rb_rune_rainbow:.&quot;)",
+    "ability": "When I conquer, if you assigned 3 or more excess damage, play two Gold gear tokens exhausted.\n(They have \"Reaction > Kill this, :rb_exhaust:: Add :rb_rune_rainbow:.\")",
     "tags": [
       "Noxus"
     ]
