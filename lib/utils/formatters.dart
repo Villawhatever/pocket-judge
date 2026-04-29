@@ -61,11 +61,28 @@ List<InlineSpan> formatCardText(String relevantText, BuildContext context) {
     } else if (text.startsWith(':')) {
       prettified.add(_buildInlineImageWidget(text));
     } else if (isAbilityKeyword(text.split(' ')[0])) {
+      final textColor =
+          getAbilityColor(text.split(' ')[0], context) == yellowish
+              ? context.colorScheme.tertiary
+              : Colors.white;
       prettified.add(
-        TextSpan(
-          text: relevantText.substring(match.start, match.end),
-          style: textStyle.copyWith(
-              color: getAbilityColor(text.split(' ')[0], context)),
+        WidgetSpan(
+          child: Transform(
+              transform: Matrix4.skewX(-0.2),
+              alignment: Alignment.bottomLeft,
+              child: Container(
+                color: getAbilityColor(text.split(' ')[0], context),
+                child: RichText(
+                  text: TextSpan(
+                    text:
+                        ' ${relevantText.substring(match.start, match.end).toUpperCase()} ',
+                    style: textStyle.copyWith(
+                        color: textColor,
+                        fontFamily: molde,
+                        fontWeight: FontWeight.normal),
+                  ),
+                ),
+              )),
         ),
       );
     }
