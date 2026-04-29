@@ -105,11 +105,12 @@ class _ErratumWidgetState extends State<ErratumWidget> {
                             ])),
                   ),
                 for (final faq in widget.model.faqs!) ...[
-                  Text(faq.question,
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  if (faq.question?.isNotEmpty ?? false)
+                    Text(faq.question!,
+                        style: TextStyle(fontWeight: FontWeight.bold)),
                   Padding(
                       padding: EdgeInsetsGeometry.only(bottom: 12),
-                      child: Text(faq.answer))
+                      child: Text(faq.answer!))
                 ]
               ]),
           ],

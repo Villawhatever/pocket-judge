@@ -30,5 +30,6 @@ int sortRules(String first, String second) {
       return firstFragments[i].compareTo(secondFragments[i]);
     }
   }
-  throw Exception("How did we get here?");
+  throw Exception(
+      "How did we get here? Comparing ${firstFragments.join('')} and ${secondFragments.join('')}");
 }

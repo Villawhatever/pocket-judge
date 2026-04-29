@@ -122,7 +122,8 @@ class SearchViewModel extends ChangeNotifier {
   void _matchName(String value) {
     _iterable = _iterable.where((c) =>
         _flatten(c.name).contains(value) ||
-        c.cardType == "Legend" && _flatten(c.realName!).contains(value));
+        // TODO: Get rid of this realName hacky bullshit
+        c.cardType == "Legend" && _flatten(c.realName ?? '').contains(value));
   }
 
   void _matchWatcherText(String value) {

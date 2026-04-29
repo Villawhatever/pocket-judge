@@ -29,13 +29,14 @@ class ErratumModel {
 }
 
 class FaqModel {
-  final String question;
-  final String answer;
+  final String? question;
+  final String? answer;
 
   const FaqModel({required this.question, required this.answer});
 
   factory FaqModel.fromJson(Map<String, dynamic> json) {
     return FaqModel(
-        question: json['question'] as String, answer: json['answer'] as String);
+        question: json.tryGet('question') ?? '',
+        answer: json.tryGet('answer') ?? '');
   }
 }
