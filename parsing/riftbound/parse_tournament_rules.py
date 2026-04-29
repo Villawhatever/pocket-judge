@@ -12,7 +12,7 @@ db = firestore.Client()
 rulesRef = db.collection('tournament_rules')
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-d', '--dry', help='should this be a test run or not?', type=bool, default=True)
+parser.add_argument('-r', '--real', help='should this be a real run or not?', action='store_true')
 
 args = parser.parse_args()
 filename = 'tournament-rules.txt'
@@ -26,7 +26,7 @@ with open(filename, 'r', encoding='utf8') as f:
         number = match[0]
         text = match[1]
 
-        if (args.dry):
+        if (not args.real):
             print(f'{number}: {text}')
         else:
             rule = {
@@ -35,6 +35,6 @@ with open(filename, 'r', encoding='utf8') as f:
             }
             rulesRef.document(number).set(rule)
 
-    if (args.dry):
+    if (not args.real):
         print('==========')
         print(f'Found {len(matches)} rules')
