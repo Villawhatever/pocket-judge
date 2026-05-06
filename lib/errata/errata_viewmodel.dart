@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'erratum.dart';
 
 class ErrataViewModel extends ChangeNotifier {
-  final List<ErratumModel> _errata = [];
+  late List<ErratumModel> _errata = [];
 
   List<ErratumModel> _filteredErrata = [];
 
@@ -35,15 +35,24 @@ class ErrataViewModel extends ChangeNotifier {
     if (_errata.isNotEmpty) {
       return;
     }
-    final cr = await rootBundle.loadString('lib/assets/errata.json');
-    final data = jsonDecode(cr);
 
-    for (final item in data) {
-      final erratum = ErratumModel.fromJson(item);
-      _errata.add(erratum);
-    }
+    final errataFile = await rootBundle.loadString('lib/assets/errata.json');
+    _errata = await compute(_fetchErrata, errataFile);
 
     _filteredErrata = _errata;
     notifyListeners();
+  }
+
+  Future<List<ErratumModel>> _fetchErrata(String errataFile) async {
+    final List<ErratumModel> errata = [];
+
+    final data = jsonDecode(errataFile);
+
+    for (final item in data) {
+      final erratum = ErratumModel.fromJson(item);
+      errata.add(erratum);
+    }
+
+    return errata;
   }
 }

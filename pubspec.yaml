@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.6.3+30
+version: 1.7.1+32
 
 environment:
   sdk: '>=3.1.0 <4.0.0'
@@ -54,6 +54,10 @@ dependencies:
   stack_trace: ^1.12.1
   carousel_slider: ^5.1.2
   cached_network_image: ^3.4.1
+  isar: ^3.1.0+1
+  isar_flutter_libs: ^3.1.0+1
+  path_provider: ^2.1.5
+  http: ^1.6.0
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +66,8 @@ dev_dependencies:
   shouldly: ^0.5.0+1
   integration_test:
     sdk: flutter
+  isar_generator: ^3.1.0+1
+  build_runner: ^2.4.13
 
 flutter_launcher_icons:
   android: 'launcher_icon'
@@ -117,4 +123,8 @@ flutter:
         - asset: lib/assets/fonts/Spiegel_TT_Bold.ttf
           weight: 700
         - asset: lib/assets/fonts/Spiegel_TT_Regular_Italic.ttf
+          style: italic
+    - family: Molde
+      fonts:
+        - asset: lib/assets/fonts/Molde-condensed-heavy-italic.otf
           style: italic

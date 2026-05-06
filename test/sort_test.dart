@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pocket_judge/utils/sorts.dart';
+import 'package:pocket_judge/utils/sorting.dart';
 import 'package:shouldly/shouldly.dart';
 
 void main() {

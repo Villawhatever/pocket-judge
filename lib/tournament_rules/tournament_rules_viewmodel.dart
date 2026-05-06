@@ -1,8 +1,11 @@
-import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 
 import '../core_rules/rule.dart';
-import '../utils/sorts.dart';
+import '../firebase_options.dart';
+import '../utils/sorting.dart';
 
 class TrIndex {
   final String number;
@@ -19,7 +22,7 @@ class TrIndex {
 }
 
 class TournamentRulesViewModel extends ChangeNotifier {
-  final List<RuleModel> _rules = [];
+  late List<RuleModel> _rules = [];
   final Map<String, int> _reverseLookup = {};
 
   List<RuleModel> _filteredRules = [];
@@ -54,15 +57,9 @@ class TournamentRulesViewModel extends ChangeNotifier {
     if (_rules.isNotEmpty) {
       return;
     }
-    final data =
-        await FirebaseFirestore.instance.collection('tournament_rules').get();
 
-    // TODO: Sort this on parser side so firestore has things ordered?
-    for (final item in data.docs) {
-      final rule = RuleModel.fromJson(item.data());
-      _rules.add(rule);
-    }
-    _rules.sort((a, b) => sortRules(a.number, b.number));
+    RootIsolateToken token = RootIsolateToken.instance!;
+    _rules = await compute(_fetchRules, token);
 
     for (var i = 0; i < _rules.length; i++) {
       _reverseLookup[_rules[i].number] = i;
@@ -84,5 +81,28 @@ class TournamentRulesViewModel extends ChangeNotifier {
 
     _filteredRules = _rules;
     notifyListeners();
+  }
+
+  Future<List<RuleModel>> _fetchRules(RootIsolateToken token) async {
+    BackgroundIsolateBinaryMessenger.ensureInitialized(token);
+    final List<RuleModel> rules = [];
+
+    BackgroundIsolateBinaryMessenger.ensureInitialized(token);
+
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+
+    final data =
+        await FirebaseFirestore.instance.collection('tournament_rules').get();
+
+    // TODO: Sort this on parser side so firestore has things ordered?
+    for (final item in data.docs) {
+      final rule = RuleModel.fromJson(item.data());
+      rules.add(rule);
+    }
+    rules.sort((a, b) => sortRules(a.number, b.number));
+
+    return rules;
   }
 }

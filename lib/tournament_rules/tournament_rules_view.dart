@@ -122,8 +122,8 @@ class _TournamentRulesViewState extends State<TournamentRulesView> {
     topLevelIndices.add(ExpansionTile(
       shape: BoxBorder.fromLTRB(),
       tilePadding: EdgeInsets.zero,
-      title:
-          Text(waitingTopLevelItem!.text, style: context.textTheme.titleMedium),
+      title: Text(waitingTopLevelItem?.text ?? '',
+          style: context.textTheme.titleMedium),
       children: [...childIndices],
     ));
 
