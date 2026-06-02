@@ -32,7 +32,7 @@ migrate_working_dir/
 .pub/
 !/build/
 /build/*
-!/build/web
+/linux/*
 # Symbolication related
 app.*.symbols
 
