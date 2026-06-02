@@ -10,7 +10,26 @@ WidgetSpan _buildInlineImageWidget(String runeword) {
       child: ImageResolver.getImage(runeword));
 }
 
-List<InlineSpan> formatCardText(String relevantText, BuildContext context) {
+class MyCustomClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+    path.moveTo(0, size.height);
+    path.lineTo(size.width - 7, size.height);
+    path.lineTo(size.width, size.height / 2);
+    path.lineTo(size.width - 7, 0);
+    path.lineTo(5, 0);
+    path.close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
+}
+
+List<InlineSpan> formatCardText(String relevantText, BuildContext context,
+    {bool isReminderText = false}) {
   List<InlineSpan> prettified = [];
 
   var currentPosition = 0;
@@ -20,54 +39,79 @@ List<InlineSpan> formatCardText(String relevantText, BuildContext context) {
   for (final match in matches) {
     var text = match.group(0)!;
     // Doing this split to account for e.g. 'Assault 2'
-    final textStyle = isAbilityKeyword(text.split(' ')[0])
+    var textStyle = isAbilityKeyword(text.split(' ')[0])
         ? context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold)
         : context.textTheme.bodyMedium!.copyWith(fontStyle: FontStyle.italic);
 
+    if (isReminderText) {
+      textStyle =
+          context.textTheme.bodyMedium!.copyWith(fontStyle: FontStyle.italic);
+    }
+
     if (match.start != 0) {
-      prettified.add(
-          TextSpan(text: relevantText.substring(currentPosition, match.start)));
+      prettified.add(TextSpan(
+          text: relevantText.substring(currentPosition, match.start),
+          style: isReminderText ? textStyle : context.textTheme.bodyMedium));
     }
 
     if (text.startsWith('(')) {
-      final innerRunes = RegExp(r':\w+:').allMatches(text);
-      RegExpMatch previousRune;
-
-      if (innerRunes.isNotEmpty) {
-        prettified.add(TextSpan(
-            text: text.substring(0, innerRunes.first.start), style: textStyle));
-        prettified.add(_buildInlineImageWidget(innerRunes.first.group(0)!));
-
-        previousRune = innerRunes.first;
-
-        for (final currentRune in innerRunes.skip(1)) {
-          if (previousRune.end != currentRune.start) {
-            prettified.add(TextSpan(
-                text: text.substring(previousRune.end, currentRune.start),
-                style: textStyle));
-          }
-          prettified.add(_buildInlineImageWidget(currentRune.group(0)!));
-          previousRune = currentRune;
-        }
-        prettified.add(TextSpan(
-            text: relevantText.substring(
-                match.start + previousRune.end, match.end),
-            style: textStyle));
-      } else {
-        prettified.add(TextSpan(
-            text: relevantText.substring(match.start, match.end),
-            style: textStyle));
-      }
+      prettified.add(TextSpan(text: '(', style: textStyle));
+      prettified.addAll(formatCardText(
+          text.substring(1, text.length - 1), context,
+          isReminderText: true));
+      prettified.add(TextSpan(text: ')', style: textStyle));
     } else if (text.startsWith(':')) {
       prettified.add(_buildInlineImageWidget(text));
     } else if (isAbilityKeyword(text.split(' ')[0])) {
-      prettified.add(
-        TextSpan(
-          text: relevantText.substring(match.start, match.end),
-          style: textStyle.copyWith(
-              color: getAbilityColor(text.split(' ')[0], context)),
-        ),
-      );
+      final textColor =
+          getAbilityColor(text.split(' ')[0], context) == yellowish
+              ? context.colorScheme.tertiary
+              : Colors.white;
+      if (text.endsWith('>')) {
+        final fullMatch = relevantText.substring(match.start, match.end);
+        // gets rid of the '>' char since we're folding it into the path thing
+        final formatted =
+            fullMatch.substring(0, fullMatch.length - 2).toUpperCase();
+        prettified.add(
+          WidgetSpan(
+            child: ClipPath(
+                clipper: MyCustomClipper(),
+                child: Container(
+                  color: getAbilityColor(text.split(' ')[0], context),
+                  child: RichText(
+                    text: TextSpan(
+                      text: '  $formatted   ',
+                      style: textStyle.copyWith(
+                          color: textColor,
+                          fontFamily: molde,
+                          fontWeight: FontWeight.normal),
+                    ),
+                  ),
+                )),
+          ),
+        );
+      } else {
+        prettified.add(
+          WidgetSpan(
+            child: Transform(
+                transform: Matrix4.skewX(-0.2),
+                alignment: Alignment.bottomLeft,
+                child: Container(
+                  color: getAbilityColor(text.split(' ')[0], context),
+                  child: RichText(
+                    text: TextSpan(
+                      text:
+                          ' ${relevantText.substring(match.start, match.end).toUpperCase()} ',
+                      style: textStyle.copyWith(
+                          color: textColor,
+                          fontFamily: molde,
+                          fontWeight: FontWeight.normal),
+                    ),
+                  ),
+                )),
+          ),
+        );
+      }
     }
     currentPosition = match.end;
   }
