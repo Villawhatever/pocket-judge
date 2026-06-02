@@ -60,7 +60,10 @@ class SearchViewModel extends ChangeNotifier {
         case 's' || 'set':
           _matchSet(value);
           break;
-        case 'n' || 'name' || _:
+        case 'n' || 'name':
+          _matchName(value);
+          break;
+        case _:
           _matchName(search);
           break;
       }
