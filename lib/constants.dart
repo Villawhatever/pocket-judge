@@ -31,15 +31,13 @@ final Map<String, Color> _abilityColors = createMultiKeyMap({
     'Shield',
     'Tank',
   ]: reddish,
-  ['Add', 'Equip', 'Mighty', 'Predict', 'Unique', 'Vision', 'Weaponmaster']:
+  ['Add' 'Equip', 'Mighty', 'Predict', 'Unique', 'Vision', 'Weaponmaster']:
       grayish,
   ['Deathknell', 'Deflect', 'Ganking', 'Hunt', 'Level', 'Temporary']: yellowish,
 });
 
 String getAbilitiesRegExp() {
-  return _abilityColors.keys
-      .map((ability) => ability + r'\b(?: \d+)?(?: >)?')
-      .join('|');
+  return r'\[.+?(?:\b \d+)?\](?:\[&gt;\])?';
 }
 
 bool isAbilityKeyword(String ability) {

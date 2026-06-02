@@ -5,7 +5,7 @@ import 'package:integration_test/integration_test.dart';
 import 'package:pocket_judge/constants.dart';
 import 'package:pocket_judge/main.dart';
 import 'package:pocket_judge/utils/extensions/context_extensions.dart';
-import 'package:pocket_judge/utils/formatters.dart';
+import 'package:pocket_judge/utils/formatting.dart';
 import 'package:shouldly/shouldly.dart';
 
 import 'extensions.dart';

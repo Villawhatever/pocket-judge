@@ -16,10 +16,10 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.6.4+31
+version: 1.8.0+41
 
 environment:
-  sdk: '>=3.1.0 <4.0.0'
+  sdk: '>=3.11.0 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -27,6 +27,8 @@ environment:
 # dependencies can be manually updated by changing the version numbers below to
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
+isar_version: &isar_version 3.3.2
+
 dependencies:
   flutter:
     sdk: flutter
@@ -54,6 +56,10 @@ dependencies:
   stack_trace: ^1.12.1
   carousel_slider: ^5.1.2
   cached_network_image: ^3.4.1
+  isar_community: *isar_version
+  isar_community_flutter_libs: *isar_version
+  path_provider: ^2.1.5
+  http: ^1.6.0
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +68,8 @@ dev_dependencies:
   shouldly: ^0.5.0+1
   integration_test:
     sdk: flutter
+  isar_community_generator: *isar_version
+  build_runner: ^2.15.0
 
 flutter_launcher_icons:
   android: 'launcher_icon'

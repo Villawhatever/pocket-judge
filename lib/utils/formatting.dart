@@ -33,13 +33,21 @@ List<InlineSpan> formatCardText(String relevantText, BuildContext context,
   List<InlineSpan> prettified = [];
 
   var currentPosition = 0;
+
   var matches =
       RegExp(getAbilitiesRegExp() + r'|\(.+?\)|:\w+:').allMatches(relevantText);
 
+  var textStyle = isReminderText
+      ? context.textTheme.bodyMedium!.copyWith(fontStyle: FontStyle.italic)
+      : context.textTheme.bodyMedium!;
+
   for (final match in matches) {
-    var text = match.group(0)!;
+    final text = match.group(0)!;
+
     // Doing this split to account for e.g. 'Assault 2'
-    var textStyle = isAbilityKeyword(text.split(' ')[0])
+    final word = text.split(' ')[0].replaceAll(RegExp(r'[\[\]]'), '');
+
+    textStyle = isAbilityKeyword(word)
         ? context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold)
         : context.textTheme.bodyMedium!.copyWith(fontStyle: FontStyle.italic);
 
@@ -62,22 +70,21 @@ List<InlineSpan> formatCardText(String relevantText, BuildContext context,
       prettified.add(TextSpan(text: ')', style: textStyle));
     } else if (text.startsWith(':')) {
       prettified.add(_buildInlineImageWidget(text));
-    } else if (isAbilityKeyword(text.split(' ')[0])) {
-      final textColor =
-          getAbilityColor(text.split(' ')[0], context) == yellowish
-              ? context.colorScheme.tertiary
-              : Colors.white;
-      if (text.endsWith('>')) {
+    } else if (isAbilityKeyword(word)) {
+      final textColor = getAbilityColor(word, context) == yellowish
+          ? context.colorScheme.tertiary
+          : Colors.white;
+      if (text.endsWith('[&gt;]')) {
         final fullMatch = relevantText.substring(match.start, match.end);
-        // gets rid of the '>' char since we're folding it into the path thing
+        // gets rid of the '[&gt;]' since we're folding it into the path thing
         final formatted =
-            fullMatch.substring(0, fullMatch.length - 2).toUpperCase();
+            fullMatch.substring(1, fullMatch.length - 7).toUpperCase();
         prettified.add(
           WidgetSpan(
             child: ClipPath(
                 clipper: MyCustomClipper(),
                 child: Container(
-                  color: getAbilityColor(text.split(' ')[0], context),
+                  color: getAbilityColor(word, context),
                   child: RichText(
                     text: TextSpan(
                       text: '  $formatted   ',
@@ -97,11 +104,11 @@ List<InlineSpan> formatCardText(String relevantText, BuildContext context,
                 transform: Matrix4.skewX(-0.2),
                 alignment: Alignment.bottomLeft,
                 child: Container(
-                  color: getAbilityColor(text.split(' ')[0], context),
+                  color: getAbilityColor(word, context),
                   child: RichText(
                     text: TextSpan(
                       text:
-                          ' ${relevantText.substring(match.start, match.end).toUpperCase()} ',
+                          ' ${relevantText.substring(match.start + 1, match.end - 1).toUpperCase()} ',
                       style: textStyle.copyWith(
                           color: textColor,
                           fontFamily: molde,
@@ -117,7 +124,9 @@ List<InlineSpan> formatCardText(String relevantText, BuildContext context,
   }
   final lastBit = relevantText.substring(currentPosition);
   if (lastBit.isNotEmpty) {
-    prettified.add(TextSpan(text: relevantText.substring(currentPosition)));
+    prettified.add(TextSpan(
+        text: relevantText.substring(currentPosition),
+        style: isReminderText ? textStyle : context.textTheme.bodyMedium));
   }
 
   return prettified;

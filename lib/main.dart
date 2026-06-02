@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:localstorage/localstorage.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pocket_judge/card_search/card_search_viewmodel.dart';
 import 'package:pocket_judge/core_rules/core_rules_view.dart';
 import 'package:pocket_judge/core_rules/core_rules_viewmodel.dart';
@@ -10,6 +14,7 @@ import 'package:pocket_judge/errata/errata_viewmodel.dart';
 import 'package:pocket_judge/preferences_state.dart';
 import 'package:pocket_judge/simple_views/about_view.dart';
 import 'package:pocket_judge/tournament_rules/tournament_rules_viewmodel.dart';
+import 'package:pocket_judge/utils/db.dart';
 import 'package:pocket_judge/utils/extensions/context_extensions.dart';
 import 'package:provider/provider.dart';
 import 'package:upgrader/upgrader.dart';
@@ -29,7 +34,42 @@ void main() async {
     cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
   );
 
+  await _setupIsar();
+
   runApp(PocketJudge());
+}
+
+Future _setupIsar() async {
+  final isarDbAsset = await getIsarDbAsset();
+  final isarLastUpdated =
+      DateTime.parse(isarDbAsset.split('/').last.split('_')[0]);
+  final docDir = await getApplicationDocumentsDirectory();
+  final existingDbFile = docDir
+      .listSync()
+      .whereType<File>()
+      .where((f) => f.path.endsWith('.isar'))
+      .firstOrNull;
+
+  final isarDbName = '${await getIsarDbName()}.isar';
+
+  if (existingDbFile == null) {
+    final localFile = File('${docDir.path}/$isarDbName');
+    final data = await rootBundle.load(isarDbAsset);
+
+    await localFile.writeAsBytes(
+        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes));
+  } else {
+    final existingFileName = existingDbFile.path.split('/').last;
+    final existingFileDate = DateTime.parse(existingFileName.split('_')[0]);
+
+    if (existingFileDate.isBefore(isarLastUpdated)) {
+      existingDbFile.delete();
+      final localFile = File('${docDir.path}/$isarDbName');
+      final data = await rootBundle.load(isarDbAsset);
+      await localFile.writeAsBytes(
+          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes));
+    }
+  }
 }
 
 class PocketJudge extends StatelessWidget {
@@ -41,10 +81,8 @@ class PocketJudge extends StatelessWidget {
   final trVm = TournamentRulesViewModel();
 
   Future<void> setupData() async {
-    await crVm.load();
-    await errataVm.load();
-    await searchVm.load();
-    await trVm.load();
+    await Future.wait(
+        [crVm.load(), errataVm.load(), searchVm.load(), trVm.load()]);
   }
 
   @override
