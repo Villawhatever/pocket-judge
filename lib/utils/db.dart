@@ -8,8 +8,3 @@ Future<String> getIsarDbAsset() async {
   assetPath = assets.where((key) => key.endsWith('.isar')).first;
   return assetPath!;
 }
-
-Future<String> getIsarDbName() async {
-  assetPath ??= await getIsarDbAsset();
-  return assetPath!.split('/').last.split('.')[0];
-}

@@ -41,35 +41,14 @@ void main() async {
 
 Future _setupIsar() async {
   final isarDbAsset = await getIsarDbAsset();
-  final isarLastUpdated =
-      DateTime.parse(isarDbAsset.split('/').last.split('_')[0]);
+
   final docDir = await getApplicationDocumentsDirectory();
-  final existingDbFile = docDir
-      .listSync()
-      .whereType<File>()
-      .where((f) => f.path.endsWith('.isar'))
-      .firstOrNull;
 
-  final isarDbName = '${await getIsarDbName()}.isar';
-
-  if (existingDbFile == null) {
-    final localFile = File('${docDir.path}/$isarDbName');
-    final data = await rootBundle.load(isarDbAsset);
-
-    await localFile.writeAsBytes(
-        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes));
-  } else {
-    final existingFileName = existingDbFile.path.split('/').last;
-    final existingFileDate = DateTime.parse(existingFileName.split('_')[0]);
-
-    if (existingFileDate.isBefore(isarLastUpdated)) {
-      existingDbFile.delete();
-      final localFile = File('${docDir.path}/$isarDbName');
-      final data = await rootBundle.load(isarDbAsset);
-      await localFile.writeAsBytes(
-          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes));
-    }
-  }
+  final localFile = File('${docDir.path}/pocket-judge.isar');
+  final data = await rootBundle.load(isarDbAsset);
+  await localFile.writeAsBytes(
+    data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
+  );
 }
 
 class PocketJudge extends StatelessWidget {
@@ -81,97 +60,102 @@ class PocketJudge extends StatelessWidget {
   final trVm = TournamentRulesViewModel();
 
   Future<void> setupData() async {
-    await Future.wait(
-        [crVm.load(), errataVm.load(), searchVm.load(), trVm.load()]);
+    await Future.wait([
+      crVm.load(),
+      errataVm.load(),
+      searchVm.load(),
+      trVm.load(),
+    ]);
   }
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (context) => PreferencesState()),
-          ChangeNotifierProvider(create: (context) => crVm),
-          ChangeNotifierProvider(create: (context) => errataVm),
-          ChangeNotifierProvider(create: (context) => searchVm),
-          ChangeNotifierProvider(create: (context) => trVm),
-        ],
-        builder: (context, _) {
-          return SafeArea(
-            top: false,
-            bottom: true,
-            child: MaterialApp(
-              title: 'Pocket Judge',
-              theme: ThemeData(
-                colorScheme: ColorScheme.fromSeed(
-                  seedColor: const Color(0xff1d3143),
-                  brightness: Brightness.dark,
-                ).copyWith(
-                  primary: const Color(0xffbbcfdd),
-                  inversePrimary: const Color(0xff1d3143),
-                  secondary: const Color(0xffea7d24),
-                  secondaryContainer: const Color(0x45ad9d69),
-                  tertiary: const Color(0xff1b1b1b),
-                  errorContainer: const Color(0x884f2714),
-                  onError: Colors.black,
-                ),
-                useMaterial3: true,
-              ),
-              builder: (context, child) {
-                return Theme(
-                  data: context.theme.copyWith(
-                    textTheme: TextTheme(
-                      bodyLarge: TextStyle(
-                        fontFamily: spiegel,
-                        color: context.colorScheme.primary,
-                      ),
-                      bodyMedium: TextStyle(
-                        fontFamily: spiegel,
-                        color: context.colorScheme.primary,
-                      ),
-                      bodySmall: TextStyle(
-                        fontFamily: spiegel,
-                        color: context.colorScheme.primary,
-                      ),
-                      titleLarge: TextStyle(
-                        fontFamily: beaufort,
-                        fontWeight: FontWeight.bold,
-                        color: context.colorScheme.secondary,
-                      ),
-                      titleMedium: TextStyle(
-                        fontFamily: beaufort,
-                        fontWeight: FontWeight.bold,
-                        color: context.colorScheme.secondary,
-                      ),
-                      titleSmall: TextStyle(
-                        fontFamily: beaufort,
-                        fontWeight: FontWeight.bold,
-                        color: context.colorScheme.secondary,
-                      ),
+      providers: [
+        ChangeNotifierProvider(create: (context) => PreferencesState()),
+        ChangeNotifierProvider(create: (context) => crVm),
+        ChangeNotifierProvider(create: (context) => errataVm),
+        ChangeNotifierProvider(create: (context) => searchVm),
+        ChangeNotifierProvider(create: (context) => trVm),
+      ],
+      builder: (context, _) {
+        return SafeArea(
+          top: false,
+          bottom: true,
+          child: MaterialApp(
+            title: 'Pocket Judge',
+            theme: ThemeData(
+              colorScheme:
+                  ColorScheme.fromSeed(
+                    seedColor: const Color(0xff1d3143),
+                    brightness: Brightness.dark,
+                  ).copyWith(
+                    primary: const Color(0xffbbcfdd),
+                    inversePrimary: const Color(0xff1d3143),
+                    secondary: const Color(0xffea7d24),
+                    secondaryContainer: const Color(0x45ad9d69),
+                    tertiary: const Color(0xff1b1b1b),
+                    errorContainer: const Color(0x884f2714),
+                    onError: Colors.black,
+                  ),
+              useMaterial3: true,
+            ),
+            builder: (context, child) {
+              return Theme(
+                data: context.theme.copyWith(
+                  textTheme: TextTheme(
+                    bodyLarge: TextStyle(
+                      fontFamily: spiegel,
+                      color: context.colorScheme.primary,
+                    ),
+                    bodyMedium: TextStyle(
+                      fontFamily: spiegel,
+                      color: context.colorScheme.primary,
+                    ),
+                    bodySmall: TextStyle(
+                      fontFamily: spiegel,
+                      color: context.colorScheme.primary,
+                    ),
+                    titleLarge: TextStyle(
+                      fontFamily: beaufort,
+                      fontWeight: FontWeight.bold,
+                      color: context.colorScheme.secondary,
+                    ),
+                    titleMedium: TextStyle(
+                      fontFamily: beaufort,
+                      fontWeight: FontWeight.bold,
+                      color: context.colorScheme.secondary,
+                    ),
+                    titleSmall: TextStyle(
+                      fontFamily: beaufort,
+                      fontWeight: FontWeight.bold,
+                      color: context.colorScheme.secondary,
                     ),
                   ),
-                  child: child!,
-                );
-              },
-              home: UpgradeAlert(
-                upgrader: Upgrader(debugLogging: false),
-                child: FutureBuilder(
-                  future: setupData()
-                      .then((_) => FlutterNativeSplash.remove())
-                      .catchError((_) => FlutterNativeSplash.remove()),
-                  builder:
-                      (BuildContext context, AsyncSnapshot<void> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      return CoreRulesView(title: 'Core Rules');
-                    } else if (snapshot.hasError) {
-                      return AboutView(title: 'About');
-                    } else {
-                      return SizedBox.shrink();
-                    }
-                  },
                 ),
+                child: child!,
+              );
+            },
+            home: UpgradeAlert(
+              upgrader: Upgrader(debugLogging: false),
+              child: FutureBuilder(
+                future: setupData()
+                    .then((_) => FlutterNativeSplash.remove())
+                    .catchError((_) => FlutterNativeSplash.remove()),
+                builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return CoreRulesView(title: 'Core Rules');
+                  } else if (snapshot.hasError) {
+                    return AboutView(title: 'About');
+                  } else {
+                    return SizedBox.shrink();
+                  }
+                },
               ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }
