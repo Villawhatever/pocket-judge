@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:isar_community/isar.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:pocket_judge/utils/db.dart';
 
 import '../utils/extensions/json_extensions.dart';
 import '../utils/extensions/list_extensions.dart';
@@ -25,9 +24,11 @@ class SearchViewModel extends ChangeNotifier {
 
   Future<void> _initialize() async {
     final dir = await getApplicationDocumentsDirectory();
-    final dbName = await getIsarDbName();
-    isar =
-        await Isar.open([CardModelSchema], directory: dir.path, name: dbName);
+    isar = await Isar.open(
+      [CardModelSchema],
+      directory: dir.path,
+      name: 'pocket-judge',
+    );
   }
 
   void reset() {
@@ -95,54 +96,69 @@ class SearchViewModel extends ChangeNotifier {
       'b': 'mind',
       'o': 'body',
       'p': 'chaos',
-      'y': 'order'
+      'y': 'order',
     };
 
-    _iterable = _iterable.where((c) =>
-        c.classification.domain
-            ?.map((d) => d.toLowerCase())
-            .contains(domains[value] ?? value) ??
-        false);
+    _iterable = _iterable.where(
+      (c) =>
+          c.classification.domain
+              ?.map((d) => d.toLowerCase())
+              .contains(domains[value] ?? value) ??
+          false,
+    );
   }
 
   void _matchMight(String value) {
-    _iterable = _iterable.where((c) =>
-        c.attributes.might != null && c.attributes.might.toString() == value);
+    _iterable = _iterable.where(
+      (c) =>
+          c.attributes.might != null && c.attributes.might.toString() == value,
+    );
   }
 
   void _matchEnergy(String value) {
-    _iterable = _iterable.where((c) =>
-        c.attributes.energy != null && c.attributes.energy.toString() == value);
+    _iterable = _iterable.where(
+      (c) =>
+          c.attributes.energy != null &&
+          c.attributes.energy.toString() == value,
+    );
   }
 
   void _matchPower(String value) {
-    _iterable = _iterable.where((c) =>
-        c.attributes.power != null && c.attributes.power.toString() == value);
+    _iterable = _iterable.where(
+      (c) =>
+          c.attributes.power != null && c.attributes.power.toString() == value,
+    );
   }
 
   void _matchSet(String value) {
-    _iterable =
-        _iterable.where((c) => _flatten(c.set.setId ?? '').contains(value));
+    _iterable = _iterable.where(
+      (c) => _flatten(c.set.setId ?? '').contains(value),
+    );
   }
 
   void _matchName(String value) {
-    _iterable = _iterable.where((c) =>
-        _flatten(c.name ?? '').contains(value) ||
-        (c.classification.type == 'Legend' &&
-            (c.tags?.any((t) => t == value) ?? false)));
+    _iterable = _iterable.where(
+      (c) =>
+          _flatten(c.name ?? '').contains(value) ||
+          (c.classification.type == 'Legend' &&
+              (c.tags?.any((t) => t == value) ?? false)),
+    );
   }
 
   void _matchWatcherText(String value) {
     _iterable = _iterable.where((c) {
-      final String relevantText = _flatten(c.text.plain ?? '');
+      final String relevantText = _flatten(
+        (c.text.rich ?? '') + (c.text.plain ?? ''),
+      );
       return relevantText.contains(value);
     });
   }
 
   Future load() async {
     if (_searchSyntax.isEmpty) {
-      _searchSyntax =
-          await rootBundle.loadString('lib/assets/search_syntax.md');
+      _searchSyntax = await rootBundle.loadString(
+        'lib/assets/search_syntax.md',
+      );
     }
 
     if (_cards.isNotEmpty) {
@@ -159,12 +175,13 @@ class SearchViewModel extends ChangeNotifier {
 }
 
 class CardSet {
-  const CardSet(
-      {required this.id,
-      required this.name,
-      required this.setId,
-      required this.cardCount,
-      required this.publishedOn});
+  const CardSet({
+    required this.id,
+    required this.name,
+    required this.setId,
+    required this.cardCount,
+    required this.publishedOn,
+  });
 
   final String id;
   final String name;
@@ -174,11 +191,12 @@ class CardSet {
 
   factory CardSet.fromJson(Map<String, dynamic> json) {
     return CardSet(
-        id: json.tryGet('id'),
-        name: json.tryGet('name'),
-        setId: json.tryGet('set_id'),
-        cardCount: json.tryGet('card_count'),
-        publishedOn: DateTime.parse(json.tryGet('published_on') ?? ''));
+      id: json.tryGet('id'),
+      name: json.tryGet('name'),
+      setId: json.tryGet('set_id'),
+      cardCount: json.tryGet('card_count'),
+      publishedOn: DateTime.parse(json.tryGet('published_on') ?? ''),
+    );
   }
 
   @override

@@ -31,20 +31,21 @@ class CardModel {
   Metadata metadata = Metadata();
   List<ImageData>? images;
 
-  CardModel(
-      {required this.id,
-      this.name,
-      this.riftboundId,
-      this.tcgplayerId,
-      this.collectorNumber,
-      required this.attributes,
-      required this.classification,
-      required this.text,
-      required this.set,
-      required this.media,
-      this.tags,
-      this.orientation,
-      required this.metadata});
+  CardModel({
+    required this.id,
+    this.name,
+    this.riftboundId,
+    this.tcgplayerId,
+    this.collectorNumber,
+    required this.attributes,
+    required this.classification,
+    required this.text,
+    required this.set,
+    required this.media,
+    this.tags,
+    this.orientation,
+    required this.metadata,
+  });
 
   CardModel.fromJson(Map<String, dynamic> json) {
     List<ImageData> imageList = [];
@@ -129,10 +130,11 @@ class Text {
   Text({this.rich, this.plain, this.flavour});
 
   Text.fromJson(Map<String, dynamic> json) {
-    var text = json['rich'] as String;
-    text = text.replaceAll('<br />', '\n');
-    text = text.replaceAll(RegExp(r'<.+?>'), '');
-    rich = text;
+    var richText = json['rich'] as String;
+    richText = richText.replaceAll('<br />', '\n');
+    richText = richText.replaceAll(RegExp(r'<.+?>'), '');
+    richText = richText.replaceAll('&quot;', '"');
+    rich = richText;
     plain = json['plain'];
     flavour = json['flavour'];
   }
@@ -197,12 +199,13 @@ class Metadata {
   bool? overnumbered;
   bool? signature;
 
-  Metadata(
-      {this.cleanName,
-      this.updatedOn,
-      this.alternateArt,
-      this.overnumbered,
-      this.signature});
+  Metadata({
+    this.cleanName,
+    this.updatedOn,
+    this.alternateArt,
+    this.overnumbered,
+    this.signature,
+  });
 
   Metadata.fromJson(Map<String, dynamic> json) {
     cleanName = json['clean_name'];

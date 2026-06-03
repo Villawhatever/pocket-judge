@@ -6,8 +6,9 @@ import 'image_resolver.dart';
 
 WidgetSpan _buildInlineImageWidget(String runeword) {
   return WidgetSpan(
-      alignment: PlaceholderAlignment.middle,
-      child: ImageResolver.getImage(runeword));
+    alignment: PlaceholderAlignment.middle,
+    child: ImageResolver.getImage(runeword),
+  );
 }
 
 class MyCustomClipper extends CustomClipper<Path> {
@@ -28,14 +29,18 @@ class MyCustomClipper extends CustomClipper<Path> {
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
 }
 
-List<InlineSpan> formatCardText(String relevantText, BuildContext context,
-    {bool isReminderText = false}) {
+List<InlineSpan> formatCardText(
+  String relevantText,
+  BuildContext context, {
+  bool isReminderText = false,
+}) {
   List<InlineSpan> prettified = [];
 
   var currentPosition = 0;
 
-  var matches =
-      RegExp(getAbilitiesRegExp() + r'|\(.+?\)|:\w+:').allMatches(relevantText);
+  var matches = RegExp(
+    getAbilitiesRegExp() + r'|\(.+?\)|:\w+:',
+  ).allMatches(relevantText);
 
   var textStyle = isReminderText
       ? context.textTheme.bodyMedium!.copyWith(fontStyle: FontStyle.italic)
@@ -45,28 +50,39 @@ List<InlineSpan> formatCardText(String relevantText, BuildContext context,
     final text = match.group(0)!;
 
     // Doing this split to account for e.g. 'Assault 2'
-    final word = text.split(' ')[0].replaceAll(RegExp(r'[\[\]]'), '');
+    final word = text
+        .split(' ')[0]
+        .replaceAll(RegExp(r'[\[\]]'), '')
+        .split('&')[0];
 
     textStyle = isAbilityKeyword(word)
         ? context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold)
         : context.textTheme.bodyMedium!.copyWith(fontStyle: FontStyle.italic);
 
     if (isReminderText) {
-      textStyle =
-          context.textTheme.bodyMedium!.copyWith(fontStyle: FontStyle.italic);
+      textStyle = context.textTheme.bodyMedium!.copyWith(
+        fontStyle: FontStyle.italic,
+      );
     }
 
     if (match.start != 0) {
-      prettified.add(TextSpan(
+      prettified.add(
+        TextSpan(
           text: relevantText.substring(currentPosition, match.start),
-          style: isReminderText ? textStyle : context.textTheme.bodyMedium));
+          style: isReminderText ? textStyle : context.textTheme.bodyMedium,
+        ),
+      );
     }
 
     if (text.startsWith('(')) {
       prettified.add(TextSpan(text: '(', style: textStyle));
-      prettified.addAll(formatCardText(
-          text.substring(1, text.length - 1), context,
-          isReminderText: true));
+      prettified.addAll(
+        formatCardText(
+          text.substring(1, text.length - 1),
+          context,
+          isReminderText: true,
+        ),
+      );
       prettified.add(TextSpan(text: ')', style: textStyle));
     } else if (text.startsWith(':')) {
       prettified.add(_buildInlineImageWidget(text));
@@ -77,45 +93,50 @@ List<InlineSpan> formatCardText(String relevantText, BuildContext context,
       if (text.endsWith('[&gt;]')) {
         final fullMatch = relevantText.substring(match.start, match.end);
         // gets rid of the '[&gt;]' since we're folding it into the path thing
-        final formatted =
-            fullMatch.substring(1, fullMatch.length - 7).toUpperCase();
+        final formatted = fullMatch
+            .substring(1, fullMatch.length - 7)
+            .toUpperCase();
         prettified.add(
           WidgetSpan(
             child: ClipPath(
-                clipper: MyCustomClipper(),
-                child: Container(
-                  color: getAbilityColor(word, context),
-                  child: RichText(
-                    text: TextSpan(
-                      text: '  $formatted   ',
-                      style: textStyle.copyWith(
-                          color: textColor,
-                          fontFamily: molde,
-                          fontWeight: FontWeight.normal),
+              clipper: MyCustomClipper(),
+              child: Container(
+                color: getAbilityColor(word, context),
+                child: RichText(
+                  text: TextSpan(
+                    text: '  $formatted   ',
+                    style: textStyle.copyWith(
+                      color: textColor,
+                      fontFamily: molde,
+                      fontWeight: FontWeight.normal,
                     ),
                   ),
-                )),
+                ),
+              ),
+            ),
           ),
         );
       } else {
         prettified.add(
           WidgetSpan(
             child: Transform(
-                transform: Matrix4.skewX(-0.2),
-                alignment: Alignment.bottomLeft,
-                child: Container(
-                  color: getAbilityColor(word, context),
-                  child: RichText(
-                    text: TextSpan(
-                      text:
-                          ' ${relevantText.substring(match.start + 1, match.end - 1).toUpperCase()} ',
-                      style: textStyle.copyWith(
-                          color: textColor,
-                          fontFamily: molde,
-                          fontWeight: FontWeight.normal),
+              transform: Matrix4.skewX(-0.2),
+              alignment: Alignment.bottomLeft,
+              child: Container(
+                color: getAbilityColor(word, context),
+                child: RichText(
+                  text: TextSpan(
+                    text:
+                        ' ${relevantText.substring(match.start + 1, match.end - 1).toUpperCase()} ',
+                    style: textStyle.copyWith(
+                      color: textColor,
+                      fontFamily: molde,
+                      fontWeight: FontWeight.normal,
                     ),
                   ),
-                )),
+                ),
+              ),
+            ),
           ),
         );
       }
@@ -124,9 +145,12 @@ List<InlineSpan> formatCardText(String relevantText, BuildContext context,
   }
   final lastBit = relevantText.substring(currentPosition);
   if (lastBit.isNotEmpty) {
-    prettified.add(TextSpan(
+    prettified.add(
+      TextSpan(
         text: relevantText.substring(currentPosition),
-        style: isReminderText ? textStyle : context.textTheme.bodyMedium));
+        style: isReminderText ? textStyle : context.textTheme.bodyMedium,
+      ),
+    );
   }
 
   return prettified;
