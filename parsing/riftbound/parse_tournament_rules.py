@@ -19,7 +19,7 @@ filename = 'tournament-rules.txt'
 with open(filename, 'r', encoding='utf8') as f:
     data = f.read()
     lines = data.split('\n')
-    pattern = r'(\d+(?:\.(?:\d+)?\.?(?:\w+)?){0,5}) (.+)$'
+    pattern = r'^(\d+(?:\.(?:\d+)?\.?(?:\w+)?){0,5}) (.+)$'
     matches = re.findall(pattern, data, flags=re.MULTILINE)
 
     for match in matches:
