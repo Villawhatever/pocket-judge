@@ -8,8 +8,11 @@ import '../widgets/expansible_header.dart';
 import 'card.dart' hide Text;
 
 class CardWidget extends StatefulWidget {
-  const CardWidget(
-      {super.key, required this.model, required this.expansibleController});
+  const CardWidget({
+    super.key,
+    required this.model,
+    required this.expansibleController,
+  });
 
   final CardModel model;
   final ExpansibleController expansibleController;
@@ -29,24 +32,36 @@ class _CardWidgetState extends State<CardWidget> {
     super.initState();
   }
 
+  Widget buildCardInfo(String title, dynamic value, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: context.textTheme.bodyMedium!.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          if (value is Widget)
+            value
+          else
+            Text(value.toString(), style: context.textTheme.bodyMedium),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var relevantText = widget.model.text.rich ?? '';
 
-    var prettified = formatCardText(relevantText, context);
-
-    Widget buildCardInfo(String title, dynamic value) {
-      return Padding(
-          padding: const EdgeInsets.only(bottom: 12),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title,
-                    style: context.textTheme.bodyMedium!
-                        .copyWith(fontWeight: FontWeight.bold)),
-                Text(value.toString(), style: context.textTheme.bodyMedium),
-              ]));
+    var prettifiedAbility = formatCardText(relevantText, context);
+    List<InlineSpan> prettifiedEffect = [];
+    if (widget.model.text.effect?.isNotEmpty ?? false) {
+      prettifiedEffect = formatCardText(widget.model.text.effect!, context);
     }
 
     List<CachedNetworkImage> getImages() {
@@ -56,16 +71,20 @@ class _CardWidgetState extends State<CardWidget> {
       final imageData = widget.model.images!;
       final List<CachedNetworkImage> images = [];
       for (final image in imageData) {
-        images.add(CachedNetworkImage(
-          imageUrl: image.imgUrl!,
-          placeholder: (context, url) => CircularProgressIndicator(
+        images.add(
+          CachedNetworkImage(
+            imageUrl: image.imgUrl!,
+            placeholder: (context, url) => CircularProgressIndicator(
               constraints: BoxConstraints(
-                  maxHeight: 100,
-                  minHeight: 100,
-                  minWidth: 100,
-                  maxWidth: 100)),
-          errorWidget: (context, url, error) => Icon(Icons.error, size: 45),
-        ));
+                maxHeight: 100,
+                minHeight: 100,
+                minWidth: 100,
+                maxWidth: 100,
+              ),
+            ),
+            errorWidget: (context, url, error) => Icon(Icons.error, size: 45),
+          ),
+        );
       }
       return images;
     }
@@ -79,102 +98,149 @@ class _CardWidgetState extends State<CardWidget> {
         var img = getImages().first;
         return [
           Padding(
-              padding: EdgeInsetsGeometry.only(top: 12),
-              child: Center(child: img))
+            padding: EdgeInsetsGeometry.only(top: 12),
+            child: Center(child: img),
+          ),
         ];
       }
 
       return [
         Padding(
-            padding: EdgeInsetsGeometry.only(top: 12),
-            child: CarouselSlider(
-                items: getImages(),
-                carouselController: _carouselSliderController,
-                options: CarouselOptions(
-                    height: 400,
-                    onPageChanged: (index, reason) {
-                      setState(() {
-                        _currentImage = index;
-                      });
-                    }))),
+          padding: EdgeInsetsGeometry.only(top: 12),
+          child: CarouselSlider(
+            items: getImages(),
+            carouselController: _carouselSliderController,
+            options: CarouselOptions(
+              height: 400,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  _currentImage = index;
+                });
+              },
+            ),
+          ),
+        ),
         Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: getImages().asMap().entries.map((entry) {
-              return GestureDetector(
-                onTap: () => _carouselSliderController.animateToPage(entry.key),
-                child: Container(
-                  width: 12.0,
-                  height: 12.0,
-                  margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: (_currentImage == entry.key
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: getImages().asMap().entries.map((entry) {
+            return GestureDetector(
+              onTap: () => _carouselSliderController.animateToPage(entry.key),
+              child: Container(
+                width: 12.0,
+                height: 12.0,
+                margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color:
+                      (_currentImage == entry.key
                               ? context.colorScheme.secondary
                               : context.colorScheme.primary)
                           .withValues(
-                              alpha: _currentImage == entry.key ? 1.0 : 0.5)),
+                            alpha: _currentImage == entry.key ? 1.0 : 0.5,
+                          ),
                 ),
-              );
-            }).toList())
+              ),
+            );
+          }).toList(),
+        ),
       ];
     }
 
     return Expansible(
       headerBuilder: (context, animation) => ExpansibleHeader(
-          title: widget.model.name!,
-          context: context,
-          animation: animation,
-          expansibleController: _expansibleController),
+        title: widget.model.name!,
+        context: context,
+        animation: animation,
+        expansibleController: _expansibleController,
+      ),
       bodyBuilder: (context, animation) {
         return Padding(
-            padding: EdgeInsetsGeometry.only(left: 5, right: 5),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
+          padding: EdgeInsetsGeometry.only(left: 5, right: 5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ...buildCarousel(),
+              Table(
                 children: [
-                  ...buildCarousel(),
-                  Table(children: [
-                    TableRow(children: [
-                      buildCardInfo('Domain(s)',
-                          widget.model.classification.domain?.join(', ')),
-                      SizedBox.shrink()
-                    ]),
-                    TableRow(children: [
+                  TableRow(
+                    children: [
                       buildCardInfo(
-                          'Card Type', widget.model.classification.type),
+                        'Domain(s)',
+                        widget.model.classification.domain?.join(', '),
+                        context,
+                      ),
+                      SizedBox.shrink(),
+                    ],
+                  ),
+                  TableRow(
+                    children: [
+                      buildCardInfo(
+                        'Card Type',
+                        widget.model.classification.type,
+                        context,
+                      ),
                       widget.model.classification.type?.toLowerCase() == 'unit'
                           ? buildCardInfo(
-                              'Might', widget.model.attributes.might)
+                              'Might',
+                              widget.model.attributes.might,
+                              context,
+                            )
                           : SizedBox.shrink(),
-                    ]),
-                    TableRow(children: [
+                    ],
+                  ),
+                  TableRow(
+                    children: [
                       widget.model.attributes.energy == null
                           ? SizedBox.shrink()
                           : buildCardInfo(
-                              'Energy', widget.model.attributes.energy),
+                              'Energy',
+                              widget.model.attributes.energy,
+                              context,
+                            ),
                       widget.model.attributes.power == null
                           ? SizedBox.shrink()
                           : buildCardInfo(
-                              'Power', widget.model.attributes.power),
-                    ])
-                  ]),
+                              'Power',
+                              widget.model.attributes.power,
+                              context,
+                            ),
+                    ],
+                  ),
+                ],
+              ),
+              buildCardInfo(
+                'Ability',
+                RichText(
+                  text: TextSpan(
+                    style: context.textTheme.bodyMedium,
+                    children: prettifiedAbility,
+                  ),
+                ),
+                context,
+              ),
+              if (prettifiedEffect.isNotEmpty)
+                buildCardInfo(
+                  'Effect',
                   RichText(
                     text: TextSpan(
-                        style: context.textTheme.bodyMedium,
-                        children: prettified),
+                      style: context.textTheme.bodyMedium,
+                      children: prettifiedEffect,
+                    ),
                   ),
-                ]));
+                  context,
+                ),
+              if (widget.model.mightBonus?.isNotEmpty ?? false)
+                buildCardInfo('Might Bonus', widget.model.mightBonus, context),
+            ],
+          ),
+        );
       },
       controller: _expansibleController,
-      expansibleBuilder: (
-        context,
-        header,
-        body,
-        animation,
-      ) =>
-          Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [header, body]),
+      expansibleBuilder: (context, header, body, animation) => Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [header, body],
+      ),
     );
   }
 }

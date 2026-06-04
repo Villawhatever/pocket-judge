@@ -30,6 +30,7 @@ class CardModel {
   String? orientation;
   Metadata metadata = Metadata();
   List<ImageData>? images;
+  String? mightBonus;
 
   CardModel({
     required this.id,
@@ -45,6 +46,7 @@ class CardModel {
     this.tags,
     this.orientation,
     required this.metadata,
+    this.mightBonus,
   });
 
   CardModel.fromJson(Map<String, dynamic> json) {
@@ -125,9 +127,10 @@ class Classification {
 class Text {
   String? rich;
   String? plain;
+  String? effect;
   String? flavour;
 
-  Text({this.rich, this.plain, this.flavour});
+  Text({this.rich, this.plain, this.effect, this.flavour});
 
   Text.fromJson(Map<String, dynamic> json) {
     var richText = json['rich'] as String;
