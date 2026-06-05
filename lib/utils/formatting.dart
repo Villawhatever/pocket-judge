@@ -133,6 +133,7 @@ List<InlineSpan> formatCardText(
                       color: textColor,
                       fontFamily: molde,
                       fontWeight: FontWeight.normal,
+                      fontStyle: FontStyle.normal,
                     ),
                   ),
                 ),
