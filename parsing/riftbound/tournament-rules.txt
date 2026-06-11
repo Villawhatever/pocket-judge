@@ -227,8 +227,7 @@ the player with more game wins wins the match.
 Then, if a player has more game wins in the match, they win the match. If the game score is tied, proceed to 408.4.d.
 408.4.c.2. If the point score of the current game is tied, but a player has the most game wins in the match, that player wins the match.
 408.4.c.3. If the point score of the current game is tied and the game score of the match is tied, players continue to play until the next point is scored. The player who scores that point wins the match. This does not remove normal scoring restrictions if the next point is the Final Point. See CR 448.1.a. for Final Point details.
-408.4.d. If the game score is tied and a new game needs to be started, players start the new game and act as though time immediately runs out, beginning the process of
-408.4.a., except with five additional turns following the first player's turn before moving into sudden death scoring as described in 408.4.c.3. if the point score is tied at the end of those turns.
+408.4.d. If the game score is tied and a new game needs to be started, players start the new game and act as though time immediately runs out, beginning the process of 408.4.a., except with five additional turns following the first player's turn before moving into sudden death scoring as described in 408.4.c.3. if the point score is tied at the end of those turns.
 409. Tiebreakers
 409.1. In the course of determining standings, the scorekeeper might need to distinguish between two players with equal match records.
 409.2. In these cases, the following tiebreakers should be applied in order:
@@ -321,8 +320,7 @@ the above procedures 1-7 should be followed for that group of cards to properly 
 422.1. Players may use plastic sleeves or other protective devices on their cards.
 422.2. If a player chooses to do this, all such sleeves must be identical and all cards in a deck must be placed in sleeves in the same manner. Cards in decks must have the same number of layers and be the same orientation at all times.
 422.2.a. It’s suggested but not required that players use different sleeves for the different decks (Main, Rune).
-422.2.b. Players may use a unique sleeve or additional layer to distinguish their Chosen Champion during game setup, but must change its sleeve to match their Main Deck if it would enter a zone whose information level is private during gameplay. See CR
-127. Privacy for information types.
+422.2.b. Players may use a unique sleeve or additional layer to distinguish their Chosen Champion during game setup, but must change its sleeve to match their Main Deck if it would enter a zone whose information level is private during gameplay. See CR 127. Privacy for information types.
 422.3. Sleeves must have opaque backs.
 422.4. During a match, a player may request that a judge inspect an opponent’s sleeves.
 422.5. Judges may disallow any specific sleeve or the sleeves generally if they believe they are marked, worn, inappropriate, offensive, or otherwise interfere with shuffling or play.
@@ -408,8 +406,7 @@ which are technically incorrect or imprecise, but arrive at the correct legal an
 505.7. Otherwise, the loop continues until the lowest number of iterations chosen, then that player either gains priority (if a maintaining player) or breaks the loop.
 505.8. If a player intervenes to break a loop, they may choose to interrupt a partially completed iteration.
 505.9. If a sequence of actions is non-deterministic, it may not be shortcut and iterations must be performed manually.
-505.10. Some loops are maintained by decisions rather than actions. In these cases, apply
-505.4-505.8 but with the player making a different decision rather than a different action.
+505.10. Some loops are maintained by decisions rather than actions. In these cases, apply 505.4-505.8 but with the player making a different decision rather than a different action.
 505.11. Judges are the final arbiter of what constitutes a loop, or if choices are available to continue a loop when secret information is involved.
 505.12. Players who try to opt-out of shortcutting or propose incorrect shortcutting to use up time are cheating. See 704.8 for more information about cheating.
 506. Triggered Abilities
@@ -574,10 +571,8 @@ those cards are placed next to B.
 602.4.b.2.a.1. Players can keep the Rune or token they opened.
 602.4.b.2.a.2. If an opened pack has an error, players must call a judge to replace the pack if possible.
 602.4.b.2.b. Once pack contents are verified, players will look through the cards in their pack and select one to draft to the top of a single unobscured facedown pile in front of them, then pass the remaining contents facedown to the player to their left. Players repeat this process with the cards passed to them until there are no cards remaining.
-602.4.b.2.b.1. Once the first pack is completed, repeat
-602.4.b.2.a-602.4.b.2.b with the second pack, except passing cards to the right.
-602.4.b.2.b.2. Once the second pack is completed, repeat
-602.4.b.2.a-602.4.b.2.b with the third pack, again passing cards to the left.
+602.4.b.2.b.1. Once the first pack is completed, repeat 602.4.b.2.a-602.4.b.2.b with the second pack, except passing cards to the right.
+602.4.b.2.b.2. Once the second pack is completed, repeat 602.4.b.2.a-602.4.b.2.b with the third pack, again passing cards to the left.
 602.4.b.2.b.3. Once a card has been added to a player’s single facedown pile in front of them it is considered selected and can’t be returned to the pack.
 602.4.b.2.b.4. Players must make a reasonable effort to conceal the front face of cards they have selected and cards in their current pack from other players.
 602.4.b.2.c. Once this process is complete, each player should have 39 cards to use as their limited card pool.
@@ -625,8 +620,7 @@ Legend, and Chosen Champion while sideboarding as long as the resulting deck sti
 603.7.c.1. For games after the first game of a match, the losing team of the previous game gets to choose who plays first. If the previous game was a draw, the turn order from the previous game is maintained.
 604. Event and Round Time Limits
 604.1. It’s recommended that players be given 60 minutes for rounds of play in the Swiss portion of a competitive event.
-604.2. It is strongly recommended that single elimination matches use untimed rounds so players can play their games to a natural conclusion. If single elimination rounds must be timed, see
-408.4. for an altered End of Match procedure.
+604.2. It is strongly recommended that single elimination matches use untimed rounds so players can play their games to a natural conclusion. If single elimination rounds must be timed, see 408.4. for an altered End of Match procedure.
 604.2.a. Players are still expected to play at a reasonable pace. See 703.2 the Slow Play penalty.
 700. Enforcement and Penalties
 701. General
@@ -724,8 +718,7 @@ Alluring.
 702.4.b. If forgetting to draw was advantageous to the erroring player (example: the player is near burning out), this penalty is a [Warning] instead.
 702.5. Looking at Extra Cards [Warning]: While taking a game action that allows a player to look at cards from a deck, they look at more cards than they are entitled to.
 702.5.a. Cards being looked at from secret information such as a deck are added to a private information group while they are being looked at.
-702.5.b. Once extra cards being looked at have touched a new private or secret group from their original source, they become part of that group. If the extra cards have not touched a new group, this is instead a Looking at Secret Information error. See
-702.10. for more on Looking at Secret Information errors.
+702.5.b. Once extra cards being looked at have touched a new private or secret group from their original source, they become part of that group. If the extra cards have not touched a new group, this is instead a Looking at Secret Information error. See 702.10. for more on Looking at Secret Information errors.
 702.5.b.1. For example, if a player plays a Stacked Deck and adds a fourth card to the private set of cards they are looking at, it is Looking at Extra Cards. If they correctly look at the top three, but knock the top card of their Main Deck over without adding it to the private group, it is Looking at Secret Information.
 702.5.c. Remedies:
 702.5.c.1. If the error is caught while the erroring player is looking at the extra cards,
@@ -735,8 +728,7 @@ the next opponent in turn order of the erroring player looks at the private grou
 702.6. Channeling Too Many Runes [Warning]: A player channels a number of runes greater than they are entitled to under the Core Rules as the result of a limited action.
 702.6.a. Errors of this sort are generally public, and all players are expected to be mindful of game state.
 702.6.b. Remedies:
-702.6.b.1. If the additional runes have been used to pay for actions, rewind if possible. If rewinding is not possible, this is a General Error instead. See
-702.15 for more information about General Errors.
+702.6.b.1. If the additional runes have been used to pay for actions, rewind if possible. If rewinding is not possible, this is a General Error instead. See 702.15 for more information about General Errors.
 702.6.b.2. If the additional runes are caught and no more than a full round cycle has passed, shuffle them appropriately into the rune deck.
 702.6.b.2.a. If the specific runes can’t be identified, shuffle random runes instead.
 702.6.b.3. Otherwise, instruct the players to continue playing.
