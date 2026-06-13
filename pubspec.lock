@@ -57,6 +57,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.13.1"
+  beautiful_soup_dart:
+    dependency: "direct main"
+    description:
+      name: beautiful_soup_dart
+      sha256: "57e23946c85776dd9515a4e9a14263fff37dbedbd559bc4412bf565886e12b10"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -823,6 +831,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.0"
+  puppeteer:
+    dependency: "direct main"
+    description:
+      name: puppeteer
+      sha256: a33f6d17392894d6b4be8d23963a44a50bb5d050a46517c12452f9bce22ae215
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.23.0"
   rxdart:
     dependency: transitive
     description:
@@ -1149,7 +1165,7 @@ packages:
     source: hosted
     version: "3.1.5"
   uuid:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: uuid
       sha256: "1fef9e8e11e2991bb773070d4656b7bd5d850967a2456cfc83cf47925ba79489"

@@ -139,7 +139,7 @@ class SearchViewModel extends ChangeNotifier {
   void _matchName(String value) {
     _iterable = _iterable.where(
       (c) =>
-          _flatten(c.name ?? '').contains(value) ||
+          _flatten(c.name).contains(value) ||
           (c.classification.type == 'Legend' &&
               (c.tags?.any((t) => t == value) ?? false)),
     );
