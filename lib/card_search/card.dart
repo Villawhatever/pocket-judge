@@ -17,7 +17,7 @@ class CardModel {
   late Id isarId;
   @Index(unique: true)
   late String id;
-  String? name;
+  late String name;
   String? riftboundId;
   String? tcgplayerId;
   int? collectorNumber;
@@ -34,7 +34,7 @@ class CardModel {
 
   CardModel({
     required this.id,
-    this.name,
+    required this.name,
     this.riftboundId,
     this.tcgplayerId,
     this.collectorNumber,
@@ -68,10 +68,33 @@ class CardModel {
     tags = json['tags'].cast<String>();
     orientation = json['orientation'];
     metadata = Metadata.fromJson(json['metadata']);
+    mightBonus = json['might_bonus'];
 
     imageList.add(ImageData(id: riftboundId, imgUrl: media.imageUrl));
     images = imageList;
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['riftbound_id'] = riftboundId;
+    data['tcgplayer_id'] = tcgplayerId;
+    data['collector_number'] = collectorNumber;
+    data['attributes'] = attributes.toJson();
+    data['classification'] = classification.toJson();
+    data['text'] = text.toJson();
+    data['set'] = set.toJson();
+    data['media'] = media.toJson();
+    data['tags'] = tags;
+    data['orientation'] = orientation;
+    data['metadata'] = metadata.toJson();
+    data['might_bonus'] = mightBonus;
+    return data;
+  }
+
+  @override
+  String toString() => name;
 }
 
 @embedded
@@ -139,6 +162,7 @@ class Text {
     richText = richText.replaceAll('&quot;', '"');
     rich = richText;
     plain = json['plain'];
+    effect = json['effect'];
     flavour = json['flavour'];
   }
 
@@ -146,6 +170,7 @@ class Text {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['rich'] = rich;
     data['plain'] = plain;
+    data['effect'] = effect;
     data['flavour'] = flavour;
     return data;
   }

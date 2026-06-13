@@ -148,7 +148,7 @@ class _CardWidgetState extends State<CardWidget> {
 
     return Expansible(
       headerBuilder: (context, animation) => ExpansibleHeader(
-        title: widget.model.name!,
+        title: widget.model.name,
         context: context,
         animation: animation,
         expansibleController: _expansibleController,

@@ -3,15 +3,17 @@ import 'dart:math' as math;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pocket_judge/constants.dart';
 import 'package:pocket_judge/core_rules/rule.dart';
 import 'package:pocket_judge/utils/extensions/context_extensions.dart';
 
 class RuleWidget extends StatelessWidget {
-  const RuleWidget(
-      {super.key,
-      required this.model,
-      required this.callback,
-      this.shouldIndent = true});
+  const RuleWidget({
+    super.key,
+    required this.model,
+    required this.callback,
+    this.shouldIndent = true,
+  });
 
   final RuleModel model;
   final Function callback;
@@ -19,8 +21,9 @@ class RuleWidget extends StatelessWidget {
 
   String _getParentRule() {
     final fragments = model.number.split('.');
-    final parentRuleNumber =
-        fragments.take(math.min(2, fragments.length)).join('.');
+    final parentRuleNumber = fragments
+        .take(math.min(2, fragments.length))
+        .join('.');
 
     return parentRuleNumber.endsWith('.')
         ? parentRuleNumber
@@ -39,9 +42,12 @@ class RuleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String seeRulePattern = r'See (?:rule )?(\d+\.?)(.+?)(?=for)';
-    final RegExp seeRuleRegex =
-        RegExp(seeRulePattern, multiLine: true, dotAll: true);
+    final String seeRulePattern = r'See (?:rule )?(\d+\.?)(.+?)(?=for)|\[.+?\]';
+    final RegExp seeRuleRegex = RegExp(
+      seeRulePattern,
+      multiLine: true,
+      dotAll: true,
+    );
 
     var matches = seeRuleRegex.allMatches(model.text);
 
@@ -50,19 +56,36 @@ class RuleWidget extends StatelessWidget {
 
     for (final match in matches) {
       fragments.add(
-          TextSpan(text: model.text.substring(currentPosition, match.start)));
+        TextSpan(text: model.text.substring(currentPosition, match.start)),
+      );
 
-      var seeRuleNumber = match.group(1);
-      if (!seeRuleNumber!.endsWith('.')) {
-        seeRuleNumber += '.';
+      if (match.group(0)!.startsWith('[')) {
+        fragments.add(
+          TextSpan(
+            text: match.group(0),
+            style: context.textTheme.bodyMedium!.copyWith(
+              fontWeight: FontWeight.bold,
+              color: yellowish,
+            ),
+          ),
+        );
+      } else {
+        var seeRuleNumber = match.group(1);
+        if (!seeRuleNumber!.endsWith('.')) {
+          seeRuleNumber += '.';
+        }
+
+        fragments.add(
+          TextSpan(
+            text: model.text.substring(match.start, match.end),
+            style: context.textTheme.bodyMedium!.copyWith(
+              color: context.colorScheme.secondary,
+            ),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => callback(seeRuleNumber),
+          ),
+        );
       }
-
-      fragments.add(TextSpan(
-          text: model.text.substring(match.start, match.end),
-          style: context.textTheme.bodyMedium!
-              .copyWith(color: context.colorScheme.secondary),
-          recognizer: TapGestureRecognizer()
-            ..onTap = () => callback(seeRuleNumber)));
 
       currentPosition = match.end;
     }
@@ -79,28 +102,28 @@ class RuleWidget extends StatelessWidget {
             text: '${model.number} ',
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-          ...fragments
+          ...fragments,
         ],
       ),
     );
 
     return Padding(
-        padding: EdgeInsets.fromLTRB(leftPadding, 0, 0, 12),
-        child: Column(children: [
+      padding: EdgeInsets.fromLTRB(leftPadding, 0, 0, 12),
+      child: Column(
+        children: [
           GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTap: () => callback(_getParentRule()),
             onLongPress: () {
               Clipboard.setData(
-                  ClipboardData(text: richText.text.toPlainText()));
+                ClipboardData(text: richText.text.toPlainText()),
+              );
               HapticFeedback.vibrate();
             },
-            child: Row(children: [
-              Flexible(
-                child: richText,
-              ),
-            ]),
+            child: Row(children: [Flexible(child: richText)]),
           ),
-        ]));
+        ],
+      ),
+    );
   }
 }

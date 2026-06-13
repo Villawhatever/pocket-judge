@@ -33,6 +33,9 @@ migrate_working_dir/
 !/build/
 /build/*
 /linux/*
+# Scraped data to parse into isar
+/lib/assets/errata.json
+/lib/assets/scraped_gallery.json
 # Symbolication related
 app.*.symbols
 

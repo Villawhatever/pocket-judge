@@ -26,8 +26,16 @@ final Map<String, Color> _abilityColors = createMultiKeyMap({
     'Repeat',
   ]: greenish,
   ['Assault', 'Backline', 'Shield', 'Tank']: reddish,
-  ['Add', 'Equip', 'Mighty', 'Predict', 'Unique', 'Vision', 'Weaponmaster']:
-      grayish,
+  [
+    'Add',
+    'Equip',
+    'Mighty',
+    'Predict',
+    'Stun',
+    'Unique',
+    'Vision',
+    'Weaponmaster',
+  ]: grayish,
   ['Deathknell', 'Deflect', 'Ganking', 'Hunt', 'Level', 'Temporary']: yellowish,
 });
 
