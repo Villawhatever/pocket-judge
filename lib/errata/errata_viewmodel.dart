@@ -24,9 +24,11 @@ class ErrataViewModel extends ChangeNotifier {
     }
     var fmt = search.toLowerCase();
     _filteredErrata = _errata
-        .where((r) =>
-            r.name.toLowerCase().contains(fmt) ||
-            r.set.toLowerCase().contains(fmt))
+        .where(
+          (r) =>
+              r.name.toLowerCase().contains(fmt) ||
+              r.set.toLowerCase().contains(fmt),
+        )
         .toList();
     notifyListeners();
   }
@@ -36,7 +38,7 @@ class ErrataViewModel extends ChangeNotifier {
       return;
     }
 
-    final errataFile = await rootBundle.loadString('lib/assets/errata.json');
+    final errataFile = await rootBundle.loadString('lib/assets/faqs.json');
     _errata = await compute(_fetchErrata, errataFile);
 
     _filteredErrata = _errata;
