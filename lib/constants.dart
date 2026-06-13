@@ -40,7 +40,7 @@ final Map<String, Color> _abilityColors = createMultiKeyMap({
 });
 
 String getAbilitiesRegExp() {
-  return r'\[.+?(?:\b \d+)?\](?:\[&gt;\])?';
+  return r'\[.+?(?:\b \d+)?\](?:\[>\])?';
 }
 
 bool isAbilityKeyword(String ability) {
