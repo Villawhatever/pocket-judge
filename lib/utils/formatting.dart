@@ -90,11 +90,11 @@ List<InlineSpan> formatCardText(
       final textColor = getAbilityColor(word, context) == yellowish
           ? context.colorScheme.tertiary
           : Colors.white;
-      if (text.endsWith('[&gt;]')) {
+      if (text.endsWith('[>]')) {
         final fullMatch = relevantText.substring(match.start, match.end);
         // gets rid of the '[&gt;]' since we're folding it into the path thing
         final formatted = fullMatch
-            .substring(1, fullMatch.length - 7)
+            .substring(1, fullMatch.length - 4)
             .toUpperCase();
         prettified.add(
           WidgetSpan(
