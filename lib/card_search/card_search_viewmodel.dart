@@ -24,11 +24,13 @@ class SearchViewModel extends ChangeNotifier {
 
   Future<void> _initialize() async {
     final dir = await getApplicationDocumentsDirectory();
-    isar = await Isar.open(
-      [CardModelSchema],
-      directory: dir.path,
-      name: 'pocket-judge',
-    );
+    isar =
+        Isar.getInstance('pocket-judge') ??
+        await Isar.open(
+          [CardModelSchema],
+          directory: dir.path,
+          name: 'pocket-judge',
+        );
   }
 
   void reset() {
