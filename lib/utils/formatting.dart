@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 import 'extensions/context_extensions.dart';
+import 'extensions/list_extensions.dart';
 import 'image_resolver.dart';
 
 WidgetSpan _buildInlineImageWidget(String runeword) {
@@ -51,9 +52,9 @@ List<InlineSpan> formatCardText(
 
     // Doing this split to account for e.g. 'Assault 2'
     final word = text
-        .split(' ')[0]
-        .replaceAll(RegExp(r'[\[\]]'), '')
-        .split('&')[0];
+        .split(RegExp(r'[ \[]'))
+        .removeEmpties()[0]
+        .replaceAll(RegExp(r'[\[\]]'), '');
 
     textStyle = isAbilityKeyword(word)
         ? context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold)
@@ -92,7 +93,7 @@ List<InlineSpan> formatCardText(
           : Colors.white;
       if (text.endsWith('[>]')) {
         final fullMatch = relevantText.substring(match.start, match.end);
-        // gets rid of the '[&gt;]' since we're folding it into the path thing
+        // gets rid of the '[>]' since we're folding it into the path thing
         final formatted = fullMatch
             .substring(1, fullMatch.length - 4)
             .toUpperCase();
