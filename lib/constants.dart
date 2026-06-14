@@ -11,6 +11,14 @@ const Color reddish = Color(0xffca3b70);
 const Color grayish = Color(0xff717171);
 const Color yellowish = Color(0xff90b236);
 
+final penalties = [
+  'No Penalty',
+  'Warning',
+  'Game Loss',
+  'Match Loss',
+  'Disqualification',
+];
+
 final Map<String, Color> _abilityColors = createMultiKeyMap({
   [
     'Accelerate',

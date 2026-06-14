@@ -55,18 +55,23 @@ class RuleWidget extends StatelessWidget {
     int currentPosition = 0;
 
     for (final match in matches) {
-      fragments.add(
-        TextSpan(text: model.text.substring(currentPosition, match.start)),
-      );
+      if (match.start > 0) {
+        fragments.add(
+          TextSpan(text: model.text.substring(currentPosition, match.start)),
+        );
+      }
 
-      if (match.group(0)!.startsWith('[')) {
+      final text = match.group(0)!;
+      if (text.startsWith('[')) {
+        final isPenalty = penalties.any((p) => text.contains(p));
+        final penaltyStyle = context.textTheme.bodyMedium!.copyWith(
+          fontWeight: FontWeight.bold,
+          color: yellowish,
+        );
         fragments.add(
           TextSpan(
-            text: match.group(0),
-            style: context.textTheme.bodyMedium!.copyWith(
-              fontWeight: FontWeight.bold,
-              color: yellowish,
-            ),
+            text: text,
+            style: isPenalty ? penaltyStyle : context.textTheme.bodyMedium!,
           ),
         );
       } else {
@@ -97,7 +102,7 @@ class RuleWidget extends StatelessWidget {
     final richText = RichText(
       text: TextSpan(
         style: context.textTheme.bodyMedium,
-        children: <TextSpan>[
+        children: [
           TextSpan(
             text: '${model.number} ',
             style: const TextStyle(fontWeight: FontWeight.bold),

@@ -52,8 +52,9 @@ Future _setupIsar() async {
 }
 
 class PocketJudge extends StatelessWidget {
-  PocketJudge({super.key});
-
+  PocketJudge({super.key, this.child, this.future});
+  final Widget? child;
+  final Future? future;
   final crVm = CoreRulesViewModel();
   final errataVm = ErrataViewModel();
   final searchVm = SearchViewModel();
@@ -139,12 +140,14 @@ class PocketJudge extends StatelessWidget {
             home: UpgradeAlert(
               upgrader: Upgrader(debugLogging: false),
               child: FutureBuilder(
-                future: setupData()
-                    .then((_) => FlutterNativeSplash.remove())
-                    .catchError((_) => FlutterNativeSplash.remove()),
+                future:
+                    future ??
+                    setupData()
+                        .then((_) => FlutterNativeSplash.remove())
+                        .catchError((_) => FlutterNativeSplash.remove()),
                 builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
-                    return CoreRulesView(title: 'Core Rules');
+                    return child ?? CoreRulesView(title: 'Core Rules');
                   } else if (snapshot.hasError) {
                     return AboutView(title: 'About');
                   } else {
