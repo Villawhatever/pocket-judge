@@ -20,7 +20,7 @@ class CardSearchView extends StatefulWidget {
 }
 
 class _CardSearchViewState extends State<CardSearchView> {
-  late ItemScrollController _scrollController;
+  late ItemScrollController? _scrollController;
   late TextEditingController _textController;
 
   late SearchViewModel _viewModel;
@@ -53,9 +53,19 @@ class _CardSearchViewState extends State<CardSearchView> {
       _viewModel.search(null);
     }
 
+    // this is janky as hell and *cannot* be the correct way to handle this?
     onSearchTextChanged(value) {
       setState(() {
+        final currentCaratOffset = _textController.selection.baseOffset;
+
         _textController.text = value;
+
+        final newCaratOffset = currentCaratOffset < value.length
+            ? currentCaratOffset
+            : value.length;
+        _textController.selection = TextSelection.fromPosition(
+          TextPosition(offset: newCaratOffset >= 0 ? newCaratOffset : 0),
+        );
       });
     }
 
@@ -67,14 +77,22 @@ class _CardSearchViewState extends State<CardSearchView> {
     }
 
     final searchBar = CustomSearchBar(
-        textController: _textController,
-        onChanged: onSearchTextChanged,
-        onSubmitted: reset,
-        onClear: clearSearch);
+      textController: _textController,
+      onChanged: onSearchTextChanged,
+      onSubmitted: reset,
+      onClear: clearSearch,
+    );
 
-    final filteredCards =
-        context.select<SearchViewModel, List<CardModel>>((vm) => vm.cards);
+    final filteredCards = context.select<SearchViewModel, List<CardModel>>(
+      (vm) => vm.cards,
+    );
     Widget body;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (filteredCards.length == 1) {
+        _expansibleMap[0]?.expand();
+      }
+    });
 
     if (filteredCards.isEmpty) {
       body = SingleChildScrollView(
@@ -82,32 +100,35 @@ class _CardSearchViewState extends State<CardSearchView> {
           children: [
             MarkdownBody(
               data: _viewModel.searchSyntax,
-              styleSheet: MarkdownStyleSheet.fromTheme(context.theme).copyWith(
-                  code: TextStyle(color: context.colorScheme.secondary)),
+              styleSheet: MarkdownStyleSheet.fromTheme(
+                context.theme,
+              ).copyWith(code: TextStyle(color: context.colorScheme.secondary)),
             ),
           ],
         ),
       );
     } else {
       body = Padding(
+        padding: EdgeInsetsGeometry.only(top: 7),
+        child: Padding(
           padding: EdgeInsetsGeometry.only(top: 7),
-          child: Padding(
-            padding: EdgeInsetsGeometry.only(top: 7),
-            child: ScrollablePositionedList.separated(
-              itemScrollController: _scrollController,
-              separatorBuilder: (context, index) => const SizedBox(height: 12),
-              itemCount: filteredCards.length,
-              itemBuilder: (context, index) {
-                _expansibleMap[index] ??= ExpansibleController();
-                _expansibleMap[index]!.addListener(() {
-                  _scrollController.jumpTo(index: index);
-                });
-                return CardWidget(
-                    model: filteredCards[index],
-                    expansibleController: _expansibleMap[index]!);
-              },
-            ),
-          ));
+          child: ScrollablePositionedList.separated(
+            itemScrollController: _scrollController,
+            separatorBuilder: (context, index) => const SizedBox(height: 12),
+            itemCount: filteredCards.length,
+            itemBuilder: (context, index) {
+              _expansibleMap[index] ??= ExpansibleController();
+              _expansibleMap[index]!.addListener(() {
+                _scrollController?.jumpTo(index: index);
+              });
+              return CardWidget(
+                model: filteredCards[index],
+                expansibleController: _expansibleMap[index]!,
+              );
+            },
+          ),
+        ),
+      );
     }
 
     return AppWrapper(title: widget.title, searchBar: searchBar, body: body);

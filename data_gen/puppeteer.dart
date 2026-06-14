@@ -9,7 +9,7 @@ import 'package:puppeteer/puppeteer.dart';
 import 'package:uuid/uuid.dart';
 
 Future main() async {
-  //await scrapeCardGallery();
+  await scrapeCardGallery();
   final ogn = await getErrataFromSemiSaneFormatting(
     'https://riftbound.leagueoflegends.com/en-us/news/rules-and-releases/riftbound-origins-card-errata/',
     'h2',
@@ -21,6 +21,58 @@ Future main() async {
   final unl = await getUnlErrata();
   await _write([...ogn, ...sfd, ...unl], r'lib/assets/errata.json');
   return;
+}
+
+Future clickAllSetsButton(Page page) async {
+  ElementHandle showFilterText = await page.evaluateHandle('''() => {
+    const elements = Array.from(document.querySelectorAll('button>div'));
+    return elements.find(el => el.innerText.trim() === 'Show Filters');
+  }''');
+
+  ElementHandle showFilterButton = (await showFilterText.$x('..')).first;
+  showFilterButton.click();
+
+  await Future.delayed(Duration(seconds: 1));
+
+  ElementHandle setFilterText = await page.evaluateHandle('''() => {
+    const elements = Array.from(document.querySelectorAll('button>span'));
+    return elements.find(el => el.innerText.trim() === 'Set');
+    }''');
+  ElementHandle setFilterButton = (await setFilterText.$x('..')).first;
+  setFilterButton.click();
+
+  await page.waitForFunction(
+    '''[...document.querySelectorAll('button')].some((b) => b.innerText.includes('All Sets'))''',
+  );
+
+  ElementHandle allSetsButton = await page.evaluateHandle('''() => {
+          const elements = Array.from(document.querySelectorAll('button'));
+          return elements.find(el => el.innerText.trim() === 'All Sets');
+        }''');
+
+  await Future.delayed(Duration(seconds: 1));
+
+  allSetsButton.click();
+
+  await page.waitForFunction('''() => {
+      let allSets = [...document.querySelectorAll('button')].find((b) => b.innerText.includes('All Sets'));
+      return allSets.getAttribute('data-state') === 'checked';
+    }''');
+
+  // for troubleshooting
+  //await page.type('.input-search', 'Herald of the Arcane');
+
+  await Future.delayed(Duration(seconds: 1));
+}
+
+void printProgressBar(int current, int length) {
+  int barLength = 50;
+  double percent = current / (length - 1);
+  int filledLength = (percent * barLength).round();
+  String filled = '█' * filledLength;
+  String empty = '-' * (barLength - filledLength);
+  String percentText = (percent * 100).toStringAsFixed(1);
+  stdout.write('\r[$filled$empty] $percentText% ($current/${length - 1})');
 }
 
 Future<List<CardModel>> scrapeCardGallery() async {
@@ -44,46 +96,7 @@ Future<List<CardModel>> scrapeCardGallery() async {
     );
 
     await Future.delayed(Duration(seconds: 1));
-
-    ElementHandle showFilterText = await page.evaluateHandle('''() => {
-    const elements = Array.from(document.querySelectorAll('button>div'));
-    return elements.find(el => el.innerText.trim() === 'Show Filters');
-  }''');
-
-    ElementHandle showFilterButton = (await showFilterText.$x('..')).first;
-    showFilterButton.click();
-
-    await Future.delayed(Duration(seconds: 1));
-
-    ElementHandle setFilterText = await page.evaluateHandle('''() => {
-    const elements = Array.from(document.querySelectorAll('button>span'));
-    return elements.find(el => el.innerText.trim() === 'Set');
-    }''');
-    ElementHandle setFilterButton = (await setFilterText.$x('..')).first;
-    setFilterButton.click();
-
-    await page.waitForFunction(
-      '''[...document.querySelectorAll('button')].some((b) => b.innerText.includes('All Sets'))''',
-    );
-
-    ElementHandle allSetsButton = await page.evaluateHandle('''() => {
-          const elements = Array.from(document.querySelectorAll('button'));
-          return elements.find(el => el.innerText.trim() === 'All Sets');
-        }''');
-
-    await Future.delayed(Duration(seconds: 1));
-
-    allSetsButton.click();
-
-    await page.waitForFunction('''() => {
-      let allSets = [...document.querySelectorAll('button')].find((b) => b.innerText.includes('All Sets'));
-      return allSets.getAttribute('data-state') === 'checked';
-    }''');
-
-    // for troubleshooting
-    //await page.type('.input-search', 'Herald of the Arcane');
-
-    await Future.delayed(Duration(seconds: 1));
+    await clickAllSetsButton(page);
 
     var cardButtons = await page.evaluateHandle('''() => {
       return Array.from(document.querySelectorAll('[href^="#card-gallery"]'));
@@ -93,13 +106,7 @@ Future<List<CardModel>> scrapeCardGallery() async {
         await cardButtons.evaluate<int>('(arr) => arr.length') ?? 0;
 
     for (int i = 0; i < length; i++) {
-      int barLength = 50;
-      double percent = i / (length - 1);
-      int filledLength = (percent * barLength).round();
-      String filled = '█' * filledLength;
-      String empty = '-' * (barLength - filledLength);
-      String percentText = (percent * 100).toStringAsFixed(1);
-      stdout.write('\r[$filled$empty] $percentText% ($i/${length - 1})');
+      printProgressBar(i, length);
 
       await page.waitForSelector('[data-testid="frame"]', hidden: true);
       ElementHandle? cardButton = await cardButtons.evaluateHandle(
@@ -309,9 +316,9 @@ Future<List<ErratumModel>> getErrataFromSemiSaneFormatting(
 }
 
 Future<List<ErratumModel>> getUnlErrata() async {
-  stdout.writeln(
-    'Scraping errata from https://riftbound.leagueoflegends.com/en-us/news/rules-and-releases/unleashed-errata-updates/...',
-  );
+  final unlUrl =
+      'https://riftbound.leagueoflegends.com/en-us/news/rules-and-releases/unleashed-errata-updates/';
+  stdout.writeln('Scraping errata from $unlUrl...');
   final browser = await puppeteer.launch(
     headless: true,
     args: ['--start-maximized'],
@@ -324,10 +331,7 @@ Future<List<ErratumModel>> getUnlErrata() async {
     final page = await browser.newPage();
     await page.setViewport(DeviceViewport(width: 1920, height: 1080));
 
-    await page.goto(
-      'https://riftbound.leagueoflegends.com/en-us/news/rules-and-releases/unleashed-errata-updates/',
-      wait: Until.domContentLoaded,
-    );
+    await page.goto(unlUrl, wait: Until.domContentLoaded);
 
     final pageBody = await page.evaluate<String>('''() => {
         return document.querySelector('main').innerHTML;

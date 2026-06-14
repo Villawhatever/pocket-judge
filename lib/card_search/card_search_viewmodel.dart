@@ -51,12 +51,14 @@ class SearchViewModel extends ChangeNotifier {
     for (final token in tokens) {
       // TODO: Tokenize this for real so we can do fun things like comparisons
       final split = token.split(RegExp(r':'));
-      var name = split[0];
+      var name = _flatten(split[0]);
       var value = split.tryGet(1);
 
       if (value == null) {
         _matchName(name);
         continue;
+      } else {
+        value = _flatten(value);
       }
 
       switch (name) {
