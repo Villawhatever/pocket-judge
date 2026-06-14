@@ -36,6 +36,9 @@ migrate_working_dir/
 # Scraped data to parse into isar
 /lib/assets/errata.json
 /lib/assets/scraped_gallery.json
+# top-level isar crap that tests generate
+*.isar
+*.isar-lck
 # Symbolication related
 app.*.symbols
 
