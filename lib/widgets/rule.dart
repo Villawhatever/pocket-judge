@@ -1,3 +1,4 @@
+import 'dart:developer' as dev;
 import 'dart:math' as math;
 
 import 'package:flutter/gestures.dart';
@@ -42,7 +43,8 @@ class RuleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String seeRulePattern = r'See (?:rule )?(\d+\.?)(.+?)(?=for)|\[.+?\]';
+    final String seeRulePattern =
+        r'See (?:rule )?(\d+(?:\.?[\w\d]\.?)+).+?(?= for)|\[.+?\]';
     final RegExp seeRuleRegex = RegExp(
       seeRulePattern,
       multiLine: true,
@@ -55,6 +57,8 @@ class RuleWidget extends StatelessWidget {
     int currentPosition = 0;
 
     for (final match in matches) {
+      final what = match.group(0);
+      dev.log('WHAT THE FUCK $what');
       if (match.start > 0) {
         fragments.add(
           TextSpan(text: model.text.substring(currentPosition, match.start)),
@@ -75,8 +79,8 @@ class RuleWidget extends StatelessWidget {
           ),
         );
       } else {
-        var seeRuleNumber = match.group(1);
-        if (!seeRuleNumber!.endsWith('.')) {
+        var seeRuleNumber = match.group(1)!.split(' ')[0];
+        if (!seeRuleNumber.endsWith('.')) {
           seeRuleNumber += '.';
         }
 
@@ -87,7 +91,7 @@ class RuleWidget extends StatelessWidget {
               color: context.colorScheme.secondary,
             ),
             recognizer: TapGestureRecognizer()
-              ..onTap = () => callback(seeRuleNumber),
+              ..onTap = () => callback(model.number, seeRuleNumber),
           ),
         );
       }
@@ -118,7 +122,7 @@ class RuleWidget extends StatelessWidget {
         children: [
           GestureDetector(
             behavior: HitTestBehavior.opaque,
-            onTap: () => callback(_getParentRule()),
+            onTap: () => callback(model.number, _getParentRule()),
             onLongPress: () {
               Clipboard.setData(
                 ClipboardData(text: richText.text.toPlainText()),
