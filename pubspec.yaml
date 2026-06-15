@@ -64,6 +64,8 @@ dependencies:
   puppeteer: ^3.23.0
   beautiful_soup_dart: ^0.3.0
   uuid: ^4.5.3
+  pasteboard: ^0.5.0
+  flutter_cache_manager: ^3.4.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -73,8 +75,7 @@ dev_dependencies:
     sdk: flutter
   isar_community_generator: *isar_version
   build_runner: ^2.15.0
-  pasteboard: ^0.5.0
-  flutter_cache_manager: ^3.4.1
+
 
 flutter_launcher_icons:
   android: 'launcher_icon'

@@ -48,7 +48,7 @@ class _CardWidgetState extends State<CardWidget> {
       final Uint8List imageBytes = await imageFile.readAsBytes();
 
       await Pasteboard.writeImage(imageBytes);
-      if (context.mounted) {
+      if (mounted) {
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(const SnackBar(content: Text("Sending Message")));
