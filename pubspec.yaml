@@ -17,7 +17,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
 
-version: 1.9.1+47
+version: 1.9.2+48
 
 environment:
   sdk: '>=3.11.0 <4.0.0'
@@ -50,7 +50,6 @@ dependencies:
   url_launcher: ^6.2.0
   multi_dropdown: ^3.0.1
   flutter_markdown_plus: ^1.0.7
-  flutter_launcher_icons: ^0.14.4
   flutter_native_splash: ^2.4.7
   package_info_plus: ^10.1.0
   upgrader: ^13.5.0
@@ -71,6 +70,7 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^6.0.0
   shouldly: ^0.5.0+1
+  flutter_launcher_icons: ^0.14.4
   integration_test:
     sdk: flutter
   isar_community_generator: *isar_version
@@ -78,6 +78,7 @@ dev_dependencies:
 
 
 flutter_launcher_icons:
+  ios: true
   android: 'launcher_icon'
   image_path: 'lib/assets/img/pocket_judge_icon.png'
   min_sdk_android: 21 # android min sdk min:16, default 21
