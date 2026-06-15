@@ -1,6 +1,12 @@
+import 'dart:developer' as dev;
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:pasteboard/pasteboard.dart';
 
 import '../utils/extensions/context_extensions.dart';
 import '../utils/formatting.dart';
@@ -25,6 +31,32 @@ class _CardWidgetState extends State<CardWidget> {
   late final ExpansibleController _expansibleController;
   final _carouselSliderController = CarouselSliderController();
   int _currentImage = 0;
+
+  Future copyImage(String imgUrl) async {
+    try {
+      final FileInfo? fileInfo = await DefaultCacheManager().getFileFromCache(
+        imgUrl,
+      );
+
+      File imageFile;
+      if (fileInfo == null) {
+        imageFile = await DefaultCacheManager().getSingleFile(imgUrl);
+      } else {
+        imageFile = fileInfo.file;
+      }
+
+      final Uint8List imageBytes = await imageFile.readAsBytes();
+
+      await Pasteboard.writeImage(imageBytes);
+      if (context.mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text("Sending Message")));
+      }
+    } catch (e) {
+      dev.log('$e', level: 3);
+    }
+  }
 
   @override
   initState() {
@@ -64,27 +96,45 @@ class _CardWidgetState extends State<CardWidget> {
       prettifiedEffect = formatCardText(widget.model.text.effect!, context);
     }
 
-    List<CachedNetworkImage> getImages() {
+    List<GestureDetector> getImages() {
       if (widget.model.images?.isEmpty ?? true) {
         return [];
       }
       final imageData = widget.model.images!;
-      final List<CachedNetworkImage> images = [];
+      final List<GestureDetector> images = [];
+
       for (final image in imageData) {
         images.add(
-          CachedNetworkImage(
-            imageUrl: image.imgUrl!,
-            placeholder: (context, url) => CircularProgressIndicator(
-              constraints: BoxConstraints(
-                maxHeight: 100,
-                minHeight: 100,
-                minWidth: 100,
-                maxWidth: 100,
+          GestureDetector(
+            onLongPress: () => copyImage(image.imgUrl!),
+            child: CachedNetworkImage(
+              imageUrl: image.imgUrl!,
+              placeholder: (context, url) => CircularProgressIndicator(
+                constraints: BoxConstraints(
+                  maxHeight: 100,
+                  minHeight: 100,
+                  minWidth: 100,
+                  maxWidth: 100,
+                ),
               ),
+              errorWidget: (context, url, error) => Icon(Icons.error, size: 45),
             ),
-            errorWidget: (context, url, error) => Icon(Icons.error, size: 45),
           ),
         );
+        // images.add(
+        //   CachedNetworkImage(
+        //     imageUrl: image.imgUrl!,
+        //     placeholder: (context, url) => CircularProgressIndicator(
+        //       constraints: BoxConstraints(
+        //         maxHeight: 100,
+        //         minHeight: 100,
+        //         minWidth: 100,
+        //         maxWidth: 100,
+        //       ),
+        //     ),
+        //     errorWidget: (context, url, error) => Icon(Icons.error, size: 45),
+        //   ),
+        // );
       }
       return images;
     }
