@@ -8,6 +8,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../core_rules/rule.dart';
 import '../utils/extensions/context_extensions.dart';
+import '../utils/extensions/list_extensions.dart';
 import '../widgets/rule.dart';
 import '../widgets/search_bar.dart';
 import '../widgets/stack.dart';
@@ -24,18 +25,44 @@ class TournamentRulesView extends StatefulWidget {
 class _TournamentRulesViewState extends State<TournamentRulesView> {
   final _textController = TextEditingController();
   final _history = Stack<String>();
-  late TournamentRulesViewModel viewModel;
+  final ItemPositionsListener _itemPositionsListener =
+      ItemPositionsListener.create();
+
+  late TournamentRulesViewModel _viewModel;
+  late String? _firstVisibleRuleNumber;
+  late List<RuleModel>? _filteredRules;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _itemPositionsListener.itemPositions.addListener(() {
+      final positions = _itemPositionsListener.itemPositions.value;
+      if (positions.isNotEmpty) {
+        final index = positions
+            .where((position) => position.itemTrailingEdge > 0)
+            .reduce(
+              (min, position) => position.itemLeadingEdge < min.itemLeadingEdge
+                  ? position
+                  : min,
+            )
+            .index;
+        _firstVisibleRuleNumber = _filteredRules?.tryGet(index)?.number;
+      }
+    });
+  }
 
   @override
   void dispose() {
     _textController.dispose();
-    viewModel.reset();
+    _viewModel.reset();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    viewModel = Provider.of<TournamentRulesViewModel>(context, listen: true);
+    _viewModel = Provider.of<TournamentRulesViewModel>(context, listen: true);
+
     final scrollController = ItemScrollController();
     final ruleToJumpTo = 'RuleToJumpTo';
 
@@ -44,31 +71,38 @@ class _TournamentRulesViewState extends State<TournamentRulesView> {
       if (jump == null || jump.isEmpty) {
         return;
       }
-      scrollController.jumpTo(index: viewModel.lookup[jump] ?? 0);
-      _history.push(jump);
+      localStorage.setItem(ruleToJumpTo, '');
+      scrollController.jumpTo(index: _viewModel.lookup[jump] ?? 0);
     });
 
     clearSearch() {
       _textController.clear();
-      viewModel.search(null);
+      _viewModel.search(null);
     }
 
     final searchBar = CustomSearchBar(
-        textController: _textController,
-        onChanged: viewModel.search,
-        onSubmitted: viewModel.search,
-        onClear: clearSearch);
+      textController: _textController,
+      onChanged: _viewModel.search,
+      onSubmitted: _viewModel.search,
+      onClear: clearSearch,
+    );
 
-    void linkCallback(String ruleNumber) {
+    void linkCallback(
+      String originatingRuleNumber,
+      String destinationRuleNumber,
+    ) {
       clearSearch();
-      localStorage.setItem(ruleToJumpTo, ruleNumber);
+      localStorage.setItem(ruleToJumpTo, destinationRuleNumber);
+      if (originatingRuleNumber != destinationRuleNumber) {
+        _history.push(originatingRuleNumber);
+      } else if (_firstVisibleRuleNumber != null) {
+        _history.push(_firstVisibleRuleNumber!);
+      }
     }
 
-    final filteredRules = context
-        .select<TournamentRulesViewModel, List<RuleModel>>((vm) => vm.rules);
-
-    final indexList = context
-        .select<TournamentRulesViewModel, List<TrIndex>>((vm) => vm.indexMap);
+    final indexList = context.select<TournamentRulesViewModel, List<TrIndex>>(
+      (vm) => vm.indexMap,
+    );
 
     TrIndex? waitingTopLevelItem;
     var topLevelIndices = [];
@@ -77,55 +111,69 @@ class _TournamentRulesViewState extends State<TournamentRulesView> {
     for (final item in indexList) {
       if (!item.isSubrule) {
         if (waitingTopLevelItem != null) {
-          topLevelIndices.add(ExpansionTile(
-            shape: BoxBorder.fromLTRB(),
-            tilePadding: EdgeInsets.zero,
-            title: Text(
-              waitingTopLevelItem.text,
-              style: context.textTheme.titleMedium,
+          topLevelIndices.add(
+            ExpansionTile(
+              shape: BoxBorder.fromLTRB(),
+              tilePadding: EdgeInsets.zero,
+              title: Text(
+                waitingTopLevelItem.text,
+                style: context.textTheme.titleMedium,
+              ),
+              children: [...childIndices],
             ),
-            children: [...childIndices],
-          ));
+          );
         }
         childIndices = [];
         waitingTopLevelItem = item;
       } else {
-        childIndices.add(InkWell(
-          onTap: () {
-            scrollController.jumpTo(index: item.lookup);
-            Navigator.pop(context);
-          },
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                flex: 2,
-                child: Text(item.number,
-                    style: context.textTheme.bodyMedium!
-                        .copyWith(color: context.colorScheme.secondary)),
-              ),
-              Expanded(
-                flex: 10,
-                child: Padding(
-                  padding: EdgeInsetsGeometry.only(left: 10),
-                  child: Text(item.text,
-                      style: context.textTheme.bodyMedium!
-                          .copyWith(color: context.colorScheme.secondary)),
+        childIndices.add(
+          InkWell(
+            onTap: () {
+              scrollController.jumpTo(index: item.lookup);
+              Navigator.pop(context);
+            },
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    item.number,
+                    style: context.textTheme.bodyMedium!.copyWith(
+                      color: context.colorScheme.secondary,
+                    ),
+                  ),
                 ),
-              ),
-            ],
+                Expanded(
+                  flex: 10,
+                  child: Padding(
+                    padding: EdgeInsetsGeometry.only(left: 10),
+                    child: Text(
+                      item.text,
+                      style: context.textTheme.bodyMedium!.copyWith(
+                        color: context.colorScheme.secondary,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ));
+        );
       }
     }
 
-    topLevelIndices.add(ExpansionTile(
-      shape: BoxBorder.fromLTRB(),
-      tilePadding: EdgeInsets.zero,
-      title: Text(waitingTopLevelItem?.text ?? '',
-          style: context.textTheme.titleMedium),
-      children: [...childIndices],
-    ));
+    topLevelIndices.add(
+      ExpansionTile(
+        shape: BoxBorder.fromLTRB(),
+        tilePadding: EdgeInsets.zero,
+        title: Text(
+          waitingTopLevelItem?.text ?? '',
+          style: context.textTheme.titleMedium,
+        ),
+        children: [...childIndices],
+      ),
+    );
 
     var indexDrawer = Drawer(
       child: Padding(
@@ -140,14 +188,48 @@ class _TournamentRulesViewState extends State<TournamentRulesView> {
               child: Padding(
                 padding: EdgeInsetsGeometry.only(left: 12, right: 12),
                 child: ListView(
-                    padding: MediaQuery.of(context).viewPadding,
-                    children: [...topLevelIndices]),
+                  padding: MediaQuery.of(context).viewPadding,
+                  children: [...topLevelIndices],
+                ),
               ),
             ),
           ],
         ),
       ),
     );
+
+    _filteredRules = context.select<TournamentRulesViewModel, List<RuleModel>>(
+      (vm) => vm.rules,
+    );
+
+    void jump() {
+      final jump = _history.pop();
+      scrollController.jumpTo(index: _viewModel.lookup[jump] ?? 0);
+      setState(() {});
+    }
+
+    Widget? fab;
+    if (_history.isNotEmpty) {
+      fab = FloatingActionButton.extended(
+        onPressed: jump,
+        backgroundColor: context.colorScheme.inversePrimary,
+        label: Row(
+          children: [
+            FittedBox(
+              child: Text(
+                'Go back to ${_history.peek}',
+                style: context.textTheme.bodyMedium!.copyWith(
+                  color: context.colorScheme.secondary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Icon(Icons.navigate_before, color: context.colorScheme.secondary),
+          ],
+        ),
+      );
+    }
+
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (bool didPop, Object? _) {
@@ -156,7 +238,7 @@ class _TournamentRulesViewState extends State<TournamentRulesView> {
         }
         if (_history.isNotEmpty) {
           final jump = _history.pop();
-          scrollController.jumpTo(index: viewModel.lookup[jump] ?? 0);
+          scrollController.jumpTo(index: _viewModel.lookup[jump] ?? 0);
         } else {
           clearSearch();
           SystemNavigator.pop();
@@ -166,18 +248,26 @@ class _TournamentRulesViewState extends State<TournamentRulesView> {
         title: widget.title,
         searchBar: searchBar,
         endDrawer: indexDrawer,
-        body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Expanded(
+        fab: fab,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
               child: ScrollablePositionedList.builder(
-                  itemScrollController: scrollController,
-                  itemCount: filteredRules.length,
-                  itemBuilder: (context, index) {
-                    return RuleWidget(
-                        model: filteredRules[index],
-                        callback: linkCallback,
-                        shouldIndent: !viewModel.isFiltered);
-                  }))
-        ]),
+                itemPositionsListener: _itemPositionsListener,
+                itemScrollController: scrollController,
+                itemCount: _filteredRules!.length,
+                itemBuilder: (context, index) {
+                  return RuleWidget(
+                    model: _filteredRules![index],
+                    callback: linkCallback,
+                    shouldIndent: !_viewModel.isFiltered,
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
