@@ -9,18 +9,21 @@ class AppWrapper extends StatelessWidget {
       required this.title,
       required this.body,
       this.searchBar,
-      this.endDrawer});
+      this.endDrawer,
+      this.fab});
 
   final String title;
   final Widget body;
   final Widget? searchBar;
   final Widget? endDrawer;
+  final Widget? fab;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const Menu(),
       endDrawer: endDrawer,
+      floatingActionButton: fab,
       appBar: AppBar(
           centerTitle: true,
           title: Text(title.toUpperCase(), style: context.textTheme.titleLarge),
