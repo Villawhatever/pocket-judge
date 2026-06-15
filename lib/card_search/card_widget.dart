@@ -1,5 +1,4 @@
 import 'dart:developer' as dev;
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -34,25 +33,11 @@ class _CardWidgetState extends State<CardWidget> {
 
   Future copyImage(String imgUrl) async {
     try {
-      final FileInfo? fileInfo = await DefaultCacheManager().getFileFromCache(
-        imgUrl,
-      );
-
-      File imageFile;
-      if (fileInfo == null) {
-        imageFile = await DefaultCacheManager().getSingleFile(imgUrl);
-      } else {
-        imageFile = fileInfo.file;
-      }
+      final imageFile = await DefaultCacheManager().getSingleFile(imgUrl);
 
       final Uint8List imageBytes = await imageFile.readAsBytes();
 
       await Pasteboard.writeImage(imageBytes);
-      if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text("Sending Message")));
-      }
     } catch (e) {
       dev.log('$e', level: 3);
     }
@@ -121,20 +106,6 @@ class _CardWidgetState extends State<CardWidget> {
             ),
           ),
         );
-        // images.add(
-        //   CachedNetworkImage(
-        //     imageUrl: image.imgUrl!,
-        //     placeholder: (context, url) => CircularProgressIndicator(
-        //       constraints: BoxConstraints(
-        //         maxHeight: 100,
-        //         minHeight: 100,
-        //         minWidth: 100,
-        //         maxWidth: 100,
-        //       ),
-        //     ),
-        //     errorWidget: (context, url, error) => Icon(Icons.error, size: 45),
-        //   ),
-        // );
       }
       return images;
     }
