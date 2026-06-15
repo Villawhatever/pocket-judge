@@ -82,7 +82,7 @@ flutter_launcher_icons:
   android: 'launcher_icon'
   image_path: 'lib/assets/img/pocket_judge_icon.png'
   min_sdk_android: 21 # android min sdk min:16, default 21
-  adaptive_icon_background: '#'
+  adaptive_icon_background: '#1d3143'
   adaptive_icon_foreground: 'lib/assets/img/pocket_judge_icon.png'
 
 flutter_native_splash:
