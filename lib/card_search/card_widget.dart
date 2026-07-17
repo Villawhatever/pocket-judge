@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasteboard/pasteboard.dart';
 
 import '../utils/extensions/context_extensions.dart';
@@ -181,6 +182,28 @@ class _CardWidgetState extends State<CardWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
+              if (widget.model.hasErrata)
+                Padding(
+                  padding: EdgeInsetsGeometry.fromLTRB(12, 5, 12, 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Flexible(
+                        child: FaIcon(FontAwesomeIcons.triangleExclamation),
+                      ),
+                      Flexible(
+                        flex: 10,
+                        child: Text(
+                          'This card has errata. Scroll down for correct text.',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Flexible(
+                        child: FaIcon(FontAwesomeIcons.triangleExclamation),
+                      ),
+                    ],
+                  ),
+                ),
               ...buildCarousel(),
               Table(
                 children: [

@@ -78,7 +78,7 @@ void printProgressBar(int current, int length) {
 Future<List<CardModel>> scrapeCardGallery() async {
   stdout.writeln('Scraping card gallery...');
   final browser = await puppeteer.launch(
-    headless: true,
+    headless: false,
     args: ['--start-maximized'],
   );
 

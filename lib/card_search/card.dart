@@ -31,6 +31,8 @@ class CardModel {
   Metadata metadata = Metadata();
   List<ImageData>? images;
   String? mightBonus;
+  late bool hasErrata;
+  late List<String> legalities;
 
   CardModel({
     required this.id,
@@ -47,6 +49,8 @@ class CardModel {
     this.orientation,
     required this.metadata,
     this.mightBonus,
+    this.hasErrata = false,
+    this.legalities = const [],
   });
 
   CardModel.fromJson(Map<String, dynamic> json) {
