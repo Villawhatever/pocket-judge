@@ -41,9 +41,9 @@ class Menu extends StatelessWidget {
         view: CardSearchView(title: 'Card Search'),
       ),
       LinkGenerator(
-        name: 'Card Specific Notes',
+        name: 'FAQs/Clarifications',
         img: 'lib/assets/img/card_notes.png',
-        view: ErrataView(title: 'Card Specific Notes'),
+        view: ErrataView(title: 'FAQs/Clarifications'),
       ),
       LinkGenerator(
         name: 'About',
@@ -56,7 +56,7 @@ class Menu extends StatelessWidget {
     for (final item in linkBuilders) {
       links.add(
         ListTile(
-          leading: item.name == 'Card Specific Notes'
+          leading: item.name == 'FAQs/Clarifications'
               ? Transform.translate(
                   offset: Offset(2, 0),
                   child: Image.asset(item.img, width: 32, height: 32),

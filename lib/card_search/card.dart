@@ -32,7 +32,7 @@ class CardModel {
   List<ImageData>? images;
   String? mightBonus;
   late bool hasErrata;
-  late List<String> legalities;
+  List<String>? legalities;
 
   CardModel({
     required this.id,
@@ -50,7 +50,7 @@ class CardModel {
     required this.metadata,
     this.mightBonus,
     this.hasErrata = false,
-    this.legalities = const [],
+    this.legalities,
   });
 
   CardModel.fromJson(Map<String, dynamic> json) {
@@ -73,9 +73,10 @@ class CardModel {
     orientation = json['orientation'];
     metadata = Metadata.fromJson(json['metadata']);
     mightBonus = json['might_bonus'];
-
+    hasErrata = false;
     imageList.add(ImageData(id: riftboundId, imgUrl: media.imageUrl));
     images = imageList;
+    legalities = [];
   }
 
   Map<String, dynamic> toJson() {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pocket_judge/widgets/tag.dart';
 
 import '../utils/extensions/context_extensions.dart';
 
@@ -8,12 +9,14 @@ class ExpansibleHeader extends StatelessWidget {
     required this.title,
     required this.context,
     required this.animation,
+    this.hasErrata = false,
     required this.expansibleController,
   });
 
   final String title;
   final BuildContext context;
   final Animation<double> animation;
+  final bool hasErrata;
   final ExpansibleController expansibleController;
 
   void _toggleExpand() {
@@ -30,10 +33,22 @@ class ExpansibleHeader extends StatelessWidget {
           borderRadius: BorderRadius.circular(4),
           color: context.colorScheme.inversePrimary,
         ),
+        constraints: BoxConstraints(minHeight: 40),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(title, style: context.textTheme.titleMedium),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: context.textTheme.titleMedium),
+                if (hasErrata)
+                  Tag(
+                    text: 'ERRATA',
+                    color: context.colorScheme.tertiary,
+                    backgroundColor: Colors.yellow,
+                  ),
+              ],
+            ),
             Align(
               alignment: Alignment.centerRight,
               child: AnimatedSwitcher(

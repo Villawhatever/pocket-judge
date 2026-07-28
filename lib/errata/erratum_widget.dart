@@ -92,7 +92,7 @@ class _ErratumWidgetState extends State<ErratumWidget> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  if (widget.model.set != 'UNL')
+                  if (widget.model.set != 'VEN')
                     Container(
                       decoration: BoxDecoration(
                         color: context.colorScheme.secondaryContainer,

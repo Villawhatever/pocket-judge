@@ -1,4 +1,3 @@
-import 'dart:developer' as dev;
 import 'dart:math' as math;
 
 import 'package:flutter/gestures.dart';
@@ -57,8 +56,6 @@ class RuleWidget extends StatelessWidget {
     int currentPosition = 0;
 
     for (final match in matches) {
-      final what = match.group(0);
-      dev.log('WHAT THE FUCK $what');
       if (match.start > 0) {
         fragments.add(
           TextSpan(text: model.text.substring(currentPosition, match.start)),

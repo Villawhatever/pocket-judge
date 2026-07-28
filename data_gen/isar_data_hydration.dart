@@ -54,7 +54,7 @@ Future<List<CardModel>> _addBans(Isar isar) async {
       "Arena's Greatest",
       "Aspirant's Climb",
     ],
-    "2v2_constructed": ["Master Yi, Wuju Bladesman"],
+    "2v2_constructed": ["Master Yi, Wuju Bladesman, Starter"],
   };
 
   final List<CardModel> modifiedCards = [];
@@ -66,7 +66,8 @@ Future<List<CardModel>> _addBans(Isar isar) async {
           .findFirst();
 
       try {
-        card!.legalities.add(format);
+        card!.legalities ??= [];
+        card.legalities!.add(format);
         modifiedCards.add(card);
       } catch (e) {
         dev.log('Error on card $banned: $e');
