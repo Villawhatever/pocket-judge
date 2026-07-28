@@ -80,6 +80,8 @@ class SearchViewModel extends ChangeNotifier {
         case 's' || 'set':
           _matchSet(value);
           break;
+        case 't' || 'type':
+          _matchType(value);
         case 'n' || 'name':
           _matchName(value);
           break;
@@ -140,13 +142,16 @@ class SearchViewModel extends ChangeNotifier {
     );
   }
 
-  void _matchName(String value) {
+  void _matchType(String value) {
     _iterable = _iterable.where(
       (c) =>
-          _flatten(c.name).contains(value) ||
-          (c.classification.type == 'Legend' &&
-              (c.tags?.any((t) => t == value) ?? false)),
+          c.classification.type?.map((t) => _flatten(t)).contains(value) ??
+          false,
     );
+  }
+
+  void _matchName(String value) {
+    _iterable = _iterable.where((c) => _flatten(c.name).contains(value));
   }
 
   void _matchWatcherText(String value) {
@@ -174,7 +179,7 @@ class SearchViewModel extends ChangeNotifier {
   }
 
   String _flatten(String value) {
-    return value.toLowerCase().replaceAll(RegExp(r'[^a-zA-Z]'), '');
+    return value.toLowerCase().replaceAll(RegExp(r'[^a-zA-Z0-9]'), '');
   }
 }
 

@@ -66,7 +66,7 @@ Future<List<CardModel>> _addBans(Isar isar) async {
           .findFirst();
 
       try {
-        card!.legalities ??= [];
+        card!.legalities = List.empty(growable: true);
         card.legalities!.add(format);
         modifiedCards.add(card);
       } catch (e) {

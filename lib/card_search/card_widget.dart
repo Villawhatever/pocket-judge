@@ -65,10 +65,18 @@ class _CardWidgetState extends State<CardWidget> {
           if (value is Widget)
             value
           else
-            Text(value.toString(), style: context.textTheme.bodyMedium),
+            Text(_stringify(value), style: context.textTheme.bodyMedium),
         ],
       ),
     );
+  }
+
+  String _stringify(dynamic input) {
+    if (input is List<String>) {
+      return input.join(', ');
+    } else {
+      return input.toString();
+    }
   }
 
   @override
@@ -202,7 +210,10 @@ class _CardWidgetState extends State<CardWidget> {
                         widget.model.classification.type,
                         context,
                       ),
-                      widget.model.classification.type?.toLowerCase() == 'unit'
+                      widget.model.classification.type
+                                  ?.map((t) => t.toLowerCase())
+                                  .contains('unit') ??
+                              false
                           ? buildCardInfo(
                               'Might',
                               widget.model.attributes.might,

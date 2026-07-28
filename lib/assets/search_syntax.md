@@ -23,7 +23,10 @@
 `e` or `energy`: Finds cards with **exactly** the amount of Energy.  
 **Example**: `e:1` or `energy:1` finds all cards that cost exactly 1 Energy, such as Cleave or Against the Odds.
 ***
-`s` or `set`: Finds cards in a given set. This should be the set code (eg `UNL`), not the set name.
+`t` or `type`: Finds cards of a given type.
+**Example**: `t:Gear` or `type:gear` finds all cards with the Gear type, such as Porobot.
 ***
-You can combine any of the above and they are all `AND`ed together.  
+`s` or `set`: Finds cards in a given set. This should be the set code (eg `VEN`), not the set name.
+***
+You can combine any of the above, and they will be `AND`ed together.  
 **Examples**: `m:3 draven` will find cards where the name contains 'Draven' AND its Might is exactly 3. `d:body d:chaos` will find all cards that have both Body AND Chaos domains.
