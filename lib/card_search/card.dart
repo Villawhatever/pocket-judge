@@ -76,7 +76,7 @@ class CardModel {
     hasErrata = false;
     imageList.add(ImageData(id: riftboundId, imgUrl: media.imageUrl));
     images = imageList;
-    legalities = [];
+    legalities = json['legalities'];
   }
 
   Map<String, dynamic> toJson() {
@@ -127,7 +127,7 @@ class Attributes {
 
 @embedded
 class Classification {
-  String? type;
+  List<String>? type;
   String? supertype;
   String? rarity;
   List<String>? domain;
@@ -135,7 +135,7 @@ class Classification {
   Classification({this.type, this.supertype, this.rarity, this.domain});
 
   Classification.fromJson(Map<String, dynamic> json) {
-    type = json['type'];
+    type = json['type'].cast<String>();
     supertype = json['supertype'];
     rarity = json['rarity'];
     domain = json['domain'].cast<String>();

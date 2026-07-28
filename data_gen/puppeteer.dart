@@ -9,7 +9,7 @@ import 'package:puppeteer/puppeteer.dart';
 import 'package:uuid/uuid.dart';
 
 Future main() async {
-  // await scrapeCardGallery();
+  await scrapeCardGallery();
   final ogn = await getErrataFromSemiSaneFormatting(
     'https://riftbound.leagueoflegends.com/en-us/news/rules-and-releases/riftbound-origins-card-errata/',
     'h2',
@@ -26,6 +26,9 @@ Future main() async {
     'h2',
   );
   await _write([...ogn, ...sfd, ...unl, ...ven], r'lib/assets/errata.json');
+  stdout.writeln(
+    'Don\'t forget to add missing type to Porobot and remove \'Basic\' type from runes.',
+  );
   return;
 }
 
@@ -66,7 +69,7 @@ Future clickAllSetsButton(Page page) async {
     }''');
 
   //for troubleshooting
-  await page.type('.input-search', 'Herald of the Arcane');
+  //await page.type('.input-search', 'Herald of the Arcane');
 
   await Future.delayed(Duration(seconds: 1));
 }
@@ -101,8 +104,8 @@ Future<List<CardModel>> scrapeCardGallery() async {
       wait: Until.domContentLoaded,
     );
 
-    await Future.delayed(Duration(seconds: 1));
-    // await clickAllSetsButton(page);
+    await Future.delayed(Duration(seconds: 2));
+    await clickAllSetsButton(page);
 
     var cardButtons = await page.evaluateHandle('''() => {
       return Array.from(document.querySelectorAll('[href^="#card-gallery"]'));
@@ -171,7 +174,7 @@ Future<List<CardModel>> scrapeCardGallery() async {
       for (final header in headers) {
         final values = header.nextSibling?.findAll('p');
         if (values?.length == 1) {
-          if (header.text == 'Tags') {
+          if (header.text == 'Tags' || header.text == 'Card Type') {
             cardAttributes[header.text] = values!.first.text
                 .split(',')
                 .map((s) => s.trim())
@@ -190,14 +193,12 @@ Future<List<CardModel>> scrapeCardGallery() async {
               values!.remove(superType);
               cardAttributes['Supertype'] = superType.text;
             }
-            cardAttributes[header.text] = values!.firstOrNull?.text;
-          } else {
-            cardAttributes[header.text] = values!.map((v) => v.text).toList();
           }
+          cardAttributes[header.text] = values!.map((v) => v.text).toList();
         }
       }
 
-      if (cardAttributes['Card Type'] == 'Legend') {
+      if (cardAttributes['Card Type'].contains('Legend')) {
         if ((cardAttributes['Tags'] as List<String>).contains('Kennen')) {
           cardName = 'Kennen, $cardName';
         } else {
