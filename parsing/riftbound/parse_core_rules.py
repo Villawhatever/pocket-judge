@@ -12,7 +12,7 @@ db = firestore.Client()
 rulesRef = db.collection('core_rules')
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-d', '--dry', help='should this be a test run or not?', type=bool, default=True)
+parser.add_argument('-r', '--real', help='should this be a real run or not?', action='store_true')
 
 args = parser.parse_args()
 filename = 'core-rules.txt'
@@ -21,12 +21,13 @@ with open(filename, 'r', encoding='utf8') as f:
     lines = data.split('\n')
     pattern = r'^(\d+(?:\.(?:\d+)?\.?(?:\w+)?){0,5}) (.+?)(?=\n\n|\n$)'
     matches = re.findall(pattern, data, flags=re.DOTALL | re.MULTILINE)
+    existing = []
 
     for match in matches:
         number = match[0]
         text = match[1]
 
-        if (args.dry):
+        if (not args.real):
             print(f'{number}: {text}')
         else:
             rule = {
@@ -34,7 +35,16 @@ with open(filename, 'r', encoding='utf8') as f:
                 'text': text.replace('”', '"')
             }
             rulesRef.document(number).set(rule)
+        print(f'added {number}')
+        existing.append(number)
 
-    if (args.dry):
+    for doc in rulesRef.stream():
+        if doc.get('ruleNumber') not in existing:
+            if (not args.real):
+                print(f'{doc.get('ruleNumber')} does not exist in new doc')
+            else:
+                print(f'Deleting stale rule {doc.get('ruleNumber')}')
+                rulesRef.document(doc.get('ruleNumber')).delete()
+    if (not args.real):
         print('==========')
         print(f'Found {len(matches)} rules')

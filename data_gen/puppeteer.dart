@@ -9,7 +9,7 @@ import 'package:puppeteer/puppeteer.dart';
 import 'package:uuid/uuid.dart';
 
 Future main() async {
-  await scrapeCardGallery();
+  // await scrapeCardGallery();
   final ogn = await getErrataFromSemiSaneFormatting(
     'https://riftbound.leagueoflegends.com/en-us/news/rules-and-releases/riftbound-origins-card-errata/',
     'h2',
@@ -18,8 +18,14 @@ Future main() async {
     'https://riftbound.leagueoflegends.com/en-us/news/rules-and-releases/riftbound-spiritforged-errata/',
     'h1',
   );
-  final unl = await getUnlErrata();
-  await _write([...ogn, ...sfd, ...unl], r'lib/assets/errata.json');
+  final unl = await getUnlErrata(
+    'https://playriftbound.com/en-us/news/rules-and-releases/unleashed-errata-updates/',
+  );
+  final ven = await getErrataFromSemiSaneFormatting(
+    'https://playriftbound.com/en-us/news/announcements/vendetta-errata-updates/',
+    'h2',
+  );
+  await _write([...ogn, ...sfd, ...unl, ...ven], r'lib/assets/errata.json');
   return;
 }
 
@@ -59,8 +65,8 @@ Future clickAllSetsButton(Page page) async {
       return allSets.getAttribute('data-state') === 'checked';
     }''');
 
-  // for troubleshooting
-  //await page.type('.input-search', 'Herald of the Arcane');
+  //for troubleshooting
+  await page.type('.input-search', 'Herald of the Arcane');
 
   await Future.delayed(Duration(seconds: 1));
 }
@@ -78,7 +84,7 @@ void printProgressBar(int current, int length) {
 Future<List<CardModel>> scrapeCardGallery() async {
   stdout.writeln('Scraping card gallery...');
   final browser = await puppeteer.launch(
-    headless: true,
+    headless: false,
     args: ['--start-maximized'],
   );
 
@@ -96,7 +102,7 @@ Future<List<CardModel>> scrapeCardGallery() async {
     );
 
     await Future.delayed(Duration(seconds: 1));
-    await clickAllSetsButton(page);
+    // await clickAllSetsButton(page);
 
     var cardButtons = await page.evaluateHandle('''() => {
       return Array.from(document.querySelectorAll('[href^="#card-gallery"]'));
@@ -192,8 +198,12 @@ Future<List<CardModel>> scrapeCardGallery() async {
       }
 
       if (cardAttributes['Card Type'] == 'Legend') {
-        cardName =
-            '${(cardAttributes['Tags'] as List<String>).first}, $cardName';
+        if ((cardAttributes['Tags'] as List<String>).contains('Kennen')) {
+          cardName = 'Kennen, $cardName';
+        } else {
+          cardName =
+              '${(cardAttributes['Tags'] as List<String>).first}, $cardName';
+        }
       }
 
       ElementHandle? closeButton = await page.evaluateHandle('''() => {
@@ -234,6 +244,8 @@ Future<List<CardModel>> scrapeCardGallery() async {
         ),
       );
     }
+    // final isar = Isar.getInstance('pocket-judge');
+    // isar!.cardModels.putAll(cards);
     _write(cards, r'lib/assets/scraped_gallery.json');
     Duration duration = Duration(milliseconds: stopwatch.elapsedMilliseconds);
 
@@ -288,9 +300,14 @@ Future<List<ErratumModel>> getErrataFromSemiSaneFormatting(
       var node = cardNode.nextSibling;
 
       while (node != null && node.name != 'h4') {
-        if (node.name != 'p') {
+        if (node.name != 'p' ||
+            node.text.isEmpty ||
+            node.text.contains('NEW TEXT')) {
           node = node.nextSibling;
           continue;
+        }
+        if (node.text.contains('▲')) {
+          break;
         }
         if (concatenatedErrata.isNotEmpty) {
           concatenatedErrata += '\n';
@@ -315,10 +332,8 @@ Future<List<ErratumModel>> getErrataFromSemiSaneFormatting(
   return errata;
 }
 
-Future<List<ErratumModel>> getUnlErrata() async {
-  final unlUrl =
-      'https://riftbound.leagueoflegends.com/en-us/news/rules-and-releases/unleashed-errata-updates/';
-  stdout.writeln('Scraping errata from $unlUrl...');
+Future<List<ErratumModel>> getUnlErrata(String url) async {
+  stdout.writeln('Scraping errata from $url...');
   final browser = await puppeteer.launch(
     headless: true,
     args: ['--start-maximized'],
@@ -331,7 +346,7 @@ Future<List<ErratumModel>> getUnlErrata() async {
     final page = await browser.newPage();
     await page.setViewport(DeviceViewport(width: 1920, height: 1080));
 
-    await page.goto(unlUrl, wait: Until.domContentLoaded);
+    await page.goto(url, wait: Until.domContentLoaded);
 
     final pageBody = await page.evaluate<String>('''() => {
         return document.querySelector('main').innerHTML;

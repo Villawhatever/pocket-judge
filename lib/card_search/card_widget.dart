@@ -172,6 +172,7 @@ class _CardWidgetState extends State<CardWidget> {
         title: widget.model.name,
         context: context,
         animation: animation,
+        hasErrata: widget.model.hasErrata,
         expansibleController: _expansibleController,
       ),
       bodyBuilder: (context, animation) {

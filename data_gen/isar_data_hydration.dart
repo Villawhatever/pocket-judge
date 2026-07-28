@@ -24,17 +24,61 @@ void main() async {
     await isar.cardModels.putAll(cards);
   });
 
-  final errata = await addErrata(isar);
+  final errata = await _addErrata(isar);
 
   await isar.writeTxn(() async {
     await isar.cardModels.putAll(errata);
+  });
+
+  final banned = await _addBans(isar);
+
+  await isar.writeTxn(() async {
+    await isar.cardModels.putAll(banned);
   });
 
   dev.log('Done updating isar data');
   return;
 }
 
-Future<List<CardModel>> addErrata(Isar isar) async {
+Future<List<CardModel>> _addBans(Isar isar) async {
+  final Map<String, List<String>> bans = {
+    "constructed": [
+      "Draven, Vanquisher",
+      "Called Shot",
+      "Fight or Flight",
+      "Scrapheap",
+      "Dreaming Tree",
+      "Obelisk of Power",
+      "Reaver's Row",
+      "Stealthy Pursuer",
+      "Arena's Greatest",
+      "Aspirant's Climb",
+    ],
+    "2v2_constructed": ["Master Yi, Wuju Bladesman, Starter"],
+  };
+
+  final List<CardModel> modifiedCards = [];
+  for (final format in bans.keys) {
+    for (final banned in bans[format]!) {
+      final card = await isar.cardModels
+          .filter()
+          .nameEndsWith(banned, caseSensitive: false)
+          .findFirst();
+
+      try {
+        card!.legalities ??= [];
+        card.legalities!.add(format);
+        modifiedCards.add(card);
+      } catch (e) {
+        dev.log('Error on card $banned: $e');
+        stdout.writeln('Error on card $banned: $e');
+      }
+    }
+  }
+  return modifiedCards;
+}
+
+Future<List<CardModel>> _addErrata(Isar isar) async {
   final String contents = await rootBundle.loadString('lib/assets/errata.json');
   final List<dynamic> data = jsonDecode(contents);
   final List<CardModel> modifiedCards = [];
@@ -51,6 +95,7 @@ Future<List<CardModel>> addErrata(Isar isar) async {
         erratum.newText!,
       );
       card.text.rich = enrichedText;
+      card.hasErrata = true;
       modifiedCards.add(card);
     } catch (e) {
       dev.log('Error on card ${erratum.name}: $e');
