@@ -191,8 +191,8 @@ migrate_working_dir/
 /lib/assets/errata.json
 /lib/assets/scraped_gallery.json
 # top-level isar crap that tests generate
-*.isar
-*.isar-lck
+/*.isar
+/*.isar-lck
 # Symbolication related
 
 # Obfuscation related
