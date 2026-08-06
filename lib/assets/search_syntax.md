@@ -23,7 +23,7 @@
 `e` or `energy`: Finds cards with **exactly** the amount of Energy.  
 **Example**: `e:1` or `energy:1` finds all cards that cost exactly 1 Energy, such as Cleave or Against the Odds.
 ***
-`t` or `type`: Finds cards of a given type.
+`t` or `type`: Finds cards of a given type.  
 **Example**: `t:Gear` or `type:gear` finds all cards with the Gear type, such as Porobot.
 ***
 `s` or `set`: Finds cards in a given set. This should be the set code (eg `VEN`), not the set name.

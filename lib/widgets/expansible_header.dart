@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pocket_judge/widgets/tag.dart';
+import 'package:pocket_judge/constants.dart';
+import 'package:pocket_judge/widgets/backer.dart';
 
 import '../utils/extensions/context_extensions.dart';
 
@@ -10,6 +11,7 @@ class ExpansibleHeader extends StatelessWidget {
     required this.context,
     required this.animation,
     this.hasErrata = false,
+    this.legalities = const [],
     required this.expansibleController,
   });
 
@@ -17,6 +19,7 @@ class ExpansibleHeader extends StatelessWidget {
   final BuildContext context;
   final Animation<double> animation;
   final bool hasErrata;
+  final List<String>? legalities;
   final ExpansibleController expansibleController;
 
   void _toggleExpand() {
@@ -37,18 +40,33 @@ class ExpansibleHeader extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: context.textTheme.titleMedium),
-                if (hasErrata)
-                  Tag(
-                    text: 'ERRATA',
-                    color: context.colorScheme.tertiary,
-                    backgroundColor: Colors.yellow,
-                  ),
-              ],
+            Expanded(
+              child: Text(
+                title,
+                style: context.textTheme.titleMedium,
+                overflow: TextOverflow.fade,
+                softWrap: false,
+                maxLines: 1,
+              ),
             ),
+            if (hasErrata)
+              Padding(
+                padding: const EdgeInsets.only(left: 3, right: 3),
+                child: Backer(
+                  text: ' ERRATA ',
+                  color: context.colorScheme.tertiary,
+                  backgroundColor: yellowish,
+                ),
+              ),
+            if (legalities?.isNotEmpty ?? false)
+              Padding(
+                padding: const EdgeInsets.only(left: 3, right: 3),
+                child: Backer(
+                  text: ' BANNED ',
+                  color: context.colorScheme.primary,
+                  backgroundColor: reddish,
+                ),
+              ),
             Align(
               alignment: Alignment.centerRight,
               child: AnimatedSwitcher(
