@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:pasteboard/pasteboard.dart';
 
+import '../constants.dart';
 import '../utils/extensions/context_extensions.dart';
 import '../utils/formatting.dart';
 import '../widgets/expansible_header.dart';
@@ -77,6 +78,22 @@ class _CardWidgetState extends State<CardWidget> {
     } else {
       return input.toString();
     }
+  }
+
+  String _fixLegality(List<String> legalities) {
+    return legalities
+        .map(
+          (x) => x
+              .split('_')
+              .map((word) {
+                if (word.isEmpty) {
+                  return '';
+                }
+                return word[0].toUpperCase() + word.substring(1);
+              })
+              .join(' '),
+        )
+        .join(', ');
   }
 
   @override
@@ -181,6 +198,7 @@ class _CardWidgetState extends State<CardWidget> {
         context: context,
         animation: animation,
         hasErrata: widget.model.hasErrata,
+        legalities: widget.model.legalities,
         expansibleController: _expansibleController,
       ),
       bodyBuilder: (context, animation) {
@@ -191,6 +209,17 @@ class _CardWidgetState extends State<CardWidget> {
             mainAxisSize: MainAxisSize.min,
             children: [
               ...buildCarousel(),
+              if (widget.model.legalities?.isNotEmpty ?? false)
+                Center(
+                  child: Container(
+                    padding: EdgeInsetsGeometry.fromLTRB(12, 5, 12, 5),
+                    color: reddish,
+                    child: Text(
+                      'This card is banned in ${_fixLegality(widget.model.legalities!)}',
+                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)
+                    ),
+                  ),
+                ),
               Table(
                 children: [
                   TableRow(

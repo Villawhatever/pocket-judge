@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import '../constants.dart';
 import '../utils/extensions/context_extensions.dart';
 
-class Tag extends StatelessWidget {
-  const Tag({
+class Backer extends StatelessWidget {
+  const Backer({
     super.key,
     required this.text,
     required this.color,
