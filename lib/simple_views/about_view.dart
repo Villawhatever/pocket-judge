@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'dart:io';
 import '../utils/extensions/context_extensions.dart';
 import '../widgets/app_wrapper.dart';
 
@@ -92,30 +92,32 @@ class AboutView extends StatelessWidget {
           Text(
             'This app is not produced by or affiliated with Riot Games, Riftbound, Tencent, UVS, or any related entities. All card images remain the copyright of Riot Games. All rules, guides, card information, etc are published by Riot Games.',
           ),
-          SizedBox(height: 10),
-          Center(child: Text('Want to support the project?')),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('You can do so through '),
-              InkWell(
-                child: Text(
-                  'KoFi',
-                  style: context.textTheme.bodyMedium!.copyWith(
-                    color: context.colorScheme.secondary,
-                    fontWeight: FontWeight.bold,
+          if (Platform.isAndroid)
+            ...[SizedBox(height: 10),
+              Center(child: Text('Want to support the project?')),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('You can do so through '),
+                  InkWell(
+                    child: Text(
+                      'KoFi',
+                      style: context.textTheme.bodyMedium!.copyWith(
+                        color: context.colorScheme.secondary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onTap: () => launchUrl(kofiUri),
                   ),
-                ),
-                onTap: () => launchUrl(kofiUri),
+                  TextButton(
+                    onPressed: () async {
+                      launchUrl(kofiUri);
+                    },
+                    child: const FaIcon(FontAwesomeIcons.koFi, size: 25),
+                  ),
+                ],
               ),
-              TextButton(
-                onPressed: () async {
-                  launchUrl(kofiUri);
-                },
-                child: const FaIcon(FontAwesomeIcons.koFi, size: 25),
-              ),
-            ],
-          ),
+            ]
         ],
       ),
     );
