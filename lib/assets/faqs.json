@@ -17,7 +17,7 @@
     "faqs": [
       {
         "question": "Lethal Damage Modification",
-        "answer": "Elder Dragon’s passive ability reads, “Any amount of your damage is enough to kill enemy units.” This functions to change the definition of lethal damage for those units that have damage marked by you on them. In order to break that down in a technical way, we’ll have to define a few terms.\n\nLethal damage is an amount of damage such that a unit with it marked will die in a cleanup. This value is defined as being a non-zero amount greater than or equal to a unit’s Might by default. However, some effects may alter it. Any reference to lethal damage, including in the cleanup tasks in rule 323.5. and when assigning Combat damage in rule 460.2.c.3., will be altered in this way. Damage is marked on a unit by a player when a deal action that player is responsible for damages that unit. Damage marked by players is \"their damage.\"\n\nThe combination of these two concepts codifies how Elder Dragon functions. This means Elder Dragon can check damage marked on units by its controller before it enters the board, and that players need only assign one damage to units during the Combat Damage step while they control Elder Dragon."
+        "answer": "Elder Dragon’s passive ability reads, \"Any amount of your damage is enough to kill enemy units.\" This functions to change the definition of lethal damage for those units that have damage marked by you on them. In order to break that down in a technical way, we’ll have to define a few terms.\n\nLethal damage is an amount of damage such that a unit with it marked will die in a cleanup. This value is defined as being a non-zero amount greater than or equal to a unit’s Might by default. However, some effects may alter it. Any reference to lethal damage, including in the cleanup tasks in rule 323.5. and when assigning Combat damage in rule 460.2.c.3., will be altered in this way. Damage is marked on a unit by a player when a deal action that player is responsible for damages that unit. Damage marked by players is \"their damage.\"\n\nThe combination of these two concepts codifies how Elder Dragon functions. This means Elder Dragon can check damage marked on units by its controller before it enters the board, and that players need only assign one damage to units during the Combat Damage step while they control Elder Dragon."
       },
       {
         "question":"If I play Counter Strike in response to my opponent’s Elder Dragon’s play effect, will the chosen unit still die?",
@@ -25,7 +25,7 @@
       },
       {
         "question":"My opponent plays Elder Dragon and targets my two units at the two battlefields, as well as one of my units in base. If I play Flash in reaction, moving the two units at battlefields to base, will they be dealt damage?",
-        "answer": "They will not.\n\nElder Dragon’s play effect has a number of targeting restrictions equal to the number of locations on the board. Its controller chooses up to one enemy unit at each of those locations to target with the ability and each of those units must follow their respective targeting restriction. It is the equivalent to saying “Deal 1 to up to one enemy unit at battlefield A. Deal 1 to up to one enemy unit at battlefield B. Deal 1 to up to one enemy unit in your base. Deal 1 to up to one enemy unit in Opponent A’s Base. …” Each of those targeting restrictions is fulfilled separately for each unit targeted.\n\nIf you play Flash in reaction to the play effect of Elder Dragon, any units that are moved to a location other than the one where they were targeted will no longer fulfill the targeting restriction of the Elder Dragon play effect and will be unaffected by the ability as it resolves."
+        "answer": "They will not.\n\nElder Dragon’s play effect has a number of targeting restrictions equal to the number of locations on the board. Its controller chooses up to one enemy unit at each of those locations to target with the ability and each of those units must follow their respective targeting restriction. It is the equivalent to saying \"Deal 1 to up to one enemy unit at battlefield A. Deal 1 to up to one enemy unit at battlefield B. Deal 1 to up to one enemy unit in your base. Deal 1 to up to one enemy unit in Opponent A’s Base. …\" Each of those targeting restrictions is fulfilled separately for each unit targeted.\n\nIf you play Flash in reaction to the play effect of Elder Dragon, any units that are moved to a location other than the one where they were targeted will no longer fulfill the targeting restriction of the Elder Dragon play effect and will be unaffected by the ability as it resolves."
       }
     ]
   },
@@ -34,7 +34,7 @@
     "set": "UNL",
     "faqs": [
       {
-        "answer": "Two areas that were unclear in the rules update were control of battlefields and when Showdowns open. How battlefield control is managed is contradictory in two places: in the control rules under rule 187.4.c., and in the cleanup rules under rule 323.6. To clarify this: rule 323.6. should read, “Players lose control of any controlled battlefields without their Units occupying them if the turn is in an open state and there is no Showdown or Combat ongoing there.” This was our intent, as seen in the patch notes, and the wording of rule 323.6 lagged behind it.\n\nThe second of these areas is how Showdowns are opened. Here, the cleanup rules are correct and take precedence over the other rules. Rule 316.5.b. should read, \"A Showdown is marked as staged at a battlefield in the cleanup after the Contested status is applied to that battlefield.\" Rule 344.2. should read, \"If Control of a battlefield is Contested and there aren’t units controlled by different players there, a Showdown is opened during the Cleanup at the end of the action that caused the battlefield to become Contested.\"\n\nFor example, if a player moves a unit to a battlefield they don’t control, they will apply the Contested status to that battlefield immediately upon becoming located there, regardless of whether there are units controlled by another player there or not. The battlefield having the Contested status causes a Showdown to be staged there in the following cleanup per rule 323.8. The previous wording of 316.5.b. implied that a Showdown will only be staged at a battlefield if that battlefield is uncontrolled, but the change to how Showdowns become Combats means Showdowns need to be able to be staged when the battlefield is still controlled."
+        "answer": "Two areas that were unclear in the rules update were control of battlefields and when Showdowns open. How battlefield control is managed is contradictory in two places: in the control rules under rule 187.4.c., and in the cleanup rules under rule 323.6. To clarify this: rule 323.6. should read, \"Players lose control of any controlled battlefields without their Units occupying them if the turn is in an open state and there is no Showdown or Combat ongoing there.\" This was our intent, as seen in the patch notes, and the wording of rule 323.6 lagged behind it.\n\nThe second of these areas is how Showdowns are opened. Here, the cleanup rules are correct and take precedence over the other rules. Rule 316.5.b. should read, \"A Showdown is marked as staged at a battlefield in the cleanup after the Contested status is applied to that battlefield.\" Rule 344.2. should read, \"If Control of a battlefield is Contested and there aren’t units controlled by different players there, a Showdown is opened during the Cleanup at the end of the action that caused the battlefield to become Contested.\"\n\nFor example, if a player moves a unit to a battlefield they don’t control, they will apply the Contested status to that battlefield immediately upon becoming located there, regardless of whether there are units controlled by another player there or not. The battlefield having the Contested status causes a Showdown to be staged there in the following cleanup per rule 323.8. The previous wording of 316.5.b. implied that a Showdown will only be staged at a battlefield if that battlefield is uncontrolled, but the change to how Showdowns become Combats means Showdowns need to be able to be staged when the battlefield is still controlled."
       }
     ]
   },
@@ -43,7 +43,7 @@
     "set": "UNL",
     "faqs": [
       {
-        "answer": "Rift Herald is an interesting card. Usually, we don’t print effects like Rift Herald’s Deathknell that don’t say “may.” However, even without the “may,” an important principle that we want to hold for Riftbound is that game effects cannot force a player to perform a game action on an object with specific characteristics whose information status is private.\n\nImagine if we lived in such a world. When Rift Herald’s Deathknell resolves, your opponent claims to not have a unit in their hand. But what if they do have a unit and they want to try to save it for a more opportune moment? What if playing it would be actively detrimental to them? Suddenly, every time your opponent says they don’t have a card to play that matches the appropriate characteristics it makes you wonder if they’re lying to you. How do you hold them accountable? Do you go over and look at their hand? Do you call a friend to check their hand? If you’re at a tournament, do you call a judge? This is an unsustainable level of paranoia to subject players to. We don’t want that and neither do you.\n\nThe following rule will be added in the next rules update and will go into effect now:\n\nA player cannot be compelled to perform an action on cards whose privacy is secret or private if that action specifies a type or quality of card. If an effect would compel a player to perform an action on cards whose privacy is secret or private, and if that effect specifies a type or quality of card, the player in question may ignore it instead."
+        "answer": "Rift Herald is an interesting card. Usually, we don’t print effects like Rift Herald’s Deathknell that don’t say \"may.\" However, even without the \"may,\" an important principle that we want to hold for Riftbound is that game effects cannot force a player to perform a game action on an object with specific characteristics whose information status is private.\n\nImagine if we lived in such a world. When Rift Herald’s Deathknell resolves, your opponent claims to not have a unit in their hand. But what if they do have a unit and they want to try to save it for a more opportune moment? What if playing it would be actively detrimental to them? Suddenly, every time your opponent says they don’t have a card to play that matches the appropriate characteristics it makes you wonder if they’re lying to you. How do you hold them accountable? Do you go over and look at their hand? Do you call a friend to check their hand? If you’re at a tournament, do you call a judge? This is an unsustainable level of paranoia to subject players to. We don’t want that and neither do you.\n\nThe following rule will be added in the next rules update and will go into effect now:\n\nA player cannot be compelled to perform an action on cards whose privacy is secret or private if that action specifies a type or quality of card. If an effect would compel a player to perform an action on cards whose privacy is secret or private, and if that effect specifies a type or quality of card, the player in question may ignore it instead."
       }
     ]
   },
@@ -52,7 +52,7 @@
     "set": "UNL",
     "faqs": [
       {
-        "answer": "Our first battlefield with a triggered ability anyone can trigger that targets game objects was printed in Unleashed and it has unearthed some strangeness in the battlefield control rules. That battlefield is Abandoned Hall.\n\nNormally, control of a battlefield ability is awarded to the battlefield’s controller, or the turn player if it is uncontrolled, but there are cases where that might not be the case. The intent of the current rules is that a player making choices for a triggered ability of a battlefield means that player controls that ability. This is reflected in a small but easily neglected part of the battlefield ability control rules in “unless otherwise specified.” That should be treated as the following: If an Ability of a Battlefield indicates that a specific player makes a choice, that player takes responsibility for adding it to the chain if applicable and makes all choices required by the ability. They and only they control the ability.\n\nNote that if a battlefield ability requires more than one player to make a choice, that ability will still be controlled by the controller of the battlefield."
+        "answer": "Our first battlefield with a triggered ability anyone can trigger that targets game objects was printed in Unleashed and it has unearthed some strangeness in the battlefield control rules. That battlefield is Abandoned Hall.\n\nNormally, control of a battlefield ability is awarded to the battlefield’s controller, or the turn player if it is uncontrolled, but there are cases where that might not be the case. The intent of the current rules is that a player making choices for a triggered ability of a battlefield means that player controls that ability. This is reflected in a small but easily neglected part of the battlefield ability control rules in \"unless otherwise specified.\" That should be treated as the following: If an Ability of a Battlefield indicates that a specific player makes a choice, that player takes responsibility for adding it to the chain if applicable and makes all choices required by the ability. They and only they control the ability.\n\nNote that if a battlefield ability requires more than one player to make a choice, that ability will still be controlled by the controller of the battlefield."
       }
     ]
   },
@@ -61,7 +61,7 @@
     "set": "UNL",
     "faqs": [
       {
-        "answer": "Legion’s change in this rules update is a byproduct of the transition that Riftbound finds itself in. To pull back the curtain, our hope in the future is to reduce the confusion around “play” meaning different things in templating. Unfortunately, this rules update has pulled us in three directions and made things temporarily more confusing. We will communicate these rules in a more comprehensible way in the next rules update. That being said, we recognize that these three technical meanings of play are quite frustrating for players and we’re in the process of paring them down.\n\nFor this rules update, we’ll address three functional meanings of “play”, though two of them are aligned in a way that should make them feel like they are functionally similar.\n\nThe first meaning is, “resolve an item on the chain.” This is the play that appears in trigger conditions, in cards like Darius, Trifarian and Ravenbloom Student.\n\nThe second meaning is, “finalize an item on the chain.” This is the play that appears in other conditional statements and effects that check if cards have been played, in cards like Battering Ram, Crescent Guardian, and the Legion dependent keyword.\n\nThe final meaning of play is, “place an item on the chain and queue it for finalization.” This is the version of play that we see in all other contexts in which play is used as a verb, in cards like Here to Help, Raging Firebrand, and Void Drone.\n\nHaving three technical usages of the same word is not ideal, to say the least. This can be seen in the most egregious case with Brynhir Thundersong’s play effect, which reads, “When you play me, opponents can’t play cards this turn.” Using play to mean resolve and also “perform the play game action” in the same card effect has been an abiding source of confusion among players since Origins.\n\nThat being said, the usages of “play as game action” and “play as finalize” are functionally aligned---finalizing a card and putting a card on the chain to be queued for finalization are similar actions. Even if we wanted an effect to check for the game action, it would ultimately have to check for finalization because the process of play could be undone during finalization. These timings are similar enough that we hope it will be relatively easy for players to develop an intuition for them. “Play as resolution” is an outlier and it will remain so for this transition period."
+        "answer": "Legion’s change in this rules update is a byproduct of the transition that Riftbound finds itself in. To pull back the curtain, our hope in the future is to reduce the confusion around \"play\" meaning different things in templating. Unfortunately, this rules update has pulled us in three directions and made things temporarily more confusing. We will communicate these rules in a more comprehensible way in the next rules update. That being said, we recognize that these three technical meanings of play are quite frustrating for players and we’re in the process of paring them down.\n\nFor this rules update, we’ll address three functional meanings of \"play\", though two of them are aligned in a way that should make them feel like they are functionally similar.\n\nThe first meaning is, \"resolve an item on the chain.\" This is the play that appears in trigger conditions, in cards like Darius, Trifarian and Ravenbloom Student.\n\nThe second meaning is, \"finalize an item on the chain.\" This is the play that appears in other conditional statements and effects that check if cards have been played, in cards like Battering Ram, Crescent Guardian, and the Legion dependent keyword.\n\nThe final meaning of play is, \"place an item on the chain and queue it for finalization.\" This is the version of play that we see in all other contexts in which play is used as a verb, in cards like Here to Help, Raging Firebrand, and Void Drone.\n\nHaving three technical usages of the same word is not ideal, to say the least. This can be seen in the most egregious case with Brynhir Thundersong’s play effect, which reads, \"When you play me, opponents can’t play cards this turn.\" Using play to mean resolve and also \"perform the play game action\" in the same card effect has been an abiding source of confusion among players since Origins.\n\nThat being said, the usages of \"play as game action\" and \"play as finalize\" are functionally aligned---finalizing a card and putting a card on the chain to be queued for finalization are similar actions. Even if we wanted an effect to check for the game action, it would ultimately have to check for finalization because the process of play could be undone during finalization. These timings are similar enough that we hope it will be relatively easy for players to develop an intuition for them. \"Play as resolution\" is an outlier and it will remain so for this transition period."
       }
     ]
   },
@@ -70,7 +70,7 @@
     "set": "UNL",
     "faqs": [
       {
-        "answer": "A final point of clarification, the Determine Combat Result task is currently missing a minor but very important part. Rule 461.3.d. should read: There is “No Result” if units were recalled during the Combat Cleanup, if both Players have units present during this task, or if neither player has units present during this task.\n\nFor example, if a tie occurred after the Combat Damage step—as in, there were Attackers and Defenders still remaining at the battlefield in the Combat Cleanup and the Attackers were recalled—under the previous wording of rule 461.3.d., the defending player will win the Combat because there are only units controlled by one player located at the battlefield as the task occurs."
+        "answer": "A final point of clarification, the Determine Combat Result task is currently missing a minor but very important part. Rule 461.3.d. should read: There is \"No Result\" if units were recalled during the Combat Cleanup, if both Players have units present during this task, or if neither player has units present during this task.\n\nFor example, if a tie occurred after the Combat Damage step—as in, there were Attackers and Defenders still remaining at the battlefield in the Combat Cleanup and the Attackers were recalled—under the previous wording of rule 461.3.d., the defending player will win the Combat because there are only units controlled by one player located at the battlefield as the task occurs."
       }
     ]
   },
@@ -80,7 +80,7 @@
     "faqs": [
       {
         "question":"What happens when you conquer Aspirant’s Climb with Green Father and Brush the battlefield when both players are at 8 points? ",
-        "answer": "If this is the first battlefield that player has scored, they'll draw 1 and the game will continue with both players at 8 points.\n\nIf you replace Aspirant’s Climb with Brush via Green Father’s conquer or hold effect, the Victory Score will change immediately as the passive ability of Aspirant’s Climb is no longer in effect, bringing both players to the Victory Score simultaneously. Rules 323.1. and 467. define winning the game as happening during a cleanup when one player has points greater than or equal to the Victory Score and greater than any opponent. If both players are at 8 points, they have not fulfilled both requirements for winning the game. They will need to score additional points in order to win. When they do so, 466.1.b. says “when a player tries to gain a point through a Score, and their current point total is one point from the Victory Score for their Mode of Play or higher, do the following: …” If the point is from Conquering, they will draw 1 instead of gaining the point unless they have scored each battlefield that turn. In effect, every point at or above the Victory Score becomes the final point."
+        "answer": "If this is the first battlefield that player has scored, they'll draw 1 and the game will continue with both players at 8 points.\n\nIf you replace Aspirant’s Climb with Brush via Green Father’s conquer or hold effect, the Victory Score will change immediately as the passive ability of Aspirant’s Climb is no longer in effect, bringing both players to the Victory Score simultaneously. Rules 323.1. and 467. define winning the game as happening during a cleanup when one player has points greater than or equal to the Victory Score and greater than any opponent. If both players are at 8 points, they have not fulfilled both requirements for winning the game. They will need to score additional points in order to win. When they do so, 466.1.b. says \"when a player tries to gain a point through a Score, and their current point total is one point from the Victory Score for their Mode of Play or higher, do the following: …\" If the point is from Conquering, they will draw 1 instead of gaining the point unless they have scored each battlefield that turn. In effect, every point at or above the Victory Score becomes the final point."
       }
     ]
   },
@@ -90,7 +90,7 @@
     "faqs": [
       {
         "question":"What happens if you Brush a Brush? Can you swap back the original battlefield you Brushed?",
-        "answer": "The Brush token will cease to exist. When swapping back, a player can choose to swap back to any object that was replaced, including the original battlefield.\n\nThis is because a replacing game object inherits all of the statuses and conditions of the game object it replaced, per 438.1. A game object can be instructed to “swap back”; the token stops existing and the original card is returned to the space that the token occupied, inheriting all its current effects and statuses per rule 438.7.b. “All of the effects and statuses” includes not only temporary effects applied to the battlefield, but also the relationship between replaced and replacing battlefields."
+        "answer": "The Brush token will cease to exist. When swapping back, a player can choose to swap back to any object that was replaced, including the original battlefield.\n\nThis is because a replacing game object inherits all of the statuses and conditions of the game object it replaced, per 438.1. A game object can be instructed to \"swap back\"; the token stops existing and the original card is returned to the space that the token occupied, inheriting all its current effects and statuses per rule 438.7.b. \"All of the effects and statuses\" includes not only temporary effects applied to the battlefield, but also the relationship between replaced and replacing battlefields."
       }
     ]
   },
@@ -160,7 +160,7 @@
     "faqs": [
       {
         "question":"If I hold Reckoner’s Arena with Yone, Blademaster, will I place his triggered ability on the chain when the hold effect of Reckoner’s Arena resolves?",
-        "answer": "No, you will not. The main thing you need to know is that activating a conquer effect such as the Reckoner’s Arena effect is the equivalent of checking the condition of all of the specified conquer effects, as if a conquer had occurred at Reckoner’s Arena. Any triggered abilities of units at Reckoner’s Arena that trigger on conquering will see a conquer event occurring, but they will still need to check their other conditions in order to go on the chain.\n\nIn this case, the rest of Yone’s conquer effect condition is “...that was previously uncontrolled,” and since the battlefield wasn’t previously uncontrolled, Yone’s ability will not trigger.\n\nNote that no actual conquer occurs—we’re simply treating the game as if a conquer had occurred at that battlefield for the purposes of the specified abilities. In Reckoner’s Arena’s case it specifies units, so only units with conquer effects at Reckoner’s Arena will see this conquer event and potentially trigger.\n\n(We recognize the rules for “activate” in the way discussed above are underdefined. Expect further revisions in the next rules update.)"
+        "answer": "No, you will not. The main thing you need to know is that activating a conquer effect such as the Reckoner’s Arena effect is the equivalent of checking the condition of all of the specified conquer effects, as if a conquer had occurred at Reckoner’s Arena. Any triggered abilities of units at Reckoner’s Arena that trigger on conquering will see a conquer event occurring, but they will still need to check their other conditions in order to go on the chain.\n\nIn this case, the rest of Yone’s conquer effect condition is \"...that was previously uncontrolled,\" and since the battlefield wasn’t previously uncontrolled, Yone’s ability will not trigger.\n\nNote that no actual conquer occurs—we’re simply treating the game as if a conquer had occurred at that battlefield for the purposes of the specified abilities. In Reckoner’s Arena’s case it specifies units, so only units with conquer effects at Reckoner’s Arena will see this conquer event and potentially trigger.\n\n(We recognize the rules for \"activate\" in the way discussed above are underdefined. Expect further revisions in the next rules update.)"
       }
     ]
   },
@@ -180,7 +180,7 @@
     "faqs": [
       {
         "question":"How does HOT FEPR actually work?",
-        "answer": "HOT FEPR stands for Handle Outstanding Tasks; then Finalize, Execute, Pass, Resolve. Outstanding Tasks include the various procedures of the turn: things like readying all of your game objects on the board in the Awakening Phase, scoring battlefields in the Beginning Phase, drawing 1 in the Draw Phase, the steps of a cleanup, and the substeps of the Combat Phase, among other procedures. Each of these tasks is made outstanding when a player is expected to perform them, and a player must handle any outstanding tasks before proceeding to the next substep, step, phase, or turn.\n\nFEPR is the process by which items on the chain are processed. Finalizing an item on the chain involves making choices, paying costs, and checking legality. Executing items to the chain means a player adding an item to the chain when they have priority, or passing priority. When all players Pass priority in a row, the topmost finalized item on the chain Resolves. While there are tasks outstanding, the FEPR process will be paused in place until all tasks are handled. \n\nAn initial question many players are going to have is why add this system at all? Wasn’t FEPR good enough on its own? The reason we implemented the HOT part of HOT FEPR is that prior to this system, the game only had one rule to address how and when items on the chain interact with the procedures of the game: what is now rule 305. It says \"when there are no items on the chain and the turn player cannot or chooses not to perform any discretionary actions, the current phase or step of the turn ends and the next phase, step, or turn begins.\"\n\nFEPR was a great starting point, but there were several places that were unclear about how it functioned. Primarily, for our purposes, how we approached the sub-rules of a given step. Do we pause to FEPR items between each sub-rule and procedure? Or between several procedures? We realized that it needed more clarity.\n\nHOT FEPR as a system tells us precisely when the FEPR process can occur during the turn and when it is precluded from occurring. While tasks are outstanding, pause FEPR and handle those tasks. Once all outstanding tasks are handled, any items on the chain undergo the FEPR process. Then when there are no more items on the chain and no outstanding tasks, we can move to the next procedure of the turn, per rule 335.3.\n\nAn important point that is easy to miss in the HOT FEPR system is that it is recursive, that is the procedures which designate tasks as outstanding are themselves steps or substeps. Anytime the Core Rules Document says “the following task(s) become outstanding,” that step itself waits until any outstanding tasks and any items on the chain are completed. This will hopefully help make sense of the various procedures where HOT FEPR orders the turn.\n\nLet’s look at two examples to illustrate this:\n\nThe Resolution Step of Combat can be broken down into four subsections: \n\n1. The Combat Cleanup\n2. Determine Combat Result\n3. Establish Control\n4. Combat Ends\n\nAs we move between each of these subsections, there will be a window to perform the FEPR process on chain items, and only after the chain is empty and there are no outstanding tasks, would we proceed to the next subsection.\n\nThe second example is that cleanups work in the inverse, where several tasks are queued at once and all must be completed before the FEPR process will initiate."
+        "answer": "HOT FEPR stands for Handle Outstanding Tasks; then Finalize, Execute, Pass, Resolve. Outstanding Tasks include the various procedures of the turn: things like readying all of your game objects on the board in the Awakening Phase, scoring battlefields in the Beginning Phase, drawing 1 in the Draw Phase, the steps of a cleanup, and the substeps of the Combat Phase, among other procedures. Each of these tasks is made outstanding when a player is expected to perform them, and a player must handle any outstanding tasks before proceeding to the next substep, step, phase, or turn.\n\nFEPR is the process by which items on the chain are processed. Finalizing an item on the chain involves making choices, paying costs, and checking legality. Executing items to the chain means a player adding an item to the chain when they have priority, or passing priority. When all players Pass priority in a row, the topmost finalized item on the chain Resolves. While there are tasks outstanding, the FEPR process will be paused in place until all tasks are handled. \n\nAn initial question many players are going to have is why add this system at all? Wasn’t FEPR good enough on its own? The reason we implemented the HOT part of HOT FEPR is that prior to this system, the game only had one rule to address how and when items on the chain interact with the procedures of the game: what is now rule 305. It says \"when there are no items on the chain and the turn player cannot or chooses not to perform any discretionary actions, the current phase or step of the turn ends and the next phase, step, or turn begins.\"\n\nFEPR was a great starting point, but there were several places that were unclear about how it functioned. Primarily, for our purposes, how we approached the sub-rules of a given step. Do we pause to FEPR items between each sub-rule and procedure? Or between several procedures? We realized that it needed more clarity.\n\nHOT FEPR as a system tells us precisely when the FEPR process can occur during the turn and when it is precluded from occurring. While tasks are outstanding, pause FEPR and handle those tasks. Once all outstanding tasks are handled, any items on the chain undergo the FEPR process. Then when there are no more items on the chain and no outstanding tasks, we can move to the next procedure of the turn, per rule 335.3.\n\nAn important point that is easy to miss in the HOT FEPR system is that it is recursive, that is the procedures which designate tasks as outstanding are themselves steps or substeps. Anytime the Core Rules Document says \"the following task(s) become outstanding,\" that step itself waits until any outstanding tasks and any items on the chain are completed. This will hopefully help make sense of the various procedures where HOT FEPR orders the turn.\n\nLet’s look at two examples to illustrate this:\n\nThe Resolution Step of Combat can be broken down into four subsections: \n\n1. The Combat Cleanup\n2. Determine Combat Result\n3. Establish Control\n4. Combat Ends\n\nAs we move between each of these subsections, there will be a window to perform the FEPR process on chain items, and only after the chain is empty and there are no outstanding tasks, would we proceed to the next subsection.\n\nThe second example is that cleanups work in the inverse, where several tasks are queued at once and all must be completed before the FEPR process will initiate."
       }
     ]
   },
@@ -189,7 +189,7 @@
     "set": "UNL",
     "faqs": [
       {
-        "question":"You mentioned rule 187.4.c. earlier and it says “open state”, I don’t remember that in the old rules. What gives?",
+        "question":"You mentioned rule 187.4.c. earlier and it says \"open state\", I don’t remember that in the old rules. What gives?",
         "answer": "Control of battlefields cannot be lost while there are items on the chain, per rule 187.4.c. in the Unleashed rules update. This means that spells and abilities that banish and play units, or that kill units as a cost or effect in order to play another unit, will be able to kill or banish units at battlefields and then play the resulting unit to that same battlefield.\n\nLet’s look at some examples:\n\nI play Cruel Patron, and I have a 1 [M] Recruit alone at a battlefield I control. I choose to kill my Recruit to pay the additional cost of Cruel Patron. Although this causes a cleanup, because there is an item on the chain (Cruel Patron) I don’t lose control of the battlefield. I can choose to play Cruel Patron to that same battlefield with no issue.\n\nI activate Baited Hook targeting a 4 [M] unit that is alone at a battlefield I control. When Baited Hook resolves, I kill that unit and look at the top 5 cards of my Main Deck. I choose to play a unit from among them, which goes pending on the chain. When Baited Hook’s activated ability resolves, the outstanding cleanup initiates, but I can’t lose control of the battlefield because the played unit is on the chain pending. Once the cleanup finishes, I will finalize the unit and I can choose the battlefield where I killed my 4 [M] unit to play it to.\n\nI play Arcane Shift targeting my Thousand-Tailed Watcher who is alone at a battlefield I control. As it resolves, Watcher is banished and played to the chain. When Arcane Shift has finished resolving, a cleanup is outstanding and because Watcher is still pending on the chain, control of the battlefield can’t be lost. When finalizing Watcher, the battlefield I banished it from is a valid location to play it to because I still control it.\n\nThere is one final example worth discussing, though the interaction worked similarly prior to this rules update: in the previous rules update, if my Glasc Mixologist died alone in Combat at a battlefield I control, the active Combat at the battlefield prevented me from losing control of the battlefield. Thus I could play the unit from Mixologist’s Deathknell to the same Battlefield it died at. Previously this was only possible in Combat, but as of this rules update the same process will occur whenever Glasc Mixologist dies alone at a battlefield with the same controller, regardless of if there is a Combat there or not."
       }
     ]
@@ -202,7 +202,7 @@
     "faqs": [
       {
         "question":"Does Forgotten Monument work the same as Tianna? Will it receive similar errata?",
-        "answer": "Forgotten Monument works differently from Tianna, and we agree that’s confusing. That’s part of why we decided to issue errata for Tianna (and not for Forgotten Monument).\n\nForgotten Monument completely prevents the process of scoring there. That means no conquer triggers, no hold triggers, and no points from doing those things. “Extra” points such as those from Renata Glasc, Mastermind are unaffected. You can still gain control of the battlefield following a showdown—you just can’t conquer it."
+        "answer": "Forgotten Monument works differently from Tianna, and we agree that’s confusing. That’s part of why we decided to issue errata for Tianna (and not for Forgotten Monument).\n\nForgotten Monument completely prevents the process of scoring there. That means no conquer triggers, no hold triggers, and no points from doing those things. \"Extra\" points such as those from Renata Glasc, Mastermind are unaffected. You can still gain control of the battlefield following a showdown—you just can’t conquer it."
       }
     ]
   },
@@ -225,7 +225,7 @@
     "faqs": [
       {
         "question": "Can Pickpocket kill a Gold token?",
-        "answer": "Yes, but we see why you’d ask. The rules use a “NULL” system for values that aren’t available, such as the Might of a unit that’s been removed from the board. The unit is gone and the information is missing, so you can’t do any calculations or comparisons with it (not even “is it no more than 1?”).\n\nThat system could reasonably be applied to the costs of tokens, but we feel that results in unintuitive situations, like not being able to kill a Gold token with Pickpocket. After all, the token’s not missing; it just doesn’t have a cost because it doesn’t need one. We’ll be updating the rules to clarify that the cost of a token can be treated as 0 for all purposes."
+        "answer": "Yes, but we see why you’d ask. The rules use a \"NULL\" system for values that aren’t available, such as the Might of a unit that’s been removed from the board. The unit is gone and the information is missing, so you can’t do any calculations or comparisons with it (not even \"is it no more than 1?\").\n\nThat system could reasonably be applied to the costs of tokens, but we feel that results in unintuitive situations, like not being able to kill a Gold token with Pickpocket. After all, the token’s not missing; it just doesn’t have a cost because it doesn’t need one. We’ll be updating the rules to clarify that the cost of a token can be treated as 0 for all purposes."
       }
     ],
     "set": "SFD"
@@ -235,7 +235,7 @@
     "faqs": [
       {
         "question": "Can Rumble, Hotheaded choose a Mech token to recycle? If he does, where does it go?",
-        "answer": "Yes, he can. This is a minor gap in the rules. Main Deck cards are recycled to the Main Deck and runes are recycled to the Rune deck, but tokens aren’t actually either of those things. We’ll be clarifying in a future rules updates that tokens “inherit” the recycle destination of their type(s), so a token that’s a unit or gear is recycled to your Main Deck just like any other gear. It then vanishes, as tokens do any time they leave the board, but it still counts as “the unit you recycled” and Rumble can check its Might."
+        "answer": "Yes, he can. This is a minor gap in the rules. Main Deck cards are recycled to the Main Deck and runes are recycled to the Rune deck, but tokens aren’t actually either of those things. We’ll be clarifying in a future rules updates that tokens \"inherit\" the recycle destination of their type(s), so a token that’s a unit or gear is recycled to your Main Deck just like any other gear. It then vanishes, as tokens do any time they leave the board, but it still counts as \"the unit you recycled\" and Rumble can check its Might."
       }
     ],
     "set": "SFD"
@@ -245,7 +245,7 @@
     "faqs": [
       {
         "question": "Does Svellsongur copy text that the unit has gained from other sources, such as the Assault granted by Cleave? What about text it’s gained from other Equipment?",
-        "answer": "No, Svellsongur only copies the text that’s actually printed on the unit. This is an ambiguity in the current rules, which refer to “appending” and “removing” rules text without reference to whether that text is original to the unit or not.\n\nThe key word here is actually copy, a system that will be fleshed out in a future rules update. For now, we’ll just tell you that copies of objects or text take on their original traits, without regard to any subsequent alterations.\n\nSvellsongur doesn’t grant the unit additional “copies” of the abilities of other Equipment. So putting 3 Svellsongur on the same unit will give that unit four total instances of its abilities, not eight. (Four should be plenty.)"
+        "answer": "No, Svellsongur only copies the text that’s actually printed on the unit. This is an ambiguity in the current rules, which refer to \"appending\" and \"removing\" rules text without reference to whether that text is original to the unit or not.\n\nThe key word here is actually copy, a system that will be fleshed out in a future rules update. For now, we’ll just tell you that copies of objects or text take on their original traits, without regard to any subsequent alterations.\n\nSvellsongur doesn’t grant the unit additional \"copies\" of the abilities of other Equipment. So putting 3 Svellsongur on the same unit will give that unit four total instances of its abilities, not eight. (Four should be plenty.)"
       }
     ],
     "set": "SFD"
@@ -254,8 +254,8 @@
     "name": "Aphelios, Exalted",
     "faqs": [
       {
-        "question": "Aphelios, Exalted has an ability that triggers when I attach an Equipment to him and tells me to “choose one that hasn’t been chosen this turn.” If I attach Svellsongur to him, does he have the second copy of his ability in time for both to trigger? And do I have to choose different options?",
-        "answer": "He does have the second copy of his ability in time, and it will trigger. The “one that hasn’t been chosen this turn” restriction applies separately to each instance of his ability. So you could choose the same option for both, but you’ll have to track which options you’ve used for each copy of his ability."
+        "question": "Aphelios, Exalted has an ability that triggers when I attach an Equipment to him and tells me to \"choose one that hasn’t been chosen this turn.\" If I attach Svellsongur to him, does he have the second copy of his ability in time for both to trigger? And do I have to choose different options?",
+        "answer": "He does have the second copy of his ability in time, and it will trigger. The \"one that hasn’t been chosen this turn\" restriction applies separately to each instance of his ability. So you could choose the same option for both, but you’ll have to track which options you’ve used for each copy of his ability."
       }
     ],
     "set": "SFD"
@@ -264,16 +264,16 @@
     "name": "Cards that Reduce Might",
     "faqs": [
       {
-        "question": "I heard that cards that reduce Might will no longer say “to a minimum of 1” on them. Does that mean Origins cards like Stupefy will receive errata?",
+        "question": "I heard that cards that reduce Might will no longer say \"to a minimum of 1\" on them. Does that mean Origins cards like Stupefy will receive errata?",
         "answer": "No. This is a change to our design philosophy beginning with Spiritforged, but Origins cards will maintain their functionality."
       },
       {
         "question": "Does this mean that units’ Might can go to 0 or below now?",
-        "answer": "Units’ Might could always go to 0 or below; it was just really hard to actually make it happen. For example: If a Recruit was at Trifarian War Camp, it would have 2 Might (its 1 base Might, +1 from War Camp). If it got hit with Stupefy, Stupefy would “snapshot” at -1 Might, reducing the Recruit’s Might to 1. If the Recruit then moved away from Trifarian War Camp, it would lose the +1 Might bonus and end up at 0 Might. It’s much easier to make it happen with Spiritforged cards, though, so it’s worth reviewing the rules for units with 0 or less Might."
+        "answer": "Units’ Might could always go to 0 or below; it was just really hard to actually make it happen. For example: If a Recruit was at Trifarian War Camp, it would have 2 Might (its 1 base Might, +1 from War Camp). If it got hit with Stupefy, Stupefy would \"snapshot\" at -1 Might, reducing the Recruit’s Might to 1. If the Recruit then moved away from Trifarian War Camp, it would lose the +1 Might bonus and end up at 0 Might. It’s much easier to make it happen with Spiritforged cards, though, so it’s worth reviewing the rules for units with 0 or less Might."
       },
       {
         "question": "Does a unit with 0 or less Might automatically die?",
-        "answer": "No, units can stick around on the board with 0 (or less!) Might. They will die if they take any damage, but “0” is not a valid amount of damage, so it takes 1 damage to kill a unit with 0 or less Might. We realize that this is a little weird, but it’s important to us that cards like Frigid Touch can’t be used to actually kill units, only weaken them."
+        "answer": "No, units can stick around on the board with 0 (or less!) Might. They will die if they take any damage, but \"0\" is not a valid amount of damage, so it takes 1 damage to kill a unit with 0 or less Might. We realize that this is a little weird, but it’s important to us that cards like Frigid Touch can’t be used to actually kill units, only weaken them."
       },
       {
         "question": "Does a unit with negative Might contribute negative damage to my Might total in combat?",
@@ -287,7 +287,7 @@
     "faqs": [
       {
         "question": "What costs does Ezreal, Prodigy reduce? Does he reduce Repeat costs? Accelerate costs? Equip costs?",
-        "answer": "Ezreal, Prodigy reduces additional costs that are optional to pay. These will generally use both the words “additional cost” and the word “may.” Repeat and Accelerate are the two main sources of optional additional costs, but Ezreal can also offer a discount for one-off oddballs like Blast Corps Cadet.\n\nEzreal can’t reduce Equip costs. That’s an activation cost for an ability, so it’s neither optional nor additional. There aren’t currently any optional additional costs that apply to activating abilities."
+        "answer": "Ezreal, Prodigy reduces additional costs that are optional to pay. These will generally use both the words \"additional cost\" and the word \"may.\" Repeat and Accelerate are the two main sources of optional additional costs, but Ezreal can also offer a discount for one-off oddballs like Blast Corps Cadet.\n\nEzreal can’t reduce Equip costs. That’s an activation cost for an ability, so it’s neither optional nor additional. There aren’t currently any optional additional costs that apply to activating abilities."
       },
       {
         "question": "What about Deflect costs? Aren’t those optional now?",
@@ -301,7 +301,7 @@
     "faqs": [
       {
         "question": "If I use Hostile Takeover to take control of my opponent’s only unit at a battlefield, will there be a showdown? Will it be a combat?",
-        "answer": "You’ll start a noncombat showdown. (Hostile Takeover’s reminder text is a little misleading in this regard—you have to have some kind of showdown before you can conquer.) This ruling applies any time you have a unit at a battlefield when your opponent still controls that battlefield, but doesn’t have any units there. (Yes, that can happen. Hostile Takeover and Stormbringer are the easiest ways to do it.)\n\nThere’s a gap in the current rules that leaves this situation without an obvious outcome. We plan to address that gap in the next regular rules update. The issue is surprisingly complex, and we’re not 100% sure what the answer will be when we’re done.\n\nIn the meantime, though, we believe starting a noncombat showdown is the least disruptive way to handle this scenario. If you need really precise timing: assume that your opponent loses control of the battlefield in the same cleanup that begins the showdown, even though ordinarily control is “frozen” once the battlefield becomes contested."
+        "answer": "You’ll start a noncombat showdown. (Hostile Takeover’s reminder text is a little misleading in this regard—you have to have some kind of showdown before you can conquer.) This ruling applies any time you have a unit at a battlefield when your opponent still controls that battlefield, but doesn’t have any units there. (Yes, that can happen. Hostile Takeover and Stormbringer are the easiest ways to do it.)\n\nThere’s a gap in the current rules that leaves this situation without an obvious outcome. We plan to address that gap in the next regular rules update. The issue is surprisingly complex, and we’re not 100% sure what the answer will be when we’re done.\n\nIn the meantime, though, we believe starting a noncombat showdown is the least disruptive way to handle this scenario. If you need really precise timing: assume that your opponent loses control of the battlefield in the same cleanup that begins the showdown, even though ordinarily control is \"frozen\" once the battlefield becomes contested."
       }
     ],
     "set": "SFD"
@@ -311,7 +311,7 @@
     "faqs": [
       {
         "question": "What parts of a spell does the Repeat ability cause to be repeated? Is it the entire effect? If I use Temporal Portal to give Find Your Center Repeat and pay the cost while its cost reduction applies, does the cost reduction happen once or twice, and does the final spell cost 2 or 4?",
-        "answer": "Repeat causes you to repeat execution of a spell’s “instructions,” which are the things the spell tells you to do as it resolves. (We’ll give a better definition of “instructions” and how to define them in an upcoming rules update.) And the Repeat cost of Find Your Center isn’t reduced, even when its base cost is, because anything that asks for a card’s cost finds its printed cost as the answer.\n\nThis means that Find Your Center’s cost reduction applies only once and the final spell costs 4—its base cost of 3, plus its Repeat cost of 3, minus its cost reduction of 2."
+        "answer": "Repeat causes you to repeat execution of a spell’s \"instructions,\" which are the things the spell tells you to do as it resolves. (We’ll give a better definition of \"instructions\" and how to define them in an upcoming rules update.) And the Repeat cost of Find Your Center isn’t reduced, even when its base cost is, because anything that asks for a card’s cost finds its printed cost as the answer.\n\nThis means that Find Your Center’s cost reduction applies only once and the final spell costs 4—its base cost of 3, plus its Repeat cost of 3, minus its cost reduction of 2."
       }
     ],
     "set": "SFD"
@@ -320,10 +320,344 @@
     "name": "Cards with Weaponmaster",
     "faqs": [
       {
-        "question": "The reminder text of Weaponmaster says “You may”, but the Core Rules reads like it is mandatory. Which is it?",
-        "answer": "Oh, sharp catch. Weaponmaster as a keyword is always meant to be optional. While the rules utilize a language structure that imply a mandatory target, the reminder text is more accurate here. It is always a choice on whether or not to use this play ability. We will clean up that language in the future. "
+        "question": "The reminder text of Weaponmaster says \"You may\", but the Core Rules reads like it is mandatory. Which is it?",
+        "answer": "Oh, sharp catch. Weaponmaster as a keyword is always meant to be optional. While the rules utilize a language structure that imply a mandatory target, the reminder text is more accurate here. It is always a choice on whether or not to use this play ability. We will clean up that language in the future."
       }
     ],
     "set": "SFD"
+  },
+  {
+    "name": "Abandon, Flow cost",
+    "faqs": [
+      {
+        "question": "What happens when you play Abandon on a spell that was played for its Flow cost?",
+        "answer": "It will be banished when it attempts to leave the chain.\n\n\"[T]hen banish it\" in flow’s text is short for \"if it would leave the chain after becoming a finalized chain item, and leaving the chain wasn’t instructed by its own execution, banish it instead.\" Abandon returns the countered card to hand after countering it, but for the purposes of flow’s \"then banish it\", this is also leaving the chain. No matter how it happens, as long as the flow spell leaving the chain wasn’t instructed by the execution of the spell itself, it will be banished.\n\nThis also applies to effects like Kai’Sa, Evolutionary from Origins, or Fizz, Trickster from Spiritforged."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Iascylla, Azir, Sovereign, \"this battlefield\"",
+    "faqs": [
+      {
+        "question": "What is the difference between Iascylla and Azir, Sovereign’s uses of \"this battlefield\"?",
+        "answer": "Iascylla’s delayed trigger refers to the battlefield that she held. Azir, Sovereign’s attack trigger refers to the battlefield where he is located.\n\nThe difference between these two is that Iascylla has a delayed trigger that references implicit information from her trigger condition: the battlefield where she held. Azir, Sovereign’s attack trigger does not reference information from his trigger condition, which purely checks for the event of Azir gaining the attacker designation for the first time each combat. Without that information being checked from the trigger condition, the \"this battlefield\" in Azir, Sovereign’s attack trigger will be checked when the triggered ability resolves. If it resolves and he is not located at a battlefield, any instructions related to that battlefield will be ignored; otherwise, the battlefield he is currently located at will be used.\n\nComparatively, when a triggered ability refers to information from its trigger condition, that information is checked when the ability triggers and not on resolution. In the case of Iascylla, her delayed trigger is linked with her hold effect, so the information from the trigger condition of the hold effect can be shared with the delayed trigger.\n\nIn future sets, we’ve moved to use more precise templating and wording for abilities like Iascylla’s.\n\nRelevant Rules: 359.3.f.1., 359.3.f.2., 359.3.f.3., 359.3.f.3.b."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Moonfall, Mel, Newly Awakened",
+    "faqs": [
+      {
+        "question": "What happens when I play Moonfall choosing an enemy unit while I control an empowered Mel, Newly Awakened?",
+        "answer": "The chosen unit will be given -3 [M]. All other enemy units at the chosen battlefield will be given -2 [M].\n\nMel, Newly Awakened’s empowered ability is a replacement effect. It replaces the event of a spell or ability you control giving a unit it chooses -[M]. The event it replaces that with is the spell or ability giving an additional -1 [M]. \n\nAlthough Moonfall gives -[M] to multiple units, only one of them is chosen, and thus the only event that is eligible to be replaced is the chosen unit being given -2 [M]. It will be replaced with that unit being given -3 [M]. The events of the other units being given -[M] will not be affected by this replacement effect.\n\nRelevant Rules: 370.1., 370.1.b."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Stupefy, Mel, Newly Awakened",
+    "faqs": [
+      {
+        "question": "What about casting Stupefy while I have an empowered Mel, Newly Awakened?",
+        "answer": "The chosen unit will be given -2 [M], to a minimum of 1 [M]. If it was 2 [M], it will become 1 [M].\n\nIn the case of Stupefy, Mel, Newly Awakened replaces the event of Stupefy giving -1 [M] with it giving -2 [M] instead. However, a replacement effect that replaces an event modified by the game effect that generated that event will inherit any of those modifications. In this case, Stupefy modifies the \"give -1 [M]\" game action and thus event with \"to a minimum of 1 [M].\" The replaced event will inherit the same modification.\n\nRelevant Rules: 375."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Abandon, Mel, Newly Awakened",
+    "faqs": [
+      {
+        "question": "Speaking of Mel, can my opponent play Abandon on my spell while I control an empowered Mel, Newly Awakened? What happens? ",
+        "answer": "They can play Abandon targeting your spell. On resolution, they will Predict, but nothing else will happen. \n\nMel, Newly Awakened says \"your spells and abilities can’t be countered.\" If the spell can’t be countered, Abandon will attempt to counter it and fail, and then it will replace the event of it being put in the Trash with it being returned to its owner’s hand. However, that event never occurred, so there is nothing for the replacement effect to replace. Thus, Abandon will resolve to no effect. The replacement effect only functions within the limit of the resolution of the ability (it’s not a delayed replacement effect that specifies a duration), so even if the spell resolves later, it will go to the Trash as normal."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Rebuttal, Abandon, Mel, Newly Awakened",
+    "faqs": [
+      {
+        "question": "How does it work if I cast Abandon while having an empowered Mel, Newly Awakened but they Rebuttal my spell?",
+        "answer": "In the case of Rebuttal, gaining control of a spell is not the same thing as countering that spell. Effects that prevent spells being countered don’t prevent their controller from changing. If Rebuttal is played choosing your spell, and they pay [A] during resolution of Rebuttal, they will gain control of it. However, them not paying [A] does not mean the spell will be countered."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Rebuttal, New Choices",
+    "faqs": [
+      {
+        "question": "What new choices can I make when I play Rebuttal and pay [A]?",
+        "answer": "You can choose any number of targets or modes to make new choices for. The rest remain the same.\n\nIf you are remaking choices in this way, any choices you choose not to remake must be legal choices. You can’t choose to have some but not all choices be legal choices. Of course, you can always choose not to make new choices. In that case, any of the current choices will remain in their current state, whether that state is illegal or not.\n\nIf a spell has some rules or requirements about the choices made for it, those apply regardless of who controls that spell. For example, if a player plays a spell from face down, they must target game objects located at the battlefield the spell was played from unless the instructions of that spell indicate that a target must be chosen from some other location. Gaining control of such a spell doesn’t change this requirement when making new choices for the spell.\n\nWe’ll look at shaping up this section in a future rules update."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Shady Spectacles, Empower",
+    "faqs": [
+      {
+        "question": "What happens if I choose to copy an empowered unit when I equip an unempowered unit with Shady Spectacles?",
+        "answer": "Being empowered is a status and is not copyable, thus the equipped unit will remain unempowered.\n\nShady Spectacles applies a copy effect to the equipped unit. Copy effects copy the printed (or copied, if another copy effect has already been applied) traits of the unit being copied. empowered is a status, a temporary modification, and not part of the printed traits of the card, so it will not be copied by Shady Spectacles. Whatever temporary modifications are applied to the unit as the copy effect is executed on that unit will be unaffected by the copy effect. If the unit has Might increases or decreases, a buff, the empowered status, Temporary, attacker, defender, etc those will remain in place.\n\nRelevant Rules: 477.1.b.1.b."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Shady Spectacles, Akshan, Mischievous",
+    "faqs": [
+      {
+        "question": "What happens when my opponent’s Akshan, Mischievous steals my equipped Shady Spectacles? What happens if they want to copy Aphelios?",
+        "answer": "If it was attached to a unit, the equipped unit loses its copy effect. Akshan will then become a copy of a friendly unit of his controller’s choice. If he becomes a copy of Aphelios, his ability will not trigger.\n\nThis question deserves a bit more depth. As of the Vendetta rules update, we have clarified how effects like Shady Spectacles and Svellsongur work; they are replacement effects that replace the event of the equipment being attached to a unit with that event plus whatever their effect specifies. \n\nIn the case of Svellsongur, the resulting series of events will be:\n\n    Attach → Copy the equipped unit’s text to Svellsongur’s effect text for as long as Svellsongur is attached\n\nFor Shady Spectacles, the resulting series of events will be:\n\n    Attach → Choose a friendly unit and make the equipped unit a copy of that unit for as long as Shady Spectacles is attached\n\nThese events are not simultaneous. The attach event executes first, and then whatever event is instructed by the replacement effect is executed. Thus, the answer in the Spiritforged FAQ is no longer true: if you attach Svellsongur to Aphelios, he will not trigger twice. Svellsongur doesn’t have the copied effect text when the attach event executes.\n\nSimilarly here, if Akshan nabs Shady Spectacles from an opponent, it will attach and then make him a copy. If his controller chooses to make him a copy of Aphelios, it’s too late by that point for his new triggered ability to see the attachment event; it’s already been completed.\n\nRelevant Rules: 369.1., 370.1.b.1., 370.1.a.2."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Shady Spectacles, Azir Ascendant, Sand Soldier",
+    "faqs": [
+      {
+        "question": "My Sand Soldier has Shady Spectacles equipped and is a copy of Azir, Ascendent. What happens if I activate the copied Azir’s activatedability before detaching the Shady Spectacles and then attach them to the same Sand Soldier as a copy of the same Azir, Ascendent? Can I use the activated ability again?",
+        "answer": "You can.\n\nEach instance of the copied ability is a different ability. The game object remains the same throughout this whole process, so any temporary modifications will remain on the Sand Soldier as it transforms, but the copied rules text is an entirely new instance of the ability. It is the same idea as Svellsongur’s copy of an ability being \"refreshed\" if Svellsongur is detached and then reattached to the same unit."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Lotus Trap, Ki Barrier, Multiple Replacement Effects",
+    "faqs": [
+      {
+        "question": "What happens during combat damage assignment if my 4 [M] unit has both Ki Barrier and Lotus Trap played on it this turn and my opponent has a 4 [M] defender?",
+        "answer": "You can order the replacement effects on your unit. If Ki Barrier is first, your unit will take no damage and you will have 3 damage prevention remaining on your unit. If Lotus Trap is first, your unit will take 1 damage and will have no damage prevention remaining on your unit.\n\nWith the Vendetta rules update, we’ve streamlined how replacement effects that apply to damage work in combat. Specifically, any replacement effect that would apply to combat damage being dealt will apply instead to combat damage assignment. This was already the case for prevention effects like Ki Barrier or Counterstrike, to prevent several strange edge cases. Now, damage increasing replacement effects will also apply during damage assignment. \n\nRelevant Rules: 465.2.c.4.a., 465.2.c.5."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Patched Porobot, Hwei, Brooding Painter, Multiple Card Types",
+    "faqs": [
+      {
+        "question": "What happens when I discard a Patched Porobot with Hwei, Brooding Painter’s move trigger?",
+        "answer": "Two triggers will go on the chain, in the order of your choosing. One says \"Give me +3 [M] this turn.\" while the other says \"Ready up to 2 runes.\"\n\nHwei, Brooding Painter says \"do the following based on the discarded card's type …\" Unlike our previous reflexive triggers printed on cards that use a similar template (cf Twisted Fate, Gambler), Hwei doesn’t say \"do one of the following …\" As long as the card has the appropriate type, you will put the corresponding reflexive trigger on the chain. If somehow there existed a card that was a spell unit gear, you would put three reflexive triggers on the chain when you discard it to Hwei.\n\nRelevant Rules: 387.1.b."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Crumbling Sands, Meaning of \"Play\"",
+    "faqs": [
+      {
+        "question": "If my opponent plays two spells in succession, can I counter the first one with Crumbling Sands?",
+        "answer": "Yes.\n\nCrumbling Sands uses the \"finalize\" meaning of play, because it checks whether cards have been \"played\" and isn’t a triggered ability. As long as an opponent (not even necessarily the one who played this spell) has chosen targets, paid costs, checked legality, and completed the process of finalizing another spell, even if that spell was countered, Crumbling Sands can counter a spell. That means it can counter the first spell played, as long as another spell was played by an opponent after that one.\n\nRelevant Rules: 419.4.b."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Fallen Feline",
+    "faqs": [
+      {
+        "question": "When can I react to my opponent playing Fallen Feline to a battlefield? And how does naming a card work?",
+        "answer": "You can react to the play effect of Fallen Feline, before they’ve named a spell.\n\nFallen Feline’s play effect instructs its controller to name a spell. This occurs on resolution of the triggered ability. If Fallen Feline is played to a battlefield, as soon as the ability resolves, opponents cannot play spells with that name. Meaning spells by that name can not be put onto a chain. Any spells already on the chain when Fallen Feline’s ability resolves will be unaffected. However, by the time you know the chosen spell it’s too late to play that spell.\n\nNaming a card or tag has new rules with the Vendetta rules update. When naming something in this way, the overarching rule that applies to all naming is that you can’t name something that doesn’t exist in Riftbound. You can’t name the \"Locke\" tag, the \"totem\" type, nor a card named \"Lingering Tentacles,\" because none of those has been printed on cards or tokens in Riftbound.\n\nHowever, you can name a card using information that uniquely identifies it. That information could be its name, but it could just as well be something like \"the [3] spell with Flow that makes tentacles\" or \"the red Kai’Sa\" or \"Illaoi.\" As long as there is no ambiguity as to what card is being named, a player can use whatever method is clear to their opponents and teammates. You can’t name a card by saying just \"Kai’Sa\" if there are two or more cards that could be identified in that way—you won’t have named a card if that’s all you say.\n\nRelevant Rules: 761., 761.1., 761.2., 762., 762.1., 762.2."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Kayle, Multiple Empower, Disempower",
+    "faqs": [
+      {
+        "question": "If I disempower a Kayle, Justified who has been empowered 3 times, does she lose all of her empowered statuses?",
+        "answer": "No. She will lose one of her empowered statuses.\n\nFor every Riftbound card other than Kayle, empowered is a binary status. They are either empowered or not. Kayle utilizes the golden rule \"Card text supersedes rules text\" to overcome this and be able to escape the normal bounds of what the empowered status means. On Kayle, empowered isn’t a binary status but a stacking status; she can have up to 3 empowered statuses. When Kayle is disempowered, the disempower action attempts to remove the empowered status. If she only has one empowered status, great, it’s gone. If she has more than one empowered status, the disempower action will remove one of the empowered statuses from Kayle."
+      },
+      {
+        "question": "But can I activate Kayle’s empower ability even if she’s already empowered?",
+        "answer": "Yes.\n\nKayle’s empower ability can be activated any number of times. If she has less than 3 empowered statuses, she will become empowered. If she has 3 empowered statuses, the ability can still be activated but nothing will happen when the ability resolves."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Akali, Silent, Star-Crossed",
+    "faqs": [
+      {
+        "question": "What happens if my opponent plays Flash on their Akali, Silent that’s currently in combat after I play Star-Crossed targeting her?",
+        "answer": "Star-Crossed will resolve to no effect.\n\nAkali, Silent is what the rules refer to as \"untargetable\" for enemy spells and abilities when she isn’t in combat; meaning she is not a legal target for them. Enemy spells and abilities being played when she’s untargetable since they can’t choose her. If she becomes untargetable after she’s already been chosen by an effect and retains it as that effect begins to resolve, it will \"mistarget\" her. She will be unaffected by any of the spell or ability’s instructions. If an instruction chooses only her, that instruction will be ignored.\n\nRelevant Rules: 757.1., 758., 758.1."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Rebuttal, Meaning of \"Play\"",
+    "faqs": [
+      {
+        "question": "I have a Ravenbloom Student on the board and I haven’t played any spells this turn. What happens when I play Rebuttal targeting my opponent’s Stupefy and pay [A] on resolution? After everything resolves, how much will Battering Ram cost? Will my opponent’s Legion abilities be active?",
+        "answer": "Ravenbloom Student will trigger twice, Battering Ram will cost [4], and your opponent’s Legion abilities will be active.\n\nRavenbloom Student’s triggered ability checks whether a spell that you control resolves. You gained control of the Stupefy, and it resolved, so you will have triggered Ravenbloom Student’s ability. Battering Ram and Legion, on the other hand, check whether cards were finalized. Although you gained control of Stupefy, you did not finalize it; you got it after it was already finalized by your opponent. Thus, your opponent’s Legion abilities will be active, and Battering Ram will only receive a [1] Energy discount.\n\nRelevant Rules: 419.4., 419.4.a., 419.4.b."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Swain, Visionary",
+    "faqs": [
+      {
+        "question": "What happens when I conquer with Swain, Visionary, if I’ve only played a Patched Porobot and Stupefy this turn?",
+        "answer": "You will score 1 point.\n\nSwain only checks whether you’ve played a non-token unit, a non-token gear, and a spell. Checks like that do not care whether they were satisfied by multiple cards or a single card relevant to the trigger conditions."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Gangplank, Naval, Switcheroo",
+    "faqs": [
+      {
+        "question": "What happens when my opponent plays Switcheroo on their 2 [M] unit and my empowered Gangplank, Naval?",
+        "answer": "Gangplank, Naval will replace his Might being lowered with him being given +3 [M] this turn.\n\nSwap calculates the difference in Might and generates two effects: an increase, and a decrease. When a swap effect is applied to two units’ Mights, it gives those units +[M] and -[M] respective to who has the higher Might. \n\nUnder the hood, Gangplank’s replacement effect sees the event of him being given -[M] and replaces it with him being given +3 [M] this turn instead. The event of the other unit being given +[M] is unaffected by Gangplank’s replacement effect. By the time we apply the replacement effect, the difference between the two units has been calculated. In the example with the 2 [M] unit, the final Mights of the two units will be 2 [M] → 6 [M], and 6 [M] → 9 [M].\n\nThe way this works is not immediately obvious based on how the swap game action rules are written. We will clarify this in a future rules update. \n\nNote that this logic also applies to Mel, Newly Awakened and Switcheroo."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Gangplank, Naval, Blast Cone, Back Off",
+    "faqs": [
+      {
+        "question": "What happens when my empowered Gangplank, Naval is moved by my opponent’s Blast Cone’s play effect and they exhaust Blast Cone to stun Gangplank? Will he be stunned? What happens if I then play Back Off choosing my Gangplank? Will he get +3 [M] this turn?",
+        "answer": "Blast Cone will stun Gangplank. If you play Back Off choosing your stunned Gangplank, he will not receive +3 [M] this turn.\n\nBlast Cone’s triggered ability that stuns units doesn’t choose them, so Gangplank’s replacement effect can’t apply to that event. Back Off played on a stunned Gangplank does not actually perform the stun game action, because Gangplank is already stunned. It’s legal to play Back Off, but the instruction will be negated. In order for Gangplank’s replacement effect to replace an event of him being stunned, the stun game action must actually be performed. Similarly, if an effect that said \"Friendly units can’t be stunned\" were active with a friendly empowered Gangplank, Naval is on the board, a stun effect that is played choosing Gangplank wouldn’t generate an event that Gangplank could replace, because no stun game action is performed.\n\nRelevant Rules: 423.1.a.1."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Gangplank, Naval, Stupefy",
+    "faqs": [
+      {
+        "question": "What happens if I play Stupefy on my 1 [M] empowered Gangplank, Naval? Will he get +3 [M] this turn?",
+        "answer": "He will not.\n\nIn order for his replacement effect to apply, the event of him being given -[M] must occur. In the case of Stupefy played on a 1 [M] unit, no -[M] is given; it is snapshot to -0 [M]. Thus, there is no suitable event for Gangplank’s replacement effect to replace.\n\nRelevant Rules: 477.3.b."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Hidden Blade, Akali, Deadly Weapon",
+    "faqs": [
+      {
+        "question": "What happens when my opponent plays Hidden Blade targeting my Akali, Deadly Weapon in reaction to her move trigger? Will it still deal damage to the chosen unit?",
+        "answer": "It will.\n\nAkali is another case where her ability refers to information implicit to its own trigger condition, similar to Iascylla. Akali’s \"battlefield I moved to or from\" doesn’t require her to be on the board in order for us to be able to identify it, nor does it reference information about her current state. Even if she leaves the board, that information was checked when her ability triggered, and it is still available to us on resolution.\n\nRelevant Rules: 359.3.f.3."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Heimerdinger, Jace, Defender of Tomorrow, Empowered Abilities",
+    "faqs": [
+      {
+        "question": "Can I activate an empowered Heimerdinger, Inventor to ready 2 gear if my Jayce, Defender of Tomorrow legend isn’t empowered? What about if my Heimerdinger isn’t empowered?",
+        "answer": "You can activate Heimerdinger’s ability if he is empowered, regardless of the empowered status of Jayce, Defender of Tomorrow.\n\nThere is a bit of a trick here, in that there are two important details to this question relating to dependent keywords:\n\n    First is that a dependent keyword (the kind of ability that [Level][>] or [Empowered][>] are when they appear with the arrow) includes the whole of the ability, including the dependent ability. They’re all one object, so to speak. \n    Second is that a dependent keyword’s dependent ability still exists and can be referenced while it is inactive—that is, if its condition isn’t met. In this case, the condition is that the source of the ability is empowered.\n\nHeimerdinger gains all activated abilities that have the [E] symbol in their cost, and he gains the entire ability, restrictions, costs, dependent keywords and all. In effect, Defender of Tomorrow’s ability that Heimerdinger is gaining is the whole line that says:\n\n    [Empowered][>] [1], [E]: Ready 2 gear.\n\nHeimerdinger can gain this ability even if Defender of Tomorrow isn’t empowered because of that second point we made previously.\n\nThe key rule for this case is 727.1.b.1., which reads:\n\n    The Dependent Ability is present on the card for the sake of reference or evaluation until the Condition is met.\n\nThis means that the ability isn’t active and its text isn’t being processed yet, but other effects can reference or evaluate its text before the condition is met. Heimerdinger, Inventor is exactly one such effect.\n\nRelevant Rules: 727.1., 727.1.b., 727.1.b.1."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Astral Heron, Discount",
+    "faqs": [
+      {
+        "question": "What card does Astral Heron’s triggered ability discount?",
+        "answer": "It discounts the next card played (added to the chain and queued for finalization) this turn after the ability resolves.\n\nAstral Heron has received an erratum to update its wording: \"When you play your first card each turn, if I'm at a battlefield, the next card you play this turn costs [2][A][A] less.\""
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Elder Dragon, Dragon Roost",
+    "faqs": [
+      {
+        "question": "What happens when I play Temporal Breach targeting my Elder Dragon in base and pay [A][A] for Dragon Roost while playing Elder Dragon? Will it be played to base or to Dragon Roost?",
+        "answer": "You can choose which of those two locations you want to play it to.\n\nIn general, there are not many cases where we have this kind of competing instruction: one effect that tells you to play a unit to one location, and one that tells you to play it to another. That being said, when they do arise with contradictory requirements, the precedent from other areas of the rules is that the player chooses one of those requirements and ignores all others.\n\nNote that this only applies to mandatory positive requirements, ones that specify a location or method without also preventing the action from being performed to other locations or with other methods and that aren’t optional. For example, an effect like Perched Grimwyrm’s passive ability is a restriction on playing that unit to any location other than a battlefield you’ve conquered this turn. Rockfall Path’s passive ability is a restriction on playing units to Rockfall Path. If you’ve conquered only Rockfall Path this turn, you can’t play Perched Grimwyrm at all, because those two restrictions are contradictory.\n\nIn this case, the contradictory requirements don’t directly prohibit the playing of these units to other locations, so we can choose one of the contradictory requirements and ignore the rest."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Perching Grimwyrm, Dragon Roost",
+    "faqs": [
+      {
+        "question": "What happens when I play Perched Grimwyrm while I haven’t conquered Dragon Roost this turn? Can I pay [A][A] and play it to Dragon Roost? What if I’ve conquered another battlefield this turn?",
+        "answer": "You cannot.\n\nIn Riftbound, \"can’t\" beats \"can.\" Perched Grimwyrm’s effect is a \"can’t,\" as in it can’t be played to any location but to a battlefield you’ve conquered this turn. Dragon Roost’s ability tries to give the Grimwyrm permission to be played to the Roost, but that can’t overcome Perched Grimwyrm’s own restriction. If you have no ability to play Perched Grimwyrm to Dragon Roost after paying for it, you will not be able to finalize Perched Grimwyrm at all. The actions taken as part of playing Perched Grimwyrm will be undone and it will be returned to the zone it was played from.\n\nThis is true even if you’ve conquered another battlefield this turn. If you have the ability, you can play Perched Grimwyrm to that battlefield without paying the additional cost of Dragon Roost, but you can’t play it to Dragon Roost itself unless you’ve conquered it.\n\nSharp eyed readers may remember that Baron Nashor doesn’t work this way. He enters at the Baron Pit regardless of effects preventing him from being played to battlefields. The reason for this is that Baron Nashor’s passive ability generates a delayed replacement effect, the one that reads \"I enter there.\" This replacement effect replaces the event of him entering to any other location with him entering to the Baron Pit. The replacement effect gets around effects like Mageseeker Warden which limit where you can play units. However, Dragon Roost is not written as a replacement effect. It tells you where to play the dragon you’ve paid the additional cost for, but it doesn’t specify how that dragon enters the board. Therefore it is a permission on play location, but not a replacement effect.\n\nRelevant Rules: 054.2., 369.3."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Ambessa, Matriarch of War, Profiteer",
+    "faqs": [
+      {
+        "question": "Can I disempower my Ambessa, Matriarch of War with Profiteer to empower my Kayle? Do I control my own legend?",
+        "answer": "Yes, you can disempower Ambessa, Matriarch of War with Profiteer. And yes, you control your own legend.\n\nWe don’t typically consider the possibility that any player controls a legend, because control of legends cannot change, but you do indeed control your own legend."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Dragon Form, Fiora, Grand Duelist",
+    "faqs": [
+      {
+        "question": "What happens if I play Dragon Form on a unit that has -1 [M] from Stupefy applied to it? Will my Fiora, Grand Duelist trigger? Is there a moment where my unit becomes 5 [M] before the -1 [M] from Stupefy brings it down to 4 [M]?",
+        "answer": "She will not trigger.\n\nAlthough Dragon Form sets the base Might of a unit to 5 [M], it does so via layers. Layers are evaluated when the effect is applied and their evaluation includes all existing applied layer alterations. We process layers in order, starting from the Trait-Altering layer (where this base Might setting effect is applied), proceeding to the Ability-Altering layer (not part of this example), and proceeding to the Arithmetic layer (where Stupefy’s -1 [M] is applied), but this process happens instantaneously; there is no window while evaluating layers for the unit to see itself become 5 [M] and then go down to 4 [M]. As soon as the effect of Dragon Form is applied, the unit is 4 [M].\n\nAs a side note, Might is one of the traits that is managed in the Trait-Altering layer, and it is one of the copyable traits that copy effects can replace or add to."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Hostile Takeover, Temporal Breach, Banish",
+    "faqs": [
+      {
+        "question": "What happens when I play Hostile Takeover gaining control of my opponent’s ready unit, move it to base, and then play Temporal Breach choosing it? Where will the unit go?",
+        "answer": "The unit will remain in Banishment.\n\nUnits cannot be played to a base of a player other than their own controller under any circumstances. Because the owner of the unit is the one being instructed to play the unit, and the location they are being instructed to play it to is a base other than their own, it isn’t possible to play the unit. During the check legality step of finalization, the unit will be returned to banishment from the chain and all actions taken will be undone."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Renekton, Brute, Profiteer, Stupefy",
+    "faqs": [
+      {
+        "question": "My 11 Might Renekton, Brute is disempowered by my own Profiteer. What happens when my opponent plays Stupefy choosing him? Will his ability trigger? What happens if instead I activated his ability?",
+        "answer": "Renekton’s ability will not trigger in either scenario.\n\nIn order to \"become 10 or more,\" his Might would have to have previously been less than 10. \"10 or more\" is a state, and Renekton’s triggered ability checks for the event of him achieving that state. If he maintains that state, regardless of how his Might changes, he will not \"become\" that state."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Heisho, Shell of the World, Deflect Costs",
+    "faqs": [
+      {
+        "question": "What happens when I play Icathian Rain choosing a Recruit at Heisho, Shell of the World once and Irelia, Fervent in base five times? How many times do I pay for deflect?",
+        "answer": "You will not pay for deflect.\n\nWhile your spell or ability chooses a unit at Heisho, Shell of the World, you ignore deflect while paying for the spell. Ignore, in this context, means you treat deflect on the specified units as being inactive, like it’s turned off temporarily. In the case of Heisho, it doesn’t specify any units whose deflect to ignore, so you ignore all instances of deflect on units.\n\nThis only applies to the specified spell or ability. You can’t play a spell or ability choosing a unit at Heisho, and then play another one choosing a unit at another location and not at Heisho and still ignore deflect. Only while at least one target of the spell or ability is a unit located at Heisho do you ignore deflect while paying costs for that spell or ability.\n\nRelevant Rules: 766., 767."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Immortal Phoenix, Hextech Ray, Imperial Decree",
+    "faqs": [
+      {
+        "question": "What happens when I play Hextech Ray on an Elder Dragon while Imperial Decree’s delayed trigger is active and I have an Immortal Phoenix in the Trash? Can I play Immortal Phoenix from the Trash?",
+        "answer": "You can.\n\nPer the current rules, there is nothing that would stop Imperial Decree’s delayed trigger from triggering Immortal Phoenix. It is a triggered ability generated by a spell; it is attributed a kill action, and thus the spell that generated it will also be attributed the same kill action. The owner of Imperial Decree is the controller of the delayed triggered ability; the player responsible for the kill action is the one who controls the ability; and that same player is the owner of Immortal Phoenix in the Trash. Thus all three conditions for Immortal Phoenix triggering are complete, and it will trigger."
+      }
+    ],
+    "set": "VEN"
+  },
+  {
+    "name": "Ride the Wind, Vilemaw's Lair",
+    "faqs": [
+      {
+        "question": "If I play Ride the Wind targeting my unit at Vilemaw’s Lair and attempt to move them to base, what happens?",
+        "answer": "They will be readied.\n\nThis is a rules quirk that players and judges identified as a result of a small additional rule added in the Vendetta rules update. We’re going to give some clarity to this that will resolve this issue, but if you don’t understand the conversation or why it is necessary, don’t worry. This isn’t an actual change to how we’ve been interpreting and ruling cards, but smoothing out a bug.\n\nIn short, the linked instructions rules are too expansive currently on what qualifies as an \"ignored\" instruction. To clarify this definition: an ignored instruction is one that wasn’t performed as part of the execution of a spell or ability’s instructions because it mistargeted (i.e. because the targeted object wasn’t a legal target on resolution). This is a case where, for example, you play Hidden Blade choosing an enemy unit and they play Star-Crossed in reaction, returning their unit to hand. When Hidden Blade resolves, the unit isn’t on the board, so we ignore the \"Its controller draws 2.\" instruction. Alternatively, if Hidden Blade is given the Repeat keyword by the Academy and both executions target the same unit, this is the reason why the unit’s controller doesn’t draw 4 cards.\n\nAn instruction is not ignored if an ability, effect, or circumstance of the game prevents it from occurring. This could take the form of a replacement effect that replaces the event of the instruction with something else, it could take the form of an ability like Vilemaw’s Lair that says \"Units can’t move from here to base.\" or it could take the form of a game action like Buff or Ready being performed on a unit that already has the appropriate state. It could even take the form of a unit, gear, or spell no longer being in an appropriate zone as long as the instruction doesn’t target those objects. The instruction in these cases isn’t ignored, but instead negated. A negated instruction has its effects skipped, replaced, or prevented. A negated instruction will not cause any linked instructions to be ignored unless those instructions refer specifically to the action being performed.\n\nSome examples:\n\n    If a unit at a battlefield says \"I can’t be killed.\" and a player plays Hidden Blade choosing that unit, the unit’s controller will still draw 2 on resolution of Hidden Blade. (The instruction was negated and not ignored, so the linked instruction will still execute.)\n    If a unit at a battlefield is chosen by Hidden Blade and in reaction its controller plays Flash moving it to base, that unit’s controller will not draw 2 on resolution of Hidden Blade. (The instruction was ignored, so any linked instructions will be ignored.)\n    If a unit at a battlefield is chosen by Hidden Blade and in reaction its controller plays Zhonya’s Hourglass, that unit’s controller will draw 2 on resolution of Hidden Blade. (The unit is on the board and can have its information checked, and the instruction was negated and not ignored.)\n    If a unit at a battlefield has been affected by Smite previously this turn and it is chosen by Hidden Blade, that unit’s controller will not draw 2 on resolution of Hidden Blade. (Although the instruction is executed, the unit is not on the board to have its information checked. Additionally, the unit was moved to a non-board zone by an effect other than Hidden Blade and thus no longer has a controller that Hidden Blade can reference.)"
+      }
+    ],
+    "set": "VEN"
   }
 ]
