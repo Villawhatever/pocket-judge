@@ -485,7 +485,7 @@
     "faqs": [
       {
         "question": "What happens if my opponent plays Flash on their Akali, Silent that’s currently in combat after I play Star-Crossed targeting her?",
-        "answer": "Star-Crossed will resolve to no effect.\n\nAkali, Silent is what the rules refer to as \"untargetable\" for enemy spells and abilities when she isn’t in combat; meaning she is not a legal target for them. Enemy spells and abilities being played when she’s untargetable since they can’t choose her. If she becomes untargetable after she’s already been chosen by an effect and retains it as that effect begins to resolve, it will \"mistarget\" her. She will be unaffected by any of the spell or ability’s instructions. If an instruction chooses only her, that instruction will be ignored.\n\nRelevant Rules: 757.1., 758., 758.1."
+        "answer": "Akali will be unaffected by Star Crossed as it resolves.\n\nAkali, Silent is what the rules refer to as “untargetable” for enemy spells and abilities when she isn’t in combat; meaning she is not a legal target for them. Enemy spells and abilities being played when she’s untargetable can’t choose her. If she becomes untargetable after she’s already been chosen by an effect and retains it as that effect begins to resolve, it will “mistarget” her. She will be unaffected by any of the spell or ability’s instructions. If an instruction chooses only her, that instruction will be ignored.\n\nRelevant Rules: 757.1., 758., 758.1."
       }
     ],
     "set": "VEN"
@@ -505,7 +505,7 @@
     "faqs": [
       {
         "question": "What happens when I conquer with Swain, Visionary, if I’ve only played a Patched Porobot and Stupefy this turn?",
-        "answer": "You will score 1 point.\n\nSwain only checks whether you’ve played a non-token unit, a non-token gear, and a spell. Checks like that do not care whether they were satisfied by multiple cards or a single card relevant to the trigger conditions."
+        "answer": "You will score 2 points total. 1 from conquering, 1 from Swain.\n\nSwain only checks whether you’ve played a non-token unit, a non-token gear, and a spell. Checks like that do not care whether they were satisfied by multiple cards or a single card relevant to the trigger conditions."
       }
     ],
     "set": "VEN"
