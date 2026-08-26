@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core_rules/rule.dart';
 import '../firebase_options.dart';
@@ -13,12 +14,7 @@ class TrIndex {
   final int lookup;
   final bool isSubrule;
 
-  TrIndex(
-    this.number,
-    this.text,
-    this.lookup,
-    this.isSubrule,
-  );
+  TrIndex(this.number, this.text, this.lookup, this.isSubrule);
 }
 
 class TournamentRulesViewModel extends ChangeNotifier {
@@ -46,9 +42,11 @@ class TournamentRulesViewModel extends ChangeNotifier {
 
     search = search.toLowerCase();
     _filteredRules = _rules
-        .where((r) =>
-            r.text.toLowerCase().contains(search!) ||
-            r.number.toLowerCase().contains(search))
+        .where(
+          (r) =>
+              r.text.toLowerCase().contains(search!) ||
+              r.number.toLowerCase().contains(search),
+        )
         .toList();
     notifyListeners();
   }
@@ -71,11 +69,14 @@ class TournamentRulesViewModel extends ChangeNotifier {
         if (num < 702) {
           continue;
         }
-        _indexMap.add(TrIndex(
+        _indexMap.add(
+          TrIndex(
             ruleFragments.join('.'),
             _rules[i].text.split(RegExp(r'[:\[]')).first,
             _reverseLookup[_rules[i].number]!,
-            ruleFragments.length == 2));
+            ruleFragments.length == 2,
+          ),
+        );
       }
     }
 
@@ -87,14 +88,11 @@ class TournamentRulesViewModel extends ChangeNotifier {
     BackgroundIsolateBinaryMessenger.ensureInitialized(token);
     final List<RuleModel> rules = [];
 
-    BackgroundIsolateBinaryMessenger.ensureInitialized(token);
-
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
-    final data =
-        await FirebaseFirestore.instance.collection('tournament_rules').get();
+    final data = await _cacheAndCheckForNew(token);
 
     // TODO: Sort this on parser side so firestore has things ordered?
     for (final item in data.docs) {
@@ -104,5 +102,60 @@ class TournamentRulesViewModel extends ChangeNotifier {
     rules.sort((a, b) => sortRules(a.number, b.number));
 
     return rules;
+  }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> _cacheAndCheckForNew(
+    RootIsolateToken token,
+  ) async {
+    BackgroundIsolateBinaryMessenger.ensureInitialized(token);
+    final firestore = FirebaseFirestore.instance;
+    final prefs = await SharedPreferences.getInstance();
+
+    QuerySnapshot<Map<String, dynamic>> cachedSnapshot;
+    try {
+      cachedSnapshot = await firestore
+          .collection('tournament_rules')
+          .get(const GetOptions(source: Source.cache));
+    } catch (e) {
+      return _fetchFromServerAndSave(firestore, prefs, token);
+    }
+
+    try {
+      DocumentSnapshot metadataDoc = await firestore
+          .collection('metadata')
+          .doc('updates')
+          .get(const GetOptions(source: Source.server));
+
+      if (metadataDoc.exists) {
+        final serverTimestamp =
+            (metadataDoc.data() as Map)['tr_last_updated'] as int;
+        final localTimestamp = prefs.getInt('tr_last_updated') ?? 0;
+
+        if (serverTimestamp > localTimestamp) {
+          return _fetchFromServerAndSave(firestore, prefs, token);
+        }
+      }
+    } catch (e) {
+      // Fallback to cached data if server check fails
+    }
+
+    return cachedSnapshot;
+  }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> _fetchFromServerAndSave(
+    FirebaseFirestore firestore,
+    SharedPreferences prefs,
+    RootIsolateToken token,
+  ) async {
+    QuerySnapshot<Map<String, dynamic>> serverSnapshot = await firestore
+        .collection('tournament_rules')
+        .get(const GetOptions(source: Source.server));
+
+    await prefs.setInt(
+      'tr_last_updated',
+      DateTime.now().millisecondsSinceEpoch,
+    );
+
+    return serverSnapshot;
   }
 }

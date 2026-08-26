@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../firebase_options.dart';
 import '../utils/sorting.dart';
@@ -29,9 +30,11 @@ class CoreRulesViewModel extends ChangeNotifier {
     }
     search = search.toLowerCase();
     _filteredRules = _rules
-        .where((r) =>
-            r.text.toLowerCase().contains(search!) ||
-            r.number.toLowerCase().contains(search))
+        .where(
+          (r) =>
+              r.text.toLowerCase().contains(search!) ||
+              r.number.toLowerCase().contains(search),
+        )
         .toList();
     notifyListeners();
   }
@@ -43,7 +46,6 @@ class CoreRulesViewModel extends ChangeNotifier {
 
     RootIsolateToken token = RootIsolateToken.instance!;
     _rules = await compute(_fetchRules, token);
-
     for (var i = 0; i < _rules.length; i++) {
       _reverseLookup[_rules[i].number] = i;
     }
@@ -60,8 +62,7 @@ class CoreRulesViewModel extends ChangeNotifier {
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
-    final data =
-        await FirebaseFirestore.instance.collection('core_rules').get();
+    final data = await _cacheAndCheckForNew(token);
 
     for (final item in data.docs) {
       final rule = RuleModel.fromJson(item.data());
@@ -71,5 +72,59 @@ class CoreRulesViewModel extends ChangeNotifier {
     rules.sort((a, b) => sortRules(a.number, b.number));
 
     return rules;
+  }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> _cacheAndCheckForNew(
+    RootIsolateToken token,
+  ) async {
+    final firestore = FirebaseFirestore.instance;
+    final prefs = await SharedPreferences.getInstance();
+
+    QuerySnapshot<Map<String, dynamic>> cachedSnapshot;
+    try {
+      cachedSnapshot = await firestore
+          .collection('core_rules')
+          .get(const GetOptions(source: Source.cache));
+    } catch (e) {
+      return _fetchFromServerAndSave(firestore, prefs, token);
+    }
+
+    try {
+      DocumentSnapshot metadataDoc = await firestore
+          .collection('metadata')
+          .doc('updates')
+          .get(const GetOptions(source: Source.server));
+
+      if (metadataDoc.exists) {
+        final serverTimestamp =
+            (metadataDoc.data() as Map)['cr_last_updated'] as int;
+        final localTimestamp = prefs.getInt('cr_last_updated') ?? 0;
+
+        if (serverTimestamp > localTimestamp) {
+          return _fetchFromServerAndSave(firestore, prefs, token);
+        }
+      }
+    } catch (e) {
+      // Fallback to cached data if server check fails
+    }
+
+    return cachedSnapshot;
+  }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> _fetchFromServerAndSave(
+    FirebaseFirestore firestore,
+    SharedPreferences prefs,
+    RootIsolateToken token,
+  ) async {
+    QuerySnapshot<Map<String, dynamic>> serverSnapshot = await firestore
+        .collection('core_rules')
+        .get(const GetOptions(source: Source.server));
+
+    await prefs.setInt(
+      'cr_last_updated',
+      DateTime.now().millisecondsSinceEpoch,
+    );
+
+    return serverSnapshot;
   }
 }
