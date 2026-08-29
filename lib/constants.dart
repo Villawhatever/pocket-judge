@@ -25,6 +25,7 @@ final Map<String, Color> _abilityColors = createMultiKeyMap({
     'Action',
     'Ambush',
     'Buff',
+    'Deploy',
     'Flow',
     'Hidden',
     'Hunt',
@@ -33,8 +34,9 @@ final Map<String, Color> _abilityColors = createMultiKeyMap({
     'Quick-Draw',
     'Reaction',
     'Repeat',
+    'Show Off',
   ]: greenish,
-  ['Assault', 'Backline', 'Shield', 'Tank']: reddish,
+  ['Assault', 'Backline', 'Disarm', 'Shield', 'Tank']: reddish,
   [
     'Add',
     'Burn',
