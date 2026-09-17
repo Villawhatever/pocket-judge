@@ -43,7 +43,7 @@ class RuleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String seeRulePattern =
-        r'See (?:rule )?(\d+(?:\.?[\w\d]\.?)+).+?(?= for)|\[.+?\]';
+        r'See (?:rule )?(\d+(?:\.?[\w\d]\.?)+).+?(?= for )?|\[.+?\]';
     final RegExp seeRuleRegex = RegExp(
       seeRulePattern,
       multiLine: true,
