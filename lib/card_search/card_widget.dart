@@ -1,9 +1,9 @@
 import 'dart:developer' as dev;
-import 'dart:typed_data';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:pasteboard/pasteboard.dart';
 
@@ -80,20 +80,16 @@ class _CardWidgetState extends State<CardWidget> {
     }
   }
 
-  String _fixLegality(List<String> legalities) {
-    return legalities
-        .map(
-          (x) => x
-              .split('_')
-              .map((word) {
-                if (word.isEmpty) {
-                  return '';
-                }
-                return word[0].toUpperCase() + word.substring(1);
-              })
-              .join(' '),
-        )
-        .join(', ');
+  String _toNormalCase(String str) {
+    return str
+        .split('_')
+        .map((word) {
+          if (word.isEmpty) {
+            return '';
+          }
+          return word[0].toUpperCase() + word.substring(1);
+        })
+        .join(' ');
   }
 
   @override
@@ -106,6 +102,17 @@ class _CardWidgetState extends State<CardWidget> {
       prettifiedEffect = formatCardText(widget.model.text.effect!, context);
     }
 
+    // TODO: Temp silliness to make sure a card isn't listed as banned before it goes out.
+    if (['Stacked Deck', 'Ekko, Recurrent'].contains(widget.model.name)) {
+      if (DateTime.now().isBefore(DateTime.parse('2026-09-18'))) {
+        widget.model.legalities['constructed'] = 'legal';
+        widget.model.legalities['2v2_constructed'] = 'legal';
+      }
+    }
+    final copiableCardText =
+        '${relevantText.isNotEmpty ? '**Ability**\n$relevantText' : ''}'
+        '${prettifiedEffect.isNotEmpty ? '\n\n**Effect**\n${widget.model.text.effect}' : ''}';
+
     List<GestureDetector> getImages() {
       if (widget.model.images?.isEmpty ?? true) {
         return [];
@@ -116,7 +123,10 @@ class _CardWidgetState extends State<CardWidget> {
       for (final image in imageData) {
         images.add(
           GestureDetector(
-            onLongPress: () => copyImage(image.imgUrl!),
+            onLongPress: () {
+              copyImage(image.imgUrl!);
+              HapticFeedback.vibrate();
+            },
             child: CachedNetworkImage(
               imageUrl: image.imgUrl!,
               placeholder: (context, url) => CircularProgressIndicator(
@@ -192,6 +202,14 @@ class _CardWidgetState extends State<CardWidget> {
       ];
     }
 
+    Color getLegalityColor(String legality) {
+      return switch (legality) {
+        'legal' => greenish,
+        'banned' => reddish,
+        _ => context.colorScheme.primary,
+      };
+    }
+
     return Expansible(
       headerBuilder: (context, animation) => ExpansibleHeader(
         title: widget.model.name,
@@ -209,17 +227,6 @@ class _CardWidgetState extends State<CardWidget> {
             mainAxisSize: MainAxisSize.min,
             children: [
               ...buildCarousel(),
-              if (widget.model.legalities?.isNotEmpty ?? false)
-                Center(
-                  child: Container(
-                    padding: EdgeInsetsGeometry.fromLTRB(12, 5, 12, 5),
-                    color: reddish,
-                    child: Text(
-                      'This card is banned in ${_fixLegality(widget.model.legalities!)}',
-                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)
-                    ),
-                  ),
-                ),
               Table(
                 children: [
                   TableRow(
@@ -271,29 +278,70 @@ class _CardWidgetState extends State<CardWidget> {
                   ),
                 ],
               ),
-              buildCardInfo(
-                'Ability',
-                RichText(
-                  text: TextSpan(
-                    style: context.textTheme.bodyMedium,
-                    children: prettifiedAbility,
-                  ),
-                ),
-                context,
-              ),
-              if (prettifiedEffect.isNotEmpty)
-                buildCardInfo(
-                  'Effect',
+              GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onLongPress: () {
+                  Clipboard.setData(ClipboardData(text: copiableCardText));
+                  HapticFeedback.vibrate();
+                },
+                child: buildCardInfo(
+                  'Ability',
                   RichText(
                     text: TextSpan(
                       style: context.textTheme.bodyMedium,
-                      children: prettifiedEffect,
+                      children: prettifiedAbility,
                     ),
                   ),
                   context,
                 ),
+              ),
+              if (prettifiedEffect.isNotEmpty)
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onLongPress: () {
+                    Clipboard.setData(ClipboardData(text: copiableCardText));
+                    HapticFeedback.vibrate();
+                  },
+                  child: buildCardInfo(
+                    'Effect',
+                    RichText(
+                      text: TextSpan(
+                        style: context.textTheme.bodyMedium,
+                        children: prettifiedEffect,
+                      ),
+                    ),
+                    context,
+                  ),
+                ),
               if (widget.model.mightBonus?.isNotEmpty ?? false)
                 buildCardInfo('Might Bonus', widget.model.mightBonus, context),
+              Text(
+                'Legalities',
+                style: context.textTheme.bodyMedium!.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              for (var item in widget.model.legalities.entries)
+                Text.rich(
+                  TextSpan(
+                    text: (item.value as String)
+                        .replaceAll('_', ' ')
+                        .toUpperCase(),
+                    style: TextStyle(
+                      color: getLegalityColor(item.value),
+                      fontWeight: FontWeight.bold,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: ' in ${_toNormalCase(item.key)}.',
+                        style: TextStyle(
+                          color: context.colorScheme.primary,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
             ],
           ),
         );

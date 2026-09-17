@@ -46,6 +46,7 @@ Future _setupIsar() async {
 
   final localFile = File('${docDir.path}/pocket-judge.isar');
   final data = await rootBundle.load(isarDbAsset);
+  // TODO: Rework this to only occur when necessary
   await localFile.writeAsBytes(
     data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
   );

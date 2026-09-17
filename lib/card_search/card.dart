@@ -1,3 +1,6 @@
+import 'dart:collection';
+import 'dart:convert';
+
 import 'package:isar_community/isar.dart';
 
 import '../utils/hashing.dart';
@@ -32,7 +35,7 @@ class CardModel {
   List<ImageData>? images;
   String? mightBonus;
   late bool hasErrata;
-  List<String>? legalities;
+  Legalities legalities = Legalities();
 
   CardModel({
     required this.id,
@@ -50,7 +53,7 @@ class CardModel {
     required this.metadata,
     this.mightBonus,
     this.hasErrata = false,
-    this.legalities,
+    required this.legalities,
   });
 
   CardModel.fromJson(Map<String, dynamic> json) {
@@ -95,6 +98,7 @@ class CardModel {
     data['orientation'] = orientation;
     data['metadata'] = metadata.toJson();
     data['might_bonus'] = mightBonus;
+    data['legalities'] = legalities;
     return data;
   }
 
@@ -257,4 +261,39 @@ class Metadata {
     data['signature'] = signature;
     return data;
   }
+}
+
+@Embedded(inheritance: false, ignore: {'keys'})
+class Legalities with MapMixin<String, dynamic> {
+  @ignore
+  Map<String, dynamic> _map = {};
+
+  String get json => jsonEncode(_map);
+
+  set json(String value) => _map = jsonDecode(value);
+
+  @override
+  dynamic operator [](Object? key) => _map[key];
+
+  @override
+  void operator []=(String key, value) => _map[key] = value;
+
+  @override
+  void clear() => _map.clear();
+
+  @override
+  Iterable<String> get keys => _map.keys;
+
+  @override
+  dynamic remove(Object? key) => _map.remove(key);
+
+  Legalities();
+
+  Legalities.fromJson(this._map);
+
+  @ignore
+  List<String> get banned =>
+      _map.keys.where((k) => _map[k] == 'banned').toList();
+
+  Map<String, dynamic> toJson() => _map;
 }
