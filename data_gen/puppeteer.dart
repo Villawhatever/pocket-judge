@@ -212,6 +212,11 @@ Future<List<CardModel>> scrapeCardGallery() async {
     }''');
       closeButton.click();
 
+      // Seems like a sane assumption nothing will be pre-banned. I hope.
+      final legalities = Legalities();
+      legalities['constructed'] = 'legal';
+      legalities['2v2_constructed'] = 'legal';
+
       cards.add(
         CardModel(
           id: Uuid().v4(),
@@ -242,6 +247,7 @@ Future<List<CardModel>> scrapeCardGallery() async {
             imageUrl: imgUrl,
           ),
           mightBonus: cardAttributes.tryGet('Might Bonus'),
+          legalities: legalities,
         ),
       );
     }

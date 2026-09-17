@@ -9,6 +9,7 @@ import 'package:isar_community/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pocket_judge/card_search/card.dart' hide Set;
 import 'package:pocket_judge/errata/erratum.dart';
+import 'package:pocket_judge/utils/extensions/json_extensions.dart';
 import 'package:pocket_judge/utils/extensions/list_extensions.dart';
 
 void main() async {
@@ -30,6 +31,8 @@ void main() async {
     await isar.cardModels.putAll(errata);
   });
 
+  await _setDefaultLegalities(isar);
+
   final banned = await _addBans(isar);
 
   await isar.writeTxn(() async {
@@ -40,42 +43,75 @@ void main() async {
   return;
 }
 
+Future _setDefaultLegalities(Isar isar) async {
+  final cards = await isar.cardModels.where().findAll();
+
+  for (final card in cards) {
+    card.legalities.clear();
+    card.legalities['constructed'] = 'legal';
+    card.legalities['2v2_constructed'] = 'legal';
+  }
+
+  await isar.writeTxn(() async {
+    await isar.cardModels.putAll(cards);
+  });
+}
+
 Future<List<CardModel>> _addBans(Isar isar) async {
   final Map<String, List<String>> bans = {
-    "constructed": [
-      "Draven, Vanquisher",
-      "Called Shot",
-      "Fight or Flight",
-      "Scrapheap",
-      "Dreaming Tree",
-      "Obelisk of Power",
-      "Reaver's Row",
-      "Stealthy Pursuer",
-      "Arena's Greatest",
-      "Aspirant's Climb",
+    'constructed': [
+      'Draven, Vanquisher',
+      'Called Shot',
+      'Fight or Flight',
+      'Scrapheap',
+      'The Dreaming Tree',
+      'Obelisk of Power',
+      'Reaver\'s Row',
+      'Stealthy Pursuer',
+      'The Arena\'s Greatest',
+      'Aspirant\'s Climb',
+      'Stacked Deck',
+      'Ekko, Recurrent',
     ],
-    "2v2_constructed": ["Master Yi, Wuju Bladesman, Starter"],
+    '2v2_constructed': [
+      'Draven, Vanquisher',
+      'Called Shot',
+      'Fight or Flight',
+      'Scrapheap',
+      'The Dreaming Tree',
+      'Obelisk of Power',
+      'Reaver\'s Row',
+      'Stealthy Pursuer',
+      'The Arena\'s Greatest',
+      'Aspirant\'s Climb',
+      'Master Yi, Wuju Bladesman, Starter',
+      'Stacked Deck',
+      'Ekko, Recurrent',
+    ],
   };
 
-  final List<CardModel> modifiedCards = [];
+  final Map<String, CardModel> modifiedCards = {};
+
   for (final format in bans.keys) {
-    for (final banned in bans[format]!) {
-      final card = await isar.cardModels
-          .filter()
-          .nameEndsWith(banned, caseSensitive: false)
-          .findFirst();
+    for (final cardName in bans[format]!) {
+      var card = modifiedCards.tryGet(cardName);
+      if (card == null) {
+        card = await isar.cardModels
+            .filter()
+            .nameEqualTo(cardName, caseSensitive: false)
+            .findFirst();
+        modifiedCards[cardName] = card;
+      }
 
       try {
-        card!.legalities = List.empty(growable: true);
-        card.legalities!.add(format);
-        modifiedCards.add(card);
+        card!.legalities[format] = 'banned';
       } catch (e) {
-        dev.log('Error on card $banned: $e');
-        stdout.writeln('Error on card $banned: $e');
+        dev.log('Error on card $cardName: $e');
+        stdout.writeln('Error on card $cardName: $e');
       }
     }
   }
-  return modifiedCards;
+  return modifiedCards.values.toList();
 }
 
 Future<List<CardModel>> _addErrata(Isar isar) async {

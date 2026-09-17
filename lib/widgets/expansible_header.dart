@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pocket_judge/constants.dart';
 import 'package:pocket_judge/widgets/backer.dart';
 
+import '../card_search/card.dart' hide Text;
 import '../utils/extensions/context_extensions.dart';
 
 class ExpansibleHeader extends StatelessWidget {
@@ -11,7 +12,7 @@ class ExpansibleHeader extends StatelessWidget {
     required this.context,
     required this.animation,
     this.hasErrata = false,
-    this.legalities = const [],
+    this.legalities,
     required this.expansibleController,
   });
 
@@ -19,7 +20,7 @@ class ExpansibleHeader extends StatelessWidget {
   final BuildContext context;
   final Animation<double> animation;
   final bool hasErrata;
-  final List<String>? legalities;
+  final Legalities? legalities;
   final ExpansibleController expansibleController;
 
   void _toggleExpand() {
@@ -58,7 +59,7 @@ class ExpansibleHeader extends StatelessWidget {
                   backgroundColor: yellowish,
                 ),
               ),
-            if (legalities?.isNotEmpty ?? false)
+            if (legalities?.banned.isNotEmpty ?? false)
               Padding(
                 padding: const EdgeInsets.only(left: 3, right: 3),
                 child: Backer(
