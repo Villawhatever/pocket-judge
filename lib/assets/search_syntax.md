@@ -28,5 +28,11 @@
 ***
 `s` or `set`: Finds cards in a given set. This should be the set code (eg `VEN`), not the set name.
 ***
+`is` or `has`: Finds cards that have some non-card thing you might care about. This currently includes `errata` (or `erratum`, `err`, `e`) and `banned` (or `ban`, `bans`, `b`).  
+**Example**: `has:b` finds all cards banned in any format. `is:err` finds all cards with errata.
+***
+`f` or `format`: Finds cards legal in the provided format. `1v1` (or `match`) and `2v2` (or `magma`) are currently supported.  
+**Example**: `f:1v1` finds all cards that are legal in 1v1 Constructed play. `format:magma` finds all cards that are legal in 2v2 (Magma Chamber) Constructed play.
+***
 You can combine any of the above, and they will be `AND`ed together.  
 **Examples**: `m:3 draven` will find cards where the name contains 'Draven' AND its Might is exactly 3. `d:body d:chaos` will find all cards that have both Body AND Chaos domains.

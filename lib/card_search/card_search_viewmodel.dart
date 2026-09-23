@@ -85,13 +85,17 @@ class SearchViewModel extends ChangeNotifier {
         case 'n' || 'name':
           _matchName(value);
           break;
+        case 'f' || 'format':
+          _matchFormat(value);
+        case 'is' || 'has':
+          _matchNonCardProperty(value);
         case _:
           _matchName(search);
           break;
       }
     }
-
     _filteredCards = _iterable.toList();
+    _filteredCards.sort((a, b) => a.name.compareTo(b.name));
     notifyListeners();
   }
 
@@ -161,6 +165,31 @@ class SearchViewModel extends ChangeNotifier {
       );
       return relevantText.contains(value);
     });
+  }
+
+  void _matchNonCardProperty(String value) {
+    if (['banned', 'ban', 'bans', 'b'].contains(value.toLowerCase())) {
+      _iterable = _iterable.where(
+        (c) => c.legalities.values.any((l) => l == 'banned'),
+      );
+    }
+    if (['erratum', 'errata', 'err', 'e'].contains(value.toLowerCase())) {
+      _iterable = _iterable.where((c) => c.hasErrata);
+    }
+  }
+
+  void _matchFormat(String value) {
+    String modifiedValue = '';
+    if (['1v1', 'match'].contains(value.toLowerCase())) {
+      modifiedValue = 'constructed';
+    }
+    if (['2v2', 'magma', 'magmachamber'].contains(value.toLowerCase())) {
+      modifiedValue = '2v2_constructed';
+    }
+    _iterable = _iterable.where(
+      (c) =>
+          !['not_legal', 'banned'].contains(c.legalities.tryGet(modifiedValue)),
+    );
   }
 
   Future load() async {
