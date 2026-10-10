@@ -65,6 +65,7 @@ dependencies:
   uuid: ^4.5.3
   pasteboard: ^0.5.0
   flutter_cache_manager: ^3.4.1
+  petitparser: ^7.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
