@@ -1,6 +1,3 @@
-import 'dart:collection';
-import 'dart:convert';
-
 import 'package:isar_community/isar.dart';
 
 import '../utils/hashing.dart';
@@ -56,6 +53,8 @@ class CardModel {
     required this.legalities,
   });
 
+  CardModel.test();
+
   CardModel.fromJson(Map<String, dynamic> json) {
     List<ImageData> imageList = [];
 
@@ -104,6 +103,17 @@ class CardModel {
 
   @override
   String toString() => name;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CardModel &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          name == other.name;
+
+  @override
+  int get hashCode => isarId;
 }
 
 @embedded
@@ -263,37 +273,31 @@ class Metadata {
   }
 }
 
-@Embedded(inheritance: false, ignore: {'keys'})
-class Legalities with MapMixin<String, dynamic> {
-  @ignore
-  Map<String, dynamic> _map = {};
+@embedded
+class Legalities {
+  late String constructed;
+  late String constructed_2v2;
 
-  String get json => jsonEncode(_map);
-
-  set json(String value) => _map = jsonDecode(value);
-
-  @override
-  dynamic operator [](Object? key) => _map[key];
-
-  @override
-  void operator []=(String key, value) => _map[key] = value;
-
-  @override
-  void clear() => _map.clear();
-
-  @override
-  Iterable<String> get keys => _map.keys;
-
-  @override
-  dynamic remove(Object? key) => _map.remove(key);
-
-  Legalities();
-
-  Legalities.fromJson(this._map);
+  Legalities() : constructed = 'not_legal', constructed_2v2 = 'not_legal';
 
   @ignore
-  List<String> get banned =>
-      _map.keys.where((k) => _map[k] == 'banned').toList();
+  bool get banned => ([constructed_2v2, constructed].any((x) => x == 'banned'));
 
-  Map<String, dynamic> toJson() => _map;
+  @ignore
+  List<(String format, String legality)> get formats {
+    return [('constructed', constructed), ('2v2_constructed', constructed_2v2)];
+  }
+
+  Legalities.fromJson(Map<String, dynamic> json) {
+    constructed = json['constructed'];
+    constructed_2v2 = json['2v2_constructed'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['constructed'] = constructed;
+    data['2v2_constructed'] = constructed_2v2;
+
+    return data;
+  }
 }

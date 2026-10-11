@@ -76,6 +76,8 @@ dev_dependencies:
     sdk: flutter
   isar_community_generator: *isar_version
   build_runner: ^2.15.0
+  path_provider_platform_interface: ^2.1.3
+  plugin_platform_interface: ^2.1.8
 
 
 flutter_launcher_icons:

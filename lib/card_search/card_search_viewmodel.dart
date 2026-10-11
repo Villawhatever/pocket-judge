@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:petitparser/core.dart';
 import 'package:pocket_judge/card_search/parsing/ast_to_isar_query.dart';
 import 'package:pocket_judge/card_search/parsing/parser.dart';
+
 import 'card.dart';
 
 class SearchViewModel extends ChangeNotifier {
@@ -14,11 +15,11 @@ class SearchViewModel extends ChangeNotifier {
   List<CardModel> get cards => _filteredCards;
   late String _searchSyntax = '';
   late Isar isar;
-
+  late final Future initFuture;
   String get searchSyntax => _searchSyntax;
 
   SearchViewModel() {
-    _initialize();
+    initFuture = _initialize();
   }
 
   Future<void> _initialize() async {
@@ -36,7 +37,7 @@ class SearchViewModel extends ChangeNotifier {
     _filteredCards = [];
   }
 
-  void search(String? search) async {
+  Future search(String? search) async {
     if (search == null || search.isEmpty) {
       _filteredCards = [];
       notifyListeners();

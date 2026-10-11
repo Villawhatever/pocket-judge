@@ -59,7 +59,7 @@ class ExpansibleHeader extends StatelessWidget {
                   backgroundColor: yellowish,
                 ),
               ),
-            if (legalities?.banned.isNotEmpty ?? false)
+            if (legalities?.banned ?? false)
               Padding(
                 padding: const EdgeInsets.only(left: 3, right: 3),
                 child: Backer(

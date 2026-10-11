@@ -47,9 +47,8 @@ Future _setDefaultLegalities(Isar isar) async {
   final cards = await isar.cardModels.where().findAll();
 
   for (final card in cards) {
-    card.legalities.clear();
-    card.legalities['constructed'] = 'legal';
-    card.legalities['2v2_constructed'] = 'legal';
+    card.legalities.constructed = 'legal';
+    card.legalities.constructed_2v2 = 'legal';
   }
 
   await isar.writeTxn(() async {

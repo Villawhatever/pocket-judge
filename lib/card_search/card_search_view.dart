@@ -48,9 +48,9 @@ class _CardSearchViewState extends State<CardSearchView> {
   Widget build(BuildContext context) {
     _viewModel = Provider.of<SearchViewModel>(context, listen: true);
 
-    clearSearch() {
+    Future clearSearch() async {
       _textController.clear();
-      _viewModel.search(null);
+      await _viewModel.search(null);
     }
 
     // this is janky as hell and *cannot* be the correct way to handle this?

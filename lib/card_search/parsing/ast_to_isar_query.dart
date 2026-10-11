@@ -1,5 +1,6 @@
 import 'package:isar_community/isar.dart';
 
+import '../../constants.dart';
 import 'ast_node.dart';
 
 class IsarQueryBuilder {
@@ -28,12 +29,30 @@ class IsarQueryBuilder {
     }
 
     if (node is PropertyNode) {
-      final valueText = _extractValue(node.value);
-      return FilterCondition.equalTo(
-        property: node.propertyName,
-        value: valueText,
-        caseSensitive: false,
-      );
+      final value = _extractValue(node.value) as String;
+      FilterOperation? filterCondition = switch (node.propertyName) {
+        'name' => FilterCondition.contains(
+          property: node.propertyName,
+          value: value,
+          caseSensitive: false,
+        ),
+        'watcher' => ObjectFilter(
+          property: 'text',
+          filter: FilterCondition.contains(
+            property: 'plain',
+            value: value,
+            caseSensitive: false,
+          ),
+        ),
+        'has' || 'is' => _handleNonCardProperty(value),
+        'format' => _handleFormatQuery(value),
+        _ => FilterCondition.contains(
+          property: node.propertyName,
+          value: value,
+          caseSensitive: false,
+        ),
+      };
+      return filterCondition;
     }
 
     if (node is AttributeNode) {
@@ -41,6 +60,7 @@ class IsarQueryBuilder {
       final rawValue = _extractValue(node.value);
       return _handleAttributeNode(property, node.operator, rawValue);
     }
+
     if (node is ComparisonNode) {
       final property = node.propertyName;
       final rawValue = _extractValue(node.value);
@@ -159,25 +179,50 @@ class IsarQueryBuilder {
   }
 
   static List<String> _handleDomainsQuery(String value) {
-    final List<String> domains = [];
-    if (_domains.values.contains(value)) {
-      domains.add(value);
+    final List<String> returnableDomains = [];
+    if (domains.values.contains(value)) {
+      returnableDomains.add(value);
     } else {
       for (final shorthand in value.split('')) {
-        if (_domains.keys.contains(shorthand)) {
-          domains.add(_domains[shorthand]!);
+        if (domains.keys.contains(shorthand)) {
+          returnableDomains.add(domains[shorthand]!);
         }
       }
     }
-    return domains;
+    return returnableDomains;
   }
 
-  static final Map<String, String> _domains = {
-    'r': 'fury',
-    'g': 'calm',
-    'b': 'mind',
-    'o': 'body',
-    'p': 'chaos',
-    'y': 'order',
-  };
+  static FilterOperation? _handleFormatQuery(String value) {
+    if (formats.keys.contains(value)) {
+      return ObjectFilter(
+        property: 'legalities',
+        filter: FilterCondition.equalTo(
+          property: formats[value]!,
+          value: 'legal',
+        ),
+      );
+    } else {
+      return ObjectFilter(
+        property: 'legalities',
+        filter: FilterCondition.equalTo(property: value, value: 'legal'),
+      );
+    }
+  }
+
+  static FilterOperation? _handleNonCardProperty(String value) {
+    if (['banned', 'ban', 'bans', 'b'].contains(value.toLowerCase())) {
+      return ObjectFilter(
+        property: 'legalities',
+        filter: FilterGroup.or([
+          ...formats.values.map(
+            (fmt) => FilterCondition.equalTo(property: fmt, value: 'banned'),
+          ),
+        ]),
+      );
+    }
+    if (['erratum', 'errata', 'err', 'e'].contains(value.toLowerCase())) {
+      return FilterCondition.equalTo(property: 'hasErrata', value: true);
+    }
+    return null;
+  }
 }
