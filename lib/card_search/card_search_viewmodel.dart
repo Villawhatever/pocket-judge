@@ -9,11 +9,12 @@ import 'package:pocket_judge/card_search/parsing/parser.dart';
 import 'card.dart';
 
 class SearchViewModel extends ChangeNotifier {
-  List<CardModel> _filteredCards = [];
+  List<CardModel>? _filteredCards;
   Iterable<CardModel> _iterable = [];
 
-  List<CardModel> get cards => _filteredCards;
+  List<CardModel>? get cards => _filteredCards;
   late String _searchSyntax = '';
+  late String searchString = '';
   late Isar isar;
   late final Future initFuture;
   String get searchSyntax => _searchSyntax;
@@ -40,6 +41,7 @@ class SearchViewModel extends ChangeNotifier {
   Future search(String? search) async {
     if (search == null || search.isEmpty) {
       _filteredCards = [];
+      searchString = '';
       notifyListeners();
       return;
     }
@@ -51,8 +53,9 @@ class SearchViewModel extends ChangeNotifier {
     _iterable = await query.findAll();
 
     _filteredCards = _iterable.toList();
-    _filteredCards.sort((a, b) => a.name.compareTo(b.name));
+    _filteredCards!.sort((a, b) => a.name.compareTo(b.name));
 
+    searchString = search;
     notifyListeners();
   }
 

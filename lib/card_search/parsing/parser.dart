@@ -50,7 +50,7 @@ class SearchParserDefinition extends GrammarDefinition {
 
   Parser<AstNode> fieldScoped() =>
       (ref0(identifier).map(convertShorthandToFullPropertyName) &
-              char(':') &
+              char(':').or(char('=')) &
               ref0(primary))
           .map<AstNode>((each) {
             return PropertyNode(each[0] as String, each[2] as AstNode);

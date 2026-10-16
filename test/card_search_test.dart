@@ -112,7 +112,7 @@ void main() {
       test('input \'$input\' expects $expected', () async {
         await vm.search(input);
         vm.cards.should.containAll(expected);
-        vm.cards.length.should.be(expected.length);
+        vm.cards!.length.should.be(expected.length);
       });
     }
   });
@@ -166,7 +166,7 @@ void main() {
         test('input \'$input\' expects $expected', () async {
           await vm.search(input);
           vm.cards.should.containAll(expected);
-          vm.cards.length.should.be(expected.length);
+          vm.cards!.length.should.be(expected.length);
         });
       }
     });
@@ -200,7 +200,7 @@ void main() {
         test('input \'$input\' expects $expected', () async {
           await vm.search(input);
           vm.cards.should.containAll(expected);
-          vm.cards.length.should.be(expected.length);
+          vm.cards!.length.should.be(expected.length);
         });
       }
     });
@@ -261,7 +261,7 @@ void main() {
         test('input \'$input\' expects $expected', () async {
           await vm.search(input);
           vm.cards.should.containAll(expected);
-          vm.cards.length.should.be(expected.length);
+          vm.cards!.length.should.be(expected.length);
         });
       }
     });
@@ -286,7 +286,7 @@ void main() {
         test('input \'$input\' expects $expected', () async {
           await vm.search(input);
           vm.cards.should.containAll(expected);
-          vm.cards.length.should.be(expected.length);
+          vm.cards!.length.should.be(expected.length);
         });
       }
     });
@@ -311,7 +311,7 @@ void main() {
         test('input \'$input\' expects $expected', () async {
           await vm.search(input);
           vm.cards.should.containAll(expected);
-          vm.cards.length.should.be(expected.length);
+          vm.cards!.length.should.be(expected.length);
         });
       }
     });
@@ -363,7 +363,7 @@ void main() {
       test('input \'$input\' expects $expected', () async {
         await vm.search(input);
         vm.cards.should.containAll(expected);
-        vm.cards.length.should.be(expected.length);
+        vm.cards!.length.should.be(expected.length);
       });
     }
   });
@@ -401,7 +401,7 @@ void main() {
       test('input \'$input\' expects $expected', () async {
         await vm.search(input);
         vm.cards.should.containAll(expected);
-        vm.cards.length.should.be(expected.length);
+        vm.cards!.length.should.be(expected.length);
       });
     }
   });
@@ -437,7 +437,7 @@ void main() {
       test('input \'$input\' expects $expected', () async {
         await vm.search(input);
         vm.cards.should.containAll(expected);
-        vm.cards.length.should.be(expected.length);
+        vm.cards!.length.should.be(expected.length);
       });
     }
   });
@@ -467,7 +467,38 @@ void main() {
       test('input \'$input\' expects $expected', () async {
         await vm.search(input);
         vm.cards.should.containAll(expected);
-        vm.cards.length.should.be(expected.length);
+        vm.cards!.length.should.be(expected.length);
+      });
+    }
+  });
+
+  group('Simple set tests', () {
+    final unl = CardModel.test()
+      ..name = 'UNL'
+      ..set.label = 'UNL';
+    final rad = CardModel.test()
+      ..name = 'RAD'
+      ..set.label = 'RAD';
+
+    setUpAll(
+      Function.apply(setupTestIsarData, [
+        [unl, rad],
+      ]),
+    );
+
+    tearDownAll(resetIsarData);
+
+    final testData = <(String input, List<CardModel> expected)>[
+      ('set:UNL', [unl]),
+      ('s:unl', [unl]),
+      ('s=rad', [rad]),
+    ];
+
+    for (final (input, expected) in testData) {
+      test('input \'$input\' expects $expected', () async {
+        await vm.search(input);
+        vm.cards.should.containAll(expected);
+        vm.cards!.length.should.be(expected.length);
       });
     }
   });
@@ -498,10 +529,14 @@ void main() {
       ..attributes.energy = 5
       ..attributes.power = 5
       ..name = 'Five';
-
+    final six = CardModel.test()
+      ..attributes.might = 6
+      ..attributes.energy = 6
+      ..attributes.power = 6
+      ..name = 'Also Six';
     setUpAll(
       Function.apply(setupTestIsarData, [
-        [one, two, three, four, five],
+        [one, two, three, four, five, six],
       ]),
     );
 
@@ -512,16 +547,17 @@ void main() {
       ('(m>2 m<4)', [three]),
       ('m>2 m<4', [three]),
       ('(m=3 or m=5) o', []),
-      ('(m>=2 or m=5) o', [two, four]),
+      ('(m>=2 or m=5) o', [two, four, six]),
       ('m<=4 or m=5 o', [one, two, three, four]),
       ('m>=1 m<=2 or m=5', [one, two, five]),
+      ('(name="Also Six" m>=3) or m=1', [one, six]),
     ];
 
     for (final (input, expected) in testData) {
       test('input \'$input\' expects $expected', () async {
         await vm.search(input);
         vm.cards.should.containAll(expected);
-        vm.cards.length.should.be(expected.length);
+        vm.cards!.length.should.be(expected.length);
       });
     }
   });

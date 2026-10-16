@@ -7,7 +7,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../utils/extensions/context_extensions.dart';
 import '../widgets/search_bar.dart';
-import 'card.dart';
+import 'card.dart' hide Text;
 import 'card_widget.dart';
 
 class CardSearchView extends StatefulWidget {
@@ -83,21 +83,25 @@ class _CardSearchViewState extends State<CardSearchView> {
       onClear: clearSearch,
     );
 
-    final filteredCards = context.select<SearchViewModel, List<CardModel>>(
+    final filteredCards = context.select<SearchViewModel, List<CardModel>?>(
       (vm) => vm.cards,
     );
     Widget body;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (filteredCards.length == 1) {
+      if (filteredCards?.length == 1) {
         _expansibleMap[0]?.expand();
       }
     });
 
-    if (filteredCards.isEmpty) {
+    if (filteredCards?.isEmpty ?? true) {
       body = SingleChildScrollView(
         child: Column(
           children: [
+            if (filteredCards != null && _viewModel.searchString.isNotEmpty)
+              Text(
+                '${_viewModel.cards?.length} results for ${_viewModel.searchString}',
+              ),
             MarkdownBody(
               data: _viewModel.searchSyntax,
               styleSheet: MarkdownStyleSheet.fromTheme(
@@ -115,7 +119,7 @@ class _CardSearchViewState extends State<CardSearchView> {
           child: ScrollablePositionedList.separated(
             itemScrollController: _scrollController,
             separatorBuilder: (context, index) => const SizedBox(height: 12),
-            itemCount: filteredCards.length,
+            itemCount: filteredCards!.length,
             itemBuilder: (context, index) {
               _expansibleMap[index] ??= ExpansibleController();
               _expansibleMap[index]!.addListener(() {

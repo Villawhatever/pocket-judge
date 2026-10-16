@@ -102,13 +102,6 @@ class _CardWidgetState extends State<CardWidget> {
       prettifiedEffect = formatCardText(widget.model.text.effect!, context);
     }
 
-    // TODO: Temp silliness to make sure a card isn't listed as banned before it goes out.
-    if (['Stacked Deck', 'Ekko, Recurrent'].contains(widget.model.name)) {
-      if (DateTime.now().isBefore(DateTime.parse('2026-09-18'))) {
-        widget.model.legalities.constructed = 'legal';
-        widget.model.legalities.constructed_2v2 = 'legal';
-      }
-    }
     final copiableCardText =
         '${relevantText.isNotEmpty ? '**Ability**\n$relevantText' : ''}'
         '${prettifiedEffect.isNotEmpty ? '\n\n**Effect**\n${widget.model.text.effect}' : ''}';
@@ -324,7 +317,7 @@ class _CardWidgetState extends State<CardWidget> {
               for (var (format, legality) in widget.model.legalities.formats)
                 Text.rich(
                   TextSpan(
-                    text: format.replaceAll('_', ' ').toUpperCase(),
+                    text: legality.replaceAll('_', ' ').toUpperCase(),
                     style: TextStyle(
                       color: getLegalityColor(legality),
                       fontWeight: FontWeight.bold,

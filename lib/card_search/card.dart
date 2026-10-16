@@ -278,10 +278,19 @@ class Legalities {
   late String constructed;
   late String constructed_2v2;
 
-  Legalities() : constructed = 'not_legal', constructed_2v2 = 'not_legal';
+  Legalities() : constructed = 'legal', constructed_2v2 = 'legal';
 
   @ignore
   bool get banned => ([constructed_2v2, constructed].any((x) => x == 'banned'));
+
+  void setLegality(String format, String legality) {
+    switch (format) {
+      case 'constructed':
+        constructed = legality;
+      case 'constructed_2v2':
+        constructed_2v2 = legality;
+    }
+  }
 
   @ignore
   List<(String format, String legality)> get formats {

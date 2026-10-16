@@ -44,6 +44,14 @@ class IsarQueryBuilder {
             caseSensitive: false,
           ),
         ),
+        'set' => ObjectFilter(
+          property: 'set',
+          filter: FilterCondition.contains(
+            property: 'label',
+            value: value,
+            caseSensitive: false,
+          ),
+        ),
         'has' || 'is' => _handleNonCardProperty(value),
         'format' => _handleFormatQuery(value),
         _ => FilterCondition.contains(
