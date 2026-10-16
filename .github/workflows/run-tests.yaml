@@ -23,6 +23,7 @@ jobs:
 
       - name: Get all Flutter Packages
         run: flutter pub get
-
+      - name: Run codegen
+        run: dart run build_runner build
       - name: Run a multi-line script
         run: flutter test
