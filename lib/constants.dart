@@ -11,6 +11,20 @@ const Color reddish = Color(0xffca3b70);
 const Color grayish = Color(0xff717171);
 const Color yellowish = Color(0xff90b236);
 
+final Map<String, String> formats = createMultiKeyMap({
+  ['1v1', 'match']: 'constructed',
+  ['2v2', 'magma', 'magmachamber']: 'constructed_2v2',
+});
+
+final Map<String, String> domains = {
+  'r': 'fury',
+  'g': 'calm',
+  'b': 'mind',
+  'o': 'body',
+  'p': 'chaos',
+  'y': 'order',
+};
+
 final penalties = [
   'No Penalty',
   'Warning',

@@ -2,24 +2,25 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:isar_community/isar.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:petitparser/core.dart';
+import 'package:pocket_judge/card_search/parsing/ast_to_isar_query.dart';
+import 'package:pocket_judge/card_search/parsing/parser.dart';
 
-import '../utils/extensions/json_extensions.dart';
-import '../utils/extensions/list_extensions.dart';
-import 'card.dart' hide Set;
+import 'card.dart';
 
 class SearchViewModel extends ChangeNotifier {
-  final List<CardModel> _cards = [];
-  List<CardModel> _filteredCards = [];
+  List<CardModel>? _filteredCards;
   Iterable<CardModel> _iterable = [];
 
-  List<CardModel> get cards => _filteredCards;
+  List<CardModel>? get cards => _filteredCards;
   late String _searchSyntax = '';
+  late String searchString = '';
   late Isar isar;
-
+  late final Future initFuture;
   String get searchSyntax => _searchSyntax;
 
   SearchViewModel() {
-    _initialize();
+    initFuture = _initialize();
   }
 
   Future<void> _initialize() async {
@@ -37,159 +38,25 @@ class SearchViewModel extends ChangeNotifier {
     _filteredCards = [];
   }
 
-  void search(String? search) async {
+  Future search(String? search) async {
     if (search == null || search.isEmpty) {
       _filteredCards = [];
+      searchString = '';
       notifyListeners();
       return;
     }
 
-    _iterable = await isar.cardModels.where().findAll();
+    final parser = SearchParserDefinition().build();
+    final Result result = parser.parse(search);
+    final query = IsarQueryBuilder.buildQuery(isar.cardModels, result.value);
 
-    var tokens = search.toLowerCase().split(' ');
+    _iterable = await query.findAll();
 
-    for (final token in tokens) {
-      // TODO: Tokenize this for real so we can do fun things like comparisons
-      final split = token.split(RegExp(r':'));
-      var name = _flatten(split[0]);
-      var value = split.tryGet(1);
-
-      if (value == null) {
-        _matchName(name);
-        continue;
-      } else {
-        value = _flatten(value);
-      }
-
-      switch (name) {
-        case 'd' || 'domain':
-          _matchDomain(value);
-          break;
-        case 'm' || 'might':
-          _matchMight(value);
-          break;
-        case 'e' || 'energy':
-          _matchEnergy(value);
-          break;
-        case 'p' || 'power':
-          _matchPower(value);
-          break;
-        case 'w' || 'watcher':
-          _matchWatcherText(value);
-          break;
-        case 's' || 'set':
-          _matchSet(value);
-          break;
-        case 't' || 'type':
-          _matchType(value);
-        case 'n' || 'name':
-          _matchName(value);
-          break;
-        case 'f' || 'format':
-          _matchFormat(value);
-        case 'is' || 'has':
-          _matchNonCardProperty(value);
-        case _:
-          _matchName(search);
-          break;
-      }
-    }
     _filteredCards = _iterable.toList();
-    _filteredCards.sort((a, b) => a.name.compareTo(b.name));
+    _filteredCards!.sort((a, b) => a.name.compareTo(b.name));
+
+    searchString = search;
     notifyListeners();
-  }
-
-  void _matchDomain(String value) {
-    Map<String, String> domains = {
-      'r': 'fury',
-      'g': 'calm',
-      'b': 'mind',
-      'o': 'body',
-      'p': 'chaos',
-      'y': 'order',
-    };
-
-    _iterable = _iterable.where(
-      (c) =>
-          c.classification.domain
-              ?.map((d) => d.toLowerCase())
-              .contains(domains[value] ?? value) ??
-          false,
-    );
-  }
-
-  void _matchMight(String value) {
-    _iterable = _iterable.where(
-      (c) =>
-          c.attributes.might != null && c.attributes.might.toString() == value,
-    );
-  }
-
-  void _matchEnergy(String value) {
-    _iterable = _iterable.where(
-      (c) =>
-          c.attributes.energy != null &&
-          c.attributes.energy.toString() == value,
-    );
-  }
-
-  void _matchPower(String value) {
-    _iterable = _iterable.where(
-      (c) =>
-          c.attributes.power != null && c.attributes.power.toString() == value,
-    );
-  }
-
-  void _matchSet(String value) {
-    _iterable = _iterable.where(
-      (c) => _flatten(c.set.setId ?? '').contains(value),
-    );
-  }
-
-  void _matchType(String value) {
-    _iterable = _iterable.where(
-      (c) =>
-          c.classification.type?.map((t) => _flatten(t)).contains(value) ??
-          false,
-    );
-  }
-
-  void _matchName(String value) {
-    _iterable = _iterable.where((c) => _flatten(c.name).contains(value));
-  }
-
-  void _matchWatcherText(String value) {
-    _iterable = _iterable.where((c) {
-      final String relevantText = _flatten(
-        (c.text.rich ?? '') + (c.text.plain ?? ''),
-      );
-      return relevantText.contains(value);
-    });
-  }
-
-  void _matchNonCardProperty(String value) {
-    if (['banned', 'ban', 'bans', 'b'].contains(value.toLowerCase())) {
-      _iterable = _iterable.where(
-        (c) => c.legalities.values.any((l) => l == 'banned'),
-      );
-    }
-    if (['erratum', 'errata', 'err', 'e'].contains(value.toLowerCase())) {
-      _iterable = _iterable.where((c) => c.hasErrata);
-    }
-  }
-
-  void _matchFormat(String value) {
-    String modifiedValue = '';
-    if (['1v1', 'match'].contains(value.toLowerCase())) {
-      modifiedValue = 'constructed';
-    }
-    if (['2v2', 'magma', 'magmachamber'].contains(value.toLowerCase())) {
-      modifiedValue = '2v2_constructed';
-    }
-    _iterable = _iterable.where(
-      (c) =>
-          !['not_legal', 'banned'].contains(c.legalities.tryGet(modifiedValue)),
-    );
   }
 
   Future load() async {
@@ -199,46 +66,7 @@ class SearchViewModel extends ChangeNotifier {
       );
     }
 
-    if (_cards.isNotEmpty) {
-      return;
-    }
-
     _filteredCards = [];
     notifyListeners();
-  }
-
-  String _flatten(String value) {
-    return value.toLowerCase().replaceAll(RegExp(r'[^a-zA-Z0-9]'), '');
-  }
-}
-
-class CardSet {
-  const CardSet({
-    required this.id,
-    required this.name,
-    required this.setId,
-    required this.cardCount,
-    required this.publishedOn,
-  });
-
-  final String id;
-  final String name;
-  final String setId;
-  final int cardCount;
-  final DateTime publishedOn;
-
-  factory CardSet.fromJson(Map<String, dynamic> json) {
-    return CardSet(
-      id: json.tryGet('id'),
-      name: json.tryGet('name'),
-      setId: json.tryGet('set_id'),
-      cardCount: json.tryGet('card_count'),
-      publishedOn: DateTime.parse(json.tryGet('published_on') ?? ''),
-    );
-  }
-
-  @override
-  String toString() {
-    return name;
   }
 }

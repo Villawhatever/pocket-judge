@@ -102,13 +102,6 @@ class _CardWidgetState extends State<CardWidget> {
       prettifiedEffect = formatCardText(widget.model.text.effect!, context);
     }
 
-    // TODO: Temp silliness to make sure a card isn't listed as banned before it goes out.
-    if (['Stacked Deck', 'Ekko, Recurrent'].contains(widget.model.name)) {
-      if (DateTime.now().isBefore(DateTime.parse('2026-09-18'))) {
-        widget.model.legalities['constructed'] = 'legal';
-        widget.model.legalities['2v2_constructed'] = 'legal';
-      }
-    }
     final copiableCardText =
         '${relevantText.isNotEmpty ? '**Ability**\n$relevantText' : ''}'
         '${prettifiedEffect.isNotEmpty ? '\n\n**Effect**\n${widget.model.text.effect}' : ''}';
@@ -321,19 +314,17 @@ class _CardWidgetState extends State<CardWidget> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              for (var item in widget.model.legalities.entries)
+              for (var (format, legality) in widget.model.legalities.formats)
                 Text.rich(
                   TextSpan(
-                    text: (item.value as String)
-                        .replaceAll('_', ' ')
-                        .toUpperCase(),
+                    text: legality.replaceAll('_', ' ').toUpperCase(),
                     style: TextStyle(
-                      color: getLegalityColor(item.value),
+                      color: getLegalityColor(legality),
                       fontWeight: FontWeight.bold,
                     ),
                     children: [
                       TextSpan(
-                        text: ' in ${_toNormalCase(item.key)}.',
+                        text: ' in ${_toNormalCase(format)}.',
                         style: TextStyle(
                           color: context.colorScheme.primary,
                           fontWeight: FontWeight.normal,

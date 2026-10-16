@@ -19,17 +19,17 @@ void main() async {
     CardModelSchema,
   ], directory: dir.path);
 
-  final cards = await getCards();
-
-  await isar.writeTxn(() async {
-    await isar.cardModels.putAll(cards);
-  });
-
-  final errata = await _addErrata(isar);
-
-  await isar.writeTxn(() async {
-    await isar.cardModels.putAll(errata);
-  });
+  // final cards = await getCards();
+  //
+  // await isar.writeTxn(() async {
+  //   await isar.cardModels.putAll(cards);
+  // });
+  //
+  // final errata = await _addErrata(isar);
+  //
+  // await isar.writeTxn(() async {
+  //   await isar.cardModels.putAll(errata);
+  // });
 
   await _setDefaultLegalities(isar);
 
@@ -47,9 +47,8 @@ Future _setDefaultLegalities(Isar isar) async {
   final cards = await isar.cardModels.where().findAll();
 
   for (final card in cards) {
-    card.legalities.clear();
-    card.legalities['constructed'] = 'legal';
-    card.legalities['2v2_constructed'] = 'legal';
+    card.legalities.constructed = 'legal';
+    card.legalities.constructed_2v2 = 'legal';
   }
 
   await isar.writeTxn(() async {
@@ -73,7 +72,7 @@ Future<List<CardModel>> _addBans(Isar isar) async {
       'Stacked Deck',
       'Ekko, Recurrent',
     ],
-    '2v2_constructed': [
+    'constructed_2v2': [
       'Draven, Vanquisher',
       'Called Shot',
       'Fight or Flight',
@@ -100,11 +99,11 @@ Future<List<CardModel>> _addBans(Isar isar) async {
             .filter()
             .nameEqualTo(cardName, caseSensitive: false)
             .findFirst();
-        modifiedCards[cardName] = card;
+        modifiedCards[cardName] = card!;
       }
 
       try {
-        card!.legalities[format] = 'banned';
+        card.legalities.setLegality(format, 'banned');
       } catch (e) {
         dev.log('Error on card $cardName: $e');
         stdout.writeln('Error on card $cardName: $e');

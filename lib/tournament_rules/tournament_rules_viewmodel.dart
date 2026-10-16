@@ -132,7 +132,7 @@ class TournamentRulesViewModel extends ChangeNotifier {
         final localTimestamp = prefs.getInt('tr_last_updated') ?? 0;
 
         if (serverTimestamp > localTimestamp) {
-          return _fetchFromServerAndSave(firestore, prefs, token);
+          return await _fetchFromServerAndSave(firestore, prefs, token);
         }
       }
     } catch (e) {
