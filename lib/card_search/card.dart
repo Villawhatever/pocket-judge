@@ -78,7 +78,7 @@ class CardModel {
     hasErrata = false;
     imageList.add(ImageData(id: riftboundId, imgUrl: media.imageUrl));
     images = imageList;
-    legalities = json['legalities'];
+    legalities = Legalities.fromJson(json['legalities']);
   }
 
   Map<String, dynamic> toJson() {

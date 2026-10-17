@@ -2,6 +2,9 @@
 
 A Riftbound Judge-focused mobile application with hyperlinked rules and policy docs
 
+## Building the project
+
+At minimum, you'll need to run `dart run build_runner build` to generate the rest of the models that the database uses.
 
 ## Privacy Policy
 

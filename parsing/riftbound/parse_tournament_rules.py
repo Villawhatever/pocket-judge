@@ -21,19 +21,31 @@ with open(filename, 'r', encoding='utf8') as f:
     lines = data.split('\n')
     pattern = r'^(\d+(?:\.(?:\d+)?\.?(?:\w+)?){0,5}) (.+)$'
     matches = re.findall(pattern, data, flags=re.MULTILINE)
+    existing = []
 
     for match in matches:
         number = match[0]
         text = match[1]
 
         if (not args.real):
-            print(f'{number}: {text}')
+            print(f'{number}: {text}\n')
         else:
             rule = {
                 'ruleNumber': number,
                 'text': text.replace('”', '"')
             }
             rulesRef.document(number).set(rule)
+
+        print(f'added {number}')
+        existing.append(number)
+
+    for doc in rulesRef.stream():
+            if doc.get('ruleNumber') not in existing:
+                if (not args.real):
+                    print(f'{doc.get('ruleNumber')} does not exist in new doc')
+                else:
+                    print(f'Deleting stale rule {doc.get('ruleNumber')}')
+                    rulesRef.document(doc.get('ruleNumber')).delete()
 
     if (not args.real):
         print('==========')
