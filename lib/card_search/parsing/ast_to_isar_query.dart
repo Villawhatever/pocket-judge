@@ -39,18 +39,25 @@ class IsarQueryBuilder {
         'watcher' => ObjectFilter(
           property: 'text',
           filter: FilterCondition.contains(
-            property: 'plain',
+            property: 'rich',
             value: value,
             caseSensitive: false,
           ),
         ),
         'set' => ObjectFilter(
           property: 'set',
-          filter: FilterCondition.contains(
-            property: 'label',
-            value: value,
-            caseSensitive: false,
-          ),
+          filter: FilterGroup.or([
+            FilterCondition.equalTo(
+              property: 'setId',
+              value: value,
+              caseSensitive: false,
+            ),
+            FilterCondition.equalTo(
+              property: 'label',
+              value: value,
+              caseSensitive: false,
+            ),
+          ]),
         ),
         'has' || 'is' => _handleNonCardProperty(value),
         'format' => _handleFormatQuery(value),

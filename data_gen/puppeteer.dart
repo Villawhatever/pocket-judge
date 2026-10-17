@@ -14,18 +14,33 @@ Future main() async {
     'https://riftbound.leagueoflegends.com/en-us/news/rules-and-releases/riftbound-origins-card-errata/',
     'h2',
   );
+
   final sfd = await getErrataFromSemiSaneFormatting(
     'https://riftbound.leagueoflegends.com/en-us/news/rules-and-releases/riftbound-spiritforged-errata/',
     'h1',
   );
+
   final unl = await getUnlErrata(
     'https://playriftbound.com/en-us/news/rules-and-releases/unleashed-errata-updates/',
   );
+
   final ven = await getErrataFromSemiSaneFormatting(
     'https://playriftbound.com/en-us/news/announcements/vendetta-errata-updates/',
     'h2',
   );
-  await _write([...ogn, ...sfd, ...unl, ...ven], r'lib/assets/errata.json');
+
+  final rad = await getErrataFromSemiSaneFormatting(
+    'https://playriftbound.com/en-us/news/announcements/radiance-errata-updates/',
+    'h2',
+  );
+
+  await _write([
+    ...ogn,
+    ...sfd,
+    ...unl,
+    ...ven,
+    ...rad,
+  ], r'lib/assets/errata.json');
   stdout.writeln(
     'Don\'t forget to add missing type to Porobot and remove \'Basic\' type from runes.',
   );
@@ -92,8 +107,10 @@ Future<List<CardModel>> scrapeCardGallery() async {
   );
 
   List<CardModel> cards = [];
+  final List<String> missing = [];
   final stopwatch = Stopwatch();
   stopwatch.start();
+
   late String? cardName;
   try {
     final page = await browser.newPage();
@@ -114,6 +131,7 @@ Future<List<CardModel>> scrapeCardGallery() async {
     final int length =
         await cardButtons.evaluate<int>('(arr) => arr.length') ?? 0;
 
+    int missingData = 0;
     for (int i = 0; i < length; i++) {
       printProgressBar(i, length);
 
@@ -126,7 +144,7 @@ Future<List<CardModel>> scrapeCardGallery() async {
       await page.waitForSelector('[data-testid="frame"]');
 
       await page.waitForFunction('''() => {
-        const cardImage = document.querySelector('.main-card-image-container>.innerWrapper>img');
+        const cardImage = document.querySelector('.main-card-image-container>.innerWrapper>picture>img');
         return cardImage?.getAttribute('src')?.includes('.png') ?? false;
       }''');
 
@@ -173,6 +191,12 @@ Future<List<CardModel>> scrapeCardGallery() async {
 
       for (final header in headers) {
         final values = header.nextSibling?.findAll('p');
+        if (values?.isEmpty ?? false) {
+          final badDataString =
+              '${++missingData}. $cardName (${header.text})\n';
+          missing.add(badDataString);
+          continue;
+        }
         if (values?.length == 1) {
           if (header.text == 'Tags' || header.text == 'Card Type') {
             cardAttributes[header.text] = values!.first.text
@@ -181,7 +205,13 @@ Future<List<CardModel>> scrapeCardGallery() async {
                 .where((s) => s.isNotEmpty)
                 .toList();
           } else {
-            cardAttributes[header.text] = values!.first.text;
+            final bulletedItems = header.nextSibling?.findAll('li');
+            var val = values!.first.text;
+            if (bulletedItems?.isNotEmpty ?? false) {
+              val +=
+                  '\n${bulletedItems!.map((el) => '\u2022 ${el.text.trim()}').join('\n')}';
+            }
+            cardAttributes[header.text] = val;
           }
         } else {
           if (header.text == 'Card Type') {
@@ -198,7 +228,7 @@ Future<List<CardModel>> scrapeCardGallery() async {
         }
       }
 
-      if (cardAttributes['Card Type'].contains('Legend')) {
+      if (cardAttributes['Card Type']?.contains('Legend') ?? false) {
         if ((cardAttributes['Tags'] as List<String>).contains('Kennen')) {
           cardName = 'Kennen, $cardName';
         } else {
@@ -251,9 +281,9 @@ Future<List<CardModel>> scrapeCardGallery() async {
         ),
       );
     }
-    // final isar = Isar.getInstance('pocket-judge');
-    // isar!.cardModels.putAll(cards);
+
     _write(cards, r'lib/assets/scraped_gallery.json');
+    _write(missing, r'./missing_card_data.txt');
     Duration duration = Duration(milliseconds: stopwatch.elapsedMilliseconds);
 
     int minutes = duration.inMinutes;

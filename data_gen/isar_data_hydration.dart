@@ -19,17 +19,17 @@ void main() async {
     CardModelSchema,
   ], directory: dir.path);
 
-  // final cards = await getCards();
-  //
-  // await isar.writeTxn(() async {
-  //   await isar.cardModels.putAll(cards);
-  // });
-  //
-  // final errata = await _addErrata(isar);
-  //
-  // await isar.writeTxn(() async {
-  //   await isar.cardModels.putAll(errata);
-  // });
+  final cards = await getCards(isar);
+
+  await isar.writeTxn(() async {
+    await isar.cardModels.putAll(cards);
+  });
+
+  final errata = await _addErrata(isar);
+
+  await isar.writeTxn(() async {
+    await isar.cardModels.putAll(errata);
+  });
 
   await _setDefaultLegalities(isar);
 
@@ -155,7 +155,7 @@ String _enrichText(List<String> domains, String text) {
   return text;
 }
 
-Future<List<CardModel>> getCards() async {
+Future<List<CardModel>> getCards(Isar isar) async {
   final String contents = await rootBundle.loadString(
     'lib/assets/scraped_gallery.json',
   );
@@ -169,7 +169,7 @@ Future<List<CardModel>> getCards() async {
     try {
       final card = CardModel.fromJson(item);
       if (existingCardNames.contains(card.name)) {
-        var existingCard = alreadyAdded[card.name];
+        final existingCard = alreadyAdded[card.name];
         if (!existingCard!.images!.any(
           (i) => i.imgUrl! == card.media.imageUrl,
         )) {

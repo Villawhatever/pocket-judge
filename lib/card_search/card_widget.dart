@@ -44,13 +44,22 @@ class _CardWidgetState extends State<CardWidget> {
     }
   }
 
+  void _handleUnreleasedLegality() {
+    if (widget.model.set.setId == "RAD" &&
+        DateTime.now().isBefore(DateTime.parse("2026-10-23"))) {
+      widget.model.legalities.constructed_2v2 = "not_legal";
+      widget.model.legalities.constructed = "not_legal";
+    }
+  }
+
   @override
   initState() {
     _expansibleController = widget.expansibleController;
     super.initState();
+    _handleUnreleasedLegality();
   }
 
-  Widget buildCardInfo(String title, dynamic value, BuildContext context) {
+  Widget _buildCardInfo(String title, dynamic value, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Column(
@@ -224,7 +233,7 @@ class _CardWidgetState extends State<CardWidget> {
                 children: [
                   TableRow(
                     children: [
-                      buildCardInfo(
+                      _buildCardInfo(
                         'Domain(s)',
                         widget.model.classification.domain?.join(', '),
                         context,
@@ -234,7 +243,7 @@ class _CardWidgetState extends State<CardWidget> {
                   ),
                   TableRow(
                     children: [
-                      buildCardInfo(
+                      _buildCardInfo(
                         'Card Type',
                         widget.model.classification.type,
                         context,
@@ -243,7 +252,7 @@ class _CardWidgetState extends State<CardWidget> {
                                   ?.map((t) => t.toLowerCase())
                                   .contains('unit') ??
                               false
-                          ? buildCardInfo(
+                          ? _buildCardInfo(
                               'Might',
                               widget.model.attributes.might,
                               context,
@@ -255,14 +264,14 @@ class _CardWidgetState extends State<CardWidget> {
                     children: [
                       widget.model.attributes.energy == null
                           ? SizedBox.shrink()
-                          : buildCardInfo(
+                          : _buildCardInfo(
                               'Energy',
                               widget.model.attributes.energy,
                               context,
                             ),
                       widget.model.attributes.power == null
                           ? SizedBox.shrink()
-                          : buildCardInfo(
+                          : _buildCardInfo(
                               'Power',
                               widget.model.attributes.power,
                               context,
@@ -277,7 +286,7 @@ class _CardWidgetState extends State<CardWidget> {
                   Clipboard.setData(ClipboardData(text: copiableCardText));
                   HapticFeedback.vibrate();
                 },
-                child: buildCardInfo(
+                child: _buildCardInfo(
                   'Ability',
                   RichText(
                     text: TextSpan(
@@ -295,7 +304,7 @@ class _CardWidgetState extends State<CardWidget> {
                     Clipboard.setData(ClipboardData(text: copiableCardText));
                     HapticFeedback.vibrate();
                   },
-                  child: buildCardInfo(
+                  child: _buildCardInfo(
                     'Effect',
                     RichText(
                       text: TextSpan(
@@ -307,7 +316,7 @@ class _CardWidgetState extends State<CardWidget> {
                   ),
                 ),
               if (widget.model.mightBonus?.isNotEmpty ?? false)
-                buildCardInfo('Might Bonus', widget.model.mightBonus, context),
+                _buildCardInfo('Might Bonus', widget.model.mightBonus, context),
               Text(
                 'Legalities',
                 style: context.textTheme.bodyMedium!.copyWith(

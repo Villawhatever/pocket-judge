@@ -19,7 +19,7 @@ filename = 'core-rules.txt'
 with open(filename, 'r', encoding='utf8') as f:
     data = f.read()
     lines = data.split('\n')
-    pattern = r'^(\d+(?:\.(?:\d+)?\.?(?:\w+)?){0,5}) (.+?)(?=\n\n|\n$)'
+    pattern = r'^(\d+(?:\.(?:\d+)?\.?(?:\w+)?){0,5}) (.+?)(?=\n|\n$)'
     matches = re.findall(pattern, data, flags=re.DOTALL | re.MULTILINE)
     existing = []
 
@@ -35,6 +35,7 @@ with open(filename, 'r', encoding='utf8') as f:
                 'text': text.replace('”', '"')
             }
             rulesRef.document(number).set(rule)
+
         print(f'added {number}')
         existing.append(number)
 
@@ -45,6 +46,7 @@ with open(filename, 'r', encoding='utf8') as f:
             else:
                 print(f'Deleting stale rule {doc.get('ruleNumber')}')
                 rulesRef.document(doc.get('ruleNumber')).delete()
+
     if (not args.real):
         print('==========')
         print(f'Found {len(matches)} rules')

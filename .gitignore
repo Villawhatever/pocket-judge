@@ -193,6 +193,8 @@ migrate_working_dir/
 # top-level isar crap that tests generate
 /*.isar
 /*.isar-lck
+# tracking stuff for when the card gallery is scuffed
+/missing_card_data.txt
 # Symbolication related
 
 # Obfuscation related
